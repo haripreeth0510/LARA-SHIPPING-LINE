@@ -20,3 +20,12 @@ class UserOut(BaseModel):
     updated_at: datetime
 
     model_config = {"from_attributes": True}
+
+
+class UserUpdate(BaseModel):
+    """Data to update an existing user (Admin only)."""
+    full_name: str | None = None
+    phone: str | None = None
+    role: str | None = None
+    is_active: bool | None = None
+    client_id: UUID | None = None

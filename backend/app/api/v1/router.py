@@ -3,14 +3,17 @@ Central v1 API router — aggregates all sub-routers.
 """
 from fastapi import APIRouter
 
-from app.api.v1 import auth, tracking
+from app.api.v1 import auth, tracking, public_quotes
 from app.api.v1.client import router as client_router
+from app.api.v1.admin import router as admin_router
 
 api_router = APIRouter(prefix="/api/v1")
 
 api_router.include_router(auth.router)
 api_router.include_router(tracking.router)
+api_router.include_router(public_quotes.router, prefix="/public")
 api_router.include_router(client_router.client_router, prefix="/client")
+api_router.include_router(admin_router.admin_router, prefix="/admin")
 
 # Future routers will be added here:
 # from app.api.v1 import admin, shipments, quotes, documents, invoices, support, notifications, analytics

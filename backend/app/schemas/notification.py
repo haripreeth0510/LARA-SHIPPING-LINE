@@ -14,7 +14,7 @@ class NotificationOut(BaseModel):
     title: str
     message: str
     is_read: bool
-    link_entity_id: UUID | None = None
+    reference_id: UUID | None = None
     created_at: datetime
     
     model_config = {"from_attributes": True}

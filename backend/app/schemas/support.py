@@ -39,3 +39,10 @@ class SupportTicketListOut(BaseModel):
     created_at: datetime
     
     model_config = {"from_attributes": True}
+
+
+class SupportTicketUpdate(BaseModel):
+    """Data to update an existing support ticket (Admin only)."""
+    status: str | None = None
+    priority: str | None = None
+    assigned_to: UUID | None = None

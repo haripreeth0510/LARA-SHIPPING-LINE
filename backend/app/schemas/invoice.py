@@ -40,3 +40,21 @@ class InvoiceListOut(BaseModel):
     status: str
     
     model_config = {"from_attributes": True}
+
+
+class InvoiceCreate(BaseModel):
+    """Data required to create a new invoice."""
+    client_id: UUID
+    shipment_id: UUID | None = None
+    amount: float
+    tax: float
+    total: float
+    currency: str = "USD"
+    issue_date: datetime | None = None
+    due_date: datetime | None = None
+
+
+class InvoiceUpdate(BaseModel):
+    """Data to update an existing invoice."""
+    status: str | None = None
+    payment_reference: str | None = None

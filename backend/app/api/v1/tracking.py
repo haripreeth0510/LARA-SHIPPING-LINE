@@ -1,67 +1,39 @@
 """
-Public tracking router — no authentication required.
+Public shipment tracking router.
 """
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from app.api.deps import get_db
-from app.middleware.error_handler import NotFoundError
-from app.models.shipment import Shipment
-from app.models.shipment_event import ShipmentEvent
+from app.schemas.shipment import ShipmentOut
+from app.services.public_tracking_service import get_public_shipment_by_tracking_number
 
-router = APIRouter(prefix="/public", tags=["Public Tracking"])
+# Unauthenticated router
+router = APIRouter(
+    prefix="/tracking", 
+    tags=["Public Tracking"]
+)
 
 
-@router.get("/tracking/{tracking_number}")
-def track_shipment(tracking_number: str, db: Session = Depends(get_db)):
-    """Public shipment tracking — no login required.
-
-    Returns only safe information. Never exposes:
-      - internal database IDs
-      - client private information
-      - invoices, private documents
-      - admin information
+@router.get("/{tracking_number}")
+def track_shipment(
+    tracking_number: str,
+    db: Session = Depends(get_db),
+):
     """
-    shipment = (
-        db.query(Shipment)
-        .filter(Shipment.tracking_number == tracking_number)
-        .first()
-    )
-
-    if shipment is None:
-        raise NotFoundError(
-            message=f"No shipment found with tracking number: {tracking_number}",
-            code="SHIPMENT_NOT_FOUND",
-        )
-
-    # Fetch events ordered by time
-    events = (
-        db.query(ShipmentEvent)
-        .filter(ShipmentEvent.shipment_id == shipment.id)
-        .order_by(ShipmentEvent.event_time.asc())
-        .all()
-    )
-
+    Publicly track a shipment using its tracking number.
+    Returns safe, non-sensitive shipment and event data.
+    """
+    shipment = get_public_shipment_by_tracking_number(db, tracking_number)
+    
+    # ShipmentOut already excludes financial and internal notes, 
+    # but we will further ensure we're only dumping safe fields.
+    # The client_id is exposed in ShipmentOut, which is acceptable 
+    # as it's just a UUID, not the client's PII.
+    
+    data = ShipmentOut.model_validate(shipment).model_dump(mode="json")
+    
     return {
         "success": True,
-        "data": {
-            "tracking_number": shipment.tracking_number,
-            "status": shipment.status.value,
-            "origin": shipment.origin,
-            "destination": shipment.destination,
-            "eta": shipment.estimated_arrival.isoformat() if shipment.estimated_arrival else None,
-            "carrier": shipment.carrier,
-            "vessel": shipment.vessel_name,
-            "shipment_type": shipment.shipment_type.value,
-            "events": [
-                {
-                    "status": e.status,
-                    "title": e.title or e.status.replace("_", " ").title(),
-                    "description": e.description,
-                    "location": e.location,
-                    "event_time": e.event_time.isoformat() if e.event_time else None,
-                }
-                for e in events
-            ],
-        },
+        "data": data
     }

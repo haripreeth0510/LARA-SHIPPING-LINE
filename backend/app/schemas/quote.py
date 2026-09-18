@@ -51,3 +51,13 @@ class QuoteListOut(BaseModel):
     created_at: datetime
     
     model_config = {"from_attributes": True}
+
+
+class QuoteUpdate(BaseModel):
+    """Data to update an existing quote (Admin only)."""
+    base_amount: float | None = None
+    tax_amount: float | None = None
+    total_amount: float | None = None
+    currency: str | None = None
+    valid_until: datetime | None = None
+    status: str | None = None
