@@ -1,19 +1,35 @@
-import { useEffect, useState, type ElementType } from 'react'
+import { useEffect, useState, type ElementType, type MouseEvent as ReactMouseEvent } from 'react'
 import {
-  ArrowDown, ArrowRight, ArrowUpRight, Box, ChevronRight, ClipboardCheck, Globe2, Menu, MoveRight,
+  ArrowDown, ArrowRight, ArrowUpRight, Box, ChevronDown, ChevronRight, ClipboardCheck, Globe2, Menu, MoveRight,
   PackageCheck, Plane, Ship, Truck, Warehouse, X, Zap, MapPin, ScanLine, Route, FileCheck2, BarChart3,
-  Link, Camera, Send, Check, CircleHelp
+  Link, Camera, Send, Check, CircleHelp, ShieldCheck, Train, PackagePlus, Handshake, ShoppingCart, FileText,
+  Leaf, MonitorSmartphone, Award, Target, Eye, Sparkles
 } from 'lucide-react'
 
-const navItems = ['Home', 'Services', 'Tracking', 'Solutions', 'Global Network', 'About']
+const navItems = ['Home', 'Services', 'Tracking', 'Solutions', 'Industries', 'About']
+const navHref = (item: string) => item === 'Industries' ? '/industries' : `#${item.toLowerCase().replace(' ', '-')}`
+
+const industryTabs = {
+  Achievements: ['Extensive Transport Network', 'Efficient Logistics Solutions', 'Industry Recognition', 'Employee Development', 'Successfully managing global supply chains'],
+  Goals: ['Expansion and Growth', 'Innovation and Technology', 'Environmental Sustainability', 'Employee Engagement', 'Customer-Centric Approach'],
+  Vision: ['Becoming a Global Leader', 'Community Engagement', 'Safety and Compliance', 'Continuous Improvement', 'Innovative Solutions'],
+} as const
+
+const industryTabIcons = { Achievements: Award, Goals: Target, Vision: Eye } as const
 
 const services: { icon: ElementType; name: string; description: string; tag: string }[] = [
-  { icon: Ship, name: 'Ocean Freight', description: 'Global container transportation with dependable schedules and port coverage.', tag: 'Sea' },
   { icon: Plane, name: 'Air Freight', description: 'Fast, controlled international movement for time-sensitive cargo.', tag: 'Air' },
-  { icon: Warehouse, name: 'Warehousing', description: 'Secure storage and smart inventory operations close to demand.', tag: 'Storage' },
-  { icon: ClipboardCheck, name: 'Customs Clearance', description: 'Clear documentation and customs processes without the guesswork.', tag: 'Compliance' },
-  { icon: Truck, name: 'Road Transportation', description: 'Reliable first-mile and last-mile delivery across key markets.', tag: 'Land' },
-  { icon: Route, name: 'Supply Chain Solutions', description: 'End-to-end planning that makes complex supply chains feel simple.', tag: 'Strategy' },
+  { icon: ShieldCheck, name: 'Cargo Insurance', description: 'Practical protection for your cargo from origin through to final delivery.', tag: 'Protection' },
+  { icon: Ship, name: 'Ocean Freight (FCL)', description: 'Dedicated full-container shipments with dependable schedules and port coverage.', tag: 'Sea' },
+  { icon: PackagePlus, name: 'Ocean Freight (LCL)', description: 'Flexible consolidated shipping for cargo that does not require a full container.', tag: 'Sea' },
+  { icon: Train, name: 'Rail Freight', description: 'Efficient rail connections that keep inland cargo moving reliably.', tag: 'Rail' },
+  { icon: Truck, name: 'Road Freight', description: 'Reliable first-mile and last-mile delivery across key markets.', tag: 'Road' },
+  { icon: Warehouse, name: 'Social & Weighting & Filling', description: 'Careful cargo handling, weighing, and filling services tailored to your shipment.', tag: 'Handling' },
+  { icon: Handshake, name: 'Contract Logistics', description: 'Integrated logistics operations designed around your ongoing business needs.', tag: 'Solutions' },
+  { icon: ShoppingCart, name: 'Cross Border E-Commerce', description: 'Streamlined international fulfilment and delivery for online commerce.', tag: 'E-commerce' },
+  { icon: FileText, name: 'Customs Brokerage', description: 'Expert customs documentation and clearance support for smoother border crossings.', tag: 'Customs' },
+  { icon: Leaf, name: 'Green Solution', description: 'Lower-impact logistics options that support more sustainable supply chains.', tag: 'Sustainable' },
+  { icon: MonitorSmartphone, name: 'Technology & Customer Solution', description: 'Digital tools and responsive support that keep every shipment visible and simple.', tag: 'Digital' },
 ]
 
 const stats = [
@@ -39,14 +55,16 @@ const benefits: { icon: ElementType; title: string; copy: string }[] = [
   { icon: CircleHelp, title: 'Dedicated support', copy: 'Real people, ready to help whenever your shipment needs attention.' },
 ]
 
-function Logo() { return <a className="logo" href="#home" aria-label="Lara Shipping home"><span className="logo-mark"><i /><i /><i /></span><span>LARA<small>SHIPPING</small></span></a> }
+function Logo({ href = '#home' }: { href?: string }) { return <a className="logo" href={href} aria-label="Lara Shipping home"><span className="logo-mark"><i /><i /><i /></span><span>LARA<small>SHIPPING</small></span></a> }
 
 function Button({ children, variant = 'primary', className = '' }: { children: React.ReactNode; variant?: 'primary' | 'secondary' | 'dark'; className?: string }) {
   return <a href="#quote" className={`button ${variant} ${className}`}>{children}</a>
 }
 
 function App() {
+  const [pagePath, setPagePath] = useState(() => window.location.pathname)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [servicesOpen, setServicesOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [trackValue, setTrackValue] = useState('')
   const [trackMessage, setTrackMessage] = useState('')
@@ -57,14 +75,44 @@ function App() {
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
+  useEffect(() => {
+    const handlePopState = () => setPagePath(window.location.pathname)
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
+
   const track = () => setTrackMessage(trackValue.trim() ? `Tracking ${trackValue.toUpperCase()} — status ready to view.` : 'Enter your shipment number to begin.')
+  const navigateTo = (event: ReactMouseEvent<HTMLAnchorElement>, path: string) => {
+    event.preventDefault()
+    if (path === pagePath) return
+    const updatePage = () => {
+      window.history.pushState({}, '', path)
+      setPagePath(path)
+      window.scrollTo(0, 0)
+    }
+    const documentWithTransition = document as Document & { startViewTransition?: (callback: () => void) => void }
+    documentWithTransition.startViewTransition ? documentWithTransition.startViewTransition(updatePage) : updatePage()
+  }
+
+  if (pagePath === '/industries') return <IndustriesPage onNavigate={navigateTo} />
 
   return <div>
     <header className={`header ${scrolled ? 'is-scrolled' : ''}`}>
       <Logo />
-      <nav className="desktop-nav" aria-label="Primary navigation">{navItems.map((item, i) => <a key={item} className={i === 0 ? 'active' : ''} href={`#${item.toLowerCase().replace(' ', '-')}`}>{item}</a>)}</nav>
+      <nav className="desktop-nav" aria-label="Primary navigation">
+        {navItems.map((item, i) => item === 'Services' ? (
+          <div className="services-menu" key={item} onMouseEnter={() => setServicesOpen(true)} onMouseLeave={() => setServicesOpen(false)}>
+            <button className="services-menu-trigger" type="button" onClick={() => setServicesOpen(open => !open)} aria-expanded={servicesOpen} aria-haspopup="menu">
+              Services <ChevronDown size={15} aria-hidden="true" />
+            </button>
+            <div className={`services-dropdown ${servicesOpen ? 'open' : ''}`} role="menu" aria-label="Services">
+              {services.map(({ name }) => <a key={name} href="#services" role="menuitem" onClick={() => setServicesOpen(false)}>{name}</a>)}
+            </div>
+          </div>
+        ) : <a key={item} className={i === 0 ? 'active' : ''} href={navHref(item)} onClick={item === 'Industries' ? event => navigateTo(event, '/industries') : undefined}>{item}</a>)}
+      </nav>
       <div className="header-actions"><Button className="quote-top">Get a Quote <ArrowUpRight size={16} /></Button><button className="menu-button" onClick={() => setMobileOpen(!mobileOpen)} aria-expanded={mobileOpen} aria-label="Toggle navigation">{mobileOpen ? <X /> : <Menu />}</button></div>
-      <div className={`mobile-nav ${mobileOpen ? 'open' : ''}`}>{navItems.map(item => <a onClick={() => setMobileOpen(false)} key={item} href={`#${item.toLowerCase().replace(' ', '-')}`}>{item}<ArrowRight size={16}/></a>)}<Button>Get a Quote <ArrowRight size={16}/></Button></div>
+      <div className={`mobile-nav ${mobileOpen ? 'open' : ''}`}>{navItems.map(item => <a onClick={event => { setMobileOpen(false); if (item === 'Industries') navigateTo(event, '/industries') }} key={item} href={navHref(item)}>{item}<ArrowRight size={16}/></a>)}<Button>Get a Quote <ArrowRight size={16}/></Button></div>
     </header>
 
     <main>
@@ -116,5 +164,27 @@ function App() {
 }
 
 function FooterColumn({title, items}: {title: string; items: string[]}) { return <div className="footer-column"><h3>{title}</h3>{items.map(item => <a key={item} href="#home">{item}</a>)}</div> }
+
+function IndustriesPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HTMLAnchorElement>, path: string) => void }) {
+  const [activeTab, setActiveTab] = useState<keyof typeof industryTabs>('Achievements')
+
+  return <div className="industries-page">
+    <header className="industries-header"><div className="industries-header-inner"><Logo href="/" /><nav aria-label="Primary navigation"><a href="/" onClick={event => onNavigate(event, '/')}>Home</a><a href="/#services">Services</a><a className="active" href="/industries">Industries</a><a href="/#about">About</a></nav><a className="industries-quote" href="/#quote">Get a Quote <ArrowUpRight size={15}/></a></div></header>
+    <main>
+      <section className="industries-hero">
+        <span className="industries-kicker"><Sparkles size={13}/> Lara Shipping · Built to move forward</span>
+        <h1>Our Industries</h1>
+        <i className="industries-dots" aria-hidden="true">••••</i>
+        <p>Value-added and sustainable logistics services</p>
+        <div className="industry-tabs" role="tablist" aria-label="Company information">
+          {(Object.keys(industryTabs) as (keyof typeof industryTabs)[]).map(tab => { const TabIcon = industryTabIcons[tab]; return <button key={tab} className={activeTab === tab ? 'active' : ''} type="button" role="tab" aria-selected={activeTab === tab} onClick={() => setActiveTab(tab)}><TabIcon size={18}/><span>{tab}</span></button> })}
+        </div>
+        <div className="industry-tab-panel" role="tabpanel"><span className="industry-panel-label">Lara Shipping Promise</span><ul>{industryTabs[activeTab].map(item => <li key={item}>{item}</li>)}</ul></div>
+        <div className="industry-signals"><span><b>120+</b> Countries served</span><span><b>24/7</b> Dedicated support</span><span><b>98%</b> On-time operations</span></div>
+      </section>
+    </main>
+    <footer className="industries-footer"><div className="industries-footer-inner section-shell"><div className="industries-footer-brand"><Logo /><p>LARA SHIPPING LINE PVT LTD</p><span>Connect With Us</span><div><a href="#facebook" aria-label="Facebook">f</a><a href="#instagram" aria-label="Instagram">◎</a><a href="#linkedin" aria-label="LinkedIn">in</a><a href="#x" aria-label="X">𝕏</a></div></div><FooterColumn title="Useful Links" items={['Home', 'About Us', 'Services', 'Industries', 'Contact Us']}/><FooterColumn title="Services" items={['Air Freight', 'Cargo Insurance', 'Ocean Freight(FCL)', 'Multi Modal', 'Ocean Freight(LCL)', 'Rail Freight', 'Road Freight', 'Social, Weighting and Filling']}/><FooterColumn title="Customer Solutions" items={['Contract Logistics', 'Cross Border E-Commerce', 'Customs Brokerage', 'Green Solution', 'Technology & Customer Services']}/></div></footer>
+  </div>
+}
 
 export default App
