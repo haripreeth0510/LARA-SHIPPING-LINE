@@ -261,44 +261,125 @@ footer{background:#061725;color:#e3edf2}.footer-top{padding:67px 0 53px;display:
   .ci-scale .industry-signals b { display:block;margin:0; }
 }
 
-/* ─── Ocean Freight FCL page — mirrors Industries page visual language ──────── */
+/* ─── Ocean Freight (LCL) page — mirrors Industries page visual language ──────── */
+.ocean-lcl-page { min-height:100vh;background:#03090e;color:#f5f7f8; }
+
+/* Masthead */
+.ol-masthead { position:relative;min-height:326px;padding:72px 40px 0;overflow:hidden;background:linear-gradient(90deg,rgba(4,21,30,.9),rgba(6,20,28,.43)),repeating-linear-gradient(90deg,#1a3946 0 11%,#b44820 11% 14%,#213e49 14% 24%,#be7b29 24% 27%);background-size:auto,210px 100%; }
+.ol-masthead:after { content:'';position:absolute;inset:0;background:linear-gradient(transparent 0 68%,#03090e); }
+
+/* Company card */
+.ol-company-card { position:relative;z-index:1;width:min(875px,100%);margin:auto;padding:29px 39px 33px;background:rgba(2,8,13,.94);border-top:2px solid #db5429;box-shadow:0 15px 25px rgba(0,0,0,.45); }
+.ol-company-card h1 { margin:15px 0 8px;font-size:clamp(32px,3.7vw,51px);line-height:1.03;letter-spacing:-2px; }
+.ol-company-card h1 em { font-family:'Playfair Display',serif;font-weight:600; }
+.ol-company-card p { max-width:535px;margin:0;color:#b9c9d2;font-size:13px;line-height:1.7; }
+
+/* Journey section */
+.ol-journey { display:grid;grid-template-columns:1.15fr .85fr;gap:80px;align-items:center;padding:103px 0 88px; }
+.ol-journey-copy h2 { margin:16px 0 20px;font-size:clamp(39px,4vw,58px);line-height:1.08;letter-spacing:-2.3px; }
+.ol-journey-copy h2 em { font-family:'Playfair Display',serif;font-weight:600; }
+.ol-journey-copy p { max-width:550px;margin:0 0 20px;color:#b5c3cb;font-size:13px;line-height:1.8; }
+.ol-journey-copy p:last-child { margin:0; }
+
+/* CSS Art Panel */
+.ol-ship-panel { position:relative;min-height:385px;isolation:isolate;display:grid;place-items:center;overflow:hidden;border:1px solid #254756;background:radial-gradient(circle at 50% 48%,rgba(30,115,149,.25),transparent 35%),linear-gradient(145deg,#071721,#0b2b3b); }
+.ol-ship-panel:before { content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(134,210,230,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(134,210,230,.09) 1px,transparent 1px);background-size:37px 37px;mask-image:radial-gradient(circle,black,transparent 74%); }
+
+/* Circular badge */
+.ol-panel-core { position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;width:175px;height:175px;border:1px solid #69b8cc;border-radius:50%;background:rgba(7,30,42,.87);box-shadow:0 0 0 18px rgba(67,158,187,.1),0 0 60px rgba(42,156,192,.22);color:#d7f4fa;text-align:center; }
+.ol-panel-core svg { color:#72c6da;opacity:.85;margin-bottom:6px; }
+.ol-panel-core b { color:var(--lime);font-size:26px;letter-spacing:-1px;line-height:1; }
+.ol-panel-core small { color:#9dbcc7;font-size:9px;margin-top:2px; }
+
+/* Ship Art */
+.ol-water-back { position:absolute;bottom:15%;left:0;right:0;height:40px;background:rgba(30,115,149,.15);z-index:0; }
+.ol-ship-hull { position:absolute;bottom:22%;left:15%;right:15%;height:45px;background:linear-gradient(to right,#b44820,#1a3946);border-radius:5px 5px 40px 40px;z-index:1; }
+.ol-ship-cargo-stack { position:absolute;bottom:28%;left:22%;right:35%;height:55px;background:repeating-linear-gradient(90deg,#be7b29 0 20%,#b44820 20% 40%,#1a3946 40% 60%,#213e49 60% 80%);z-index:1; }
+.ol-ship-bridge { position:absolute;bottom:28%;right:18%;width:15%;height:65px;background:#1a3946;border-radius:10px 10px 0 0;z-index:1; }
+.ol-ship-bridge:after { content:'';position:absolute;top:10px;left:5px;right:5px;height:15px;background:#03090e;border-radius:5px; }
+.ol-water-front { position:absolute;bottom:12%;left:0;right:0;height:30px;background:linear-gradient(transparent,rgba(30,115,149,.3));z-index:2; }
+
+/* Scale / What We Do */
+.ol-scale { display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:start;padding:85px 0 118px;border-top:1px solid rgba(168,205,218,.18); }
+.ol-scale-header h2 { margin:16px 0 20px;font-size:clamp(39px,4vw,58px);line-height:1.08;letter-spacing:-2.3px; }
+.ol-scale-header h2 em { font-family:'Playfair Display',serif;font-weight:600; }
+.ol-scale-header p { max-width:480px;margin:0;color:#b5c3cb;font-size:13px;line-height:1.8; }
+.ol-scale .industry-signals { justify-content:flex-start;margin:27px 0 29px;color:#a5bac4; }
+.ol-scale .industry-signals span { padding:0 17px;font-size:10px;border-color:#274756; }
+.ol-scale .industry-signals span:first-child { padding-left:0; }
+.ol-scale .industry-signals b { color:var(--lime);font-size:17px; }
+
+/* Feature cards */
+.ol-features-grid { display:grid;grid-template-columns:1fr 1fr;gap:9px; }
+.ol-feature-card { background:#0b1b25;border:1px solid #274d5d;padding:32px 26px 30px;transition:background .25s,transform .25s; }
+.ol-feature-card:hover { background:#102b38;transform:translateY(-3px); }
+.ol-feature-icon { width:50px;height:50px;display:grid;place-items:center;border:1px solid #274d5d;color:#63b9da;margin-bottom:19px;background:rgba(25,118,210,.07); }
+.ol-feature-card h3 { margin:0 0 10px;font-size:15px;letter-spacing:-.4px;color:#e8f2f6; }
+.ol-feature-card p { margin:0;font-size:12px;color:#8aaabb;line-height:1.75; }
+
+/* Responsive */
+@media(max-width:850px) {
+  .ol-masthead { padding-left:20px;padding-right:20px; }
+  .ol-company-card { padding:27px; }
+  .ol-journey { grid-template-columns:1fr;gap:52px; }
+  .ol-ship-panel { width:min(100%,520px);min-height:335px;justify-self:center; }
+  .ol-scale { grid-template-columns:1fr;gap:50px; }
+}
+@media(max-width:620px) {
+  .ol-masthead { min-height:284px;padding-top:51px; }
+  .ol-company-card { padding:23px 20px; }
+  .ol-company-card h1 { font-size:37px; }
+  .ol-journey { padding:65px 0;gap:38px; }
+  .ol-journey-copy h2 { font-size:39px; }
+  .ol-ship-panel { min-height:290px; }
+  .ol-scale { padding:65px 0 80px; }
+  .ol-scale-header h2 { font-size:39px; }
+  .ol-features-grid { grid-template-columns:1fr; }
+  .ol-feature-card { padding:26px 18px; }
+  .ol-scale .industry-signals { flex-wrap:wrap;gap:13px;margin:20px 0 24px; }
+  .ol-scale .industry-signals span { padding:0 12px 0 0;border:0;font-size:10px; }
+  .ol-scale .industry-signals b { display:block;margin:0; }
+}
+
+/* ─── Ocean Freight (FCL) page — mirrors Industries page visual language ──────── */
 .ocean-fcl-page { min-height:100vh;background:#03090e;color:#f5f7f8; }
 
-/* Masthead: same cargo-container stripe as Industries */
+/* Masthead */
 .of-masthead { position:relative;min-height:326px;padding:72px 40px 0;overflow:hidden;background:linear-gradient(90deg,rgba(4,21,30,.9),rgba(6,20,28,.43)),repeating-linear-gradient(90deg,#1a3946 0 11%,#b44820 11% 14%,#213e49 14% 24%,#be7b29 24% 27%);background-size:auto,210px 100%; }
 .of-masthead:after { content:'';position:absolute;inset:0;background:linear-gradient(transparent 0 68%,#03090e); }
 
-/* Company card: identical to industries-company-card */
+/* Company card */
 .of-company-card { position:relative;z-index:1;width:min(875px,100%);margin:auto;padding:29px 39px 33px;background:rgba(2,8,13,.94);border-top:2px solid #db5429;box-shadow:0 15px 25px rgba(0,0,0,.45); }
 .of-company-card h1 { margin:15px 0 8px;font-size:clamp(32px,3.7vw,51px);line-height:1.03;letter-spacing:-2px; }
 .of-company-card h1 em { font-family:'Playfair Display',serif;font-weight:600; }
 .of-company-card p { max-width:535px;margin:0;color:#b9c9d2;font-size:13px;line-height:1.7; }
 
-/* Journey section: mirrors industries-journey */
+/* Journey section */
 .of-journey { display:grid;grid-template-columns:1.15fr .85fr;gap:80px;align-items:center;padding:103px 0 88px; }
 .of-journey-copy h2 { margin:16px 0 20px;font-size:clamp(39px,4vw,58px);line-height:1.08;letter-spacing:-2.3px; }
 .of-journey-copy h2 em { font-family:'Playfair Display',serif;font-weight:600; }
 .of-journey-copy p { max-width:550px;margin:0 0 20px;color:#b5c3cb;font-size:13px;line-height:1.8; }
 .of-journey-copy p:last-child { margin:0; }
 
-/* Ship art panel: mirrors industry-network-art */
+/* CSS Art Panel */
 .of-ship-panel { position:relative;min-height:385px;isolation:isolate;display:grid;place-items:center;overflow:hidden;border:1px solid #254756;background:radial-gradient(circle at 50% 48%,rgba(30,115,149,.25),transparent 35%),linear-gradient(145deg,#071721,#0b2b3b); }
 .of-ship-panel:before { content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(134,210,230,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(134,210,230,.09) 1px,transparent 1px);background-size:37px 37px;mask-image:radial-gradient(circle,black,transparent 74%); }
 
-/* Circular badge — mirrors network-core */
-.of-panel-core { position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;width:175px;height:175px;border:1px solid #69b8cc;border-radius:50%;background:rgba(7,30,42,.87);box-shadow:0 0 0 18px rgba(67,158,187,.1),0 0 60px rgba(42,156,192,.22);color:#d7f4fa;text-align:center; }
+/* Circular badge */
+.of-panel-core { position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;width:175px;height:175px;border:1px solid #69b8cc;border-radius:50%;background:rgba(7,30,42,.87);box-shadow:0 0 0 18px rgba(67,158,187,.1),0 0 60px rgba(42,156,192,.22);color:#d7f4fa;text-align:center; }
 .of-panel-core svg { color:#72c6da;opacity:.85;margin-bottom:6px; }
 .of-panel-core b { color:var(--lime);font-size:26px;letter-spacing:-1px;line-height:1; }
 .of-panel-core small { color:#9dbcc7;font-size:9px;margin-top:2px; }
 
-/* CSS ship art inside panel */
-.of-ship-hull { position:absolute;z-index:1;left:5%;right:15%;bottom:18%;height:45px;background:linear-gradient(#f1f1e7 0 30%,#254f7e 32% 74%,#7b2429 75%);clip-path:polygon(0 0,100% 0,91% 70%,68% 100%,7% 95%); }
-.of-ship-stack { position:absolute;z-index:0;left:10%;right:30%;bottom:calc(18% + 40px);height:50px;background:repeating-linear-gradient(90deg,#ce4034 0 10%,#e0c05b 10% 20%,#17557c 20% 30%,#e6dfcc 30% 40%);box-shadow:inset 0 9px rgba(6,22,38,.3); }
-.of-ship-bridge { position:absolute;z-index:0;right:18%;bottom:calc(18% + 35px);width:60px;height:45px;border-radius:15px 36px 0 0;background:linear-gradient(135deg,#f5f5ec,#abb6bd); }
-.of-ship-bridge:after { content:'';position:absolute;top:10px;left:12px;width:30px;height:8px;background:#274458;box-shadow:0 12px #274458; }
-.of-water-line { position:absolute;z-index:2;left:0;right:0;bottom:14%;height:10px;background:radial-gradient(ellipse,rgba(75,173,211,.4),transparent 65%); }
+/* Ship Art */
+.of-water-back { position:absolute;bottom:15%;left:0;right:0;height:40px;background:rgba(30,115,149,.15);z-index:0; }
+.of-ship-hull { position:absolute;bottom:22%;left:15%;right:15%;height:45px;background:linear-gradient(to right,#b44820,#1a3946);border-radius:5px 5px 40px 40px;z-index:1; }
+.of-ship-cargo-stack { position:absolute;bottom:28%;left:22%;right:35%;height:55px;background:repeating-linear-gradient(90deg,#be7b29 0 20%,#b44820 20% 40%,#1a3946 40% 60%,#213e49 60% 80%);z-index:1; }
+.of-ship-bridge { position:absolute;bottom:28%;right:18%;width:15%;height:65px;background:#1a3946;border-radius:10px 10px 0 0;z-index:1; }
+.of-ship-bridge:after { content:'';position:absolute;top:10px;left:5px;right:5px;height:15px;background:#03090e;border-radius:5px; }
+.of-water-front { position:absolute;bottom:12%;left:0;right:0;height:30px;background:linear-gradient(transparent,rgba(30,115,149,.3));z-index:2; }
 
-/* Scale / What We Do: mirrors industry-scale */
+/* Scale / What We Do */
 .of-scale { display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:start;padding:85px 0 118px;border-top:1px solid rgba(168,205,218,.18); }
 .of-scale-header h2 { margin:16px 0 20px;font-size:clamp(39px,4vw,58px);line-height:1.08;letter-spacing:-2.3px; }
 .of-scale-header h2 em { font-family:'Playfair Display',serif;font-weight:600; }
@@ -339,3 +420,684 @@ footer{background:#061725;color:#e3edf2}.footer-top{padding:67px 0 53px;display:
   .of-scale .industry-signals span { padding:0 12px 0 0;border:0;font-size:10px; }
   .of-scale .industry-signals b { display:block;margin:0; }
 }
+
+/* ─── Rail Freight page — mirrors Industries page visual language ──────── */
+.rail-freight-page { min-height:100vh;background:#03090e;color:#f5f7f8; }
+
+/* Masthead */
+.rf-masthead { position:relative;min-height:326px;padding:72px 40px 0;overflow:hidden;background:linear-gradient(90deg,rgba(4,21,30,.9),rgba(6,20,28,.43)),repeating-linear-gradient(90deg,#1a3946 0 11%,#b44820 11% 14%,#213e49 14% 24%,#be7b29 24% 27%);background-size:auto,210px 100%; }
+.rf-masthead:after { content:'';position:absolute;inset:0;background:linear-gradient(transparent 0 68%,#03090e); }
+
+/* Company card */
+.rf-company-card { position:relative;z-index:1;width:min(875px,100%);margin:auto;padding:29px 39px 33px;background:rgba(2,8,13,.94);border-top:2px solid #db5429;box-shadow:0 15px 25px rgba(0,0,0,.45); }
+.rf-company-card h1 { margin:15px 0 8px;font-size:clamp(32px,3.7vw,51px);line-height:1.03;letter-spacing:-2px; }
+.rf-company-card h1 em { font-family:'Playfair Display',serif;font-weight:600; }
+.rf-company-card p { max-width:535px;margin:0;color:#b9c9d2;font-size:13px;line-height:1.7; }
+
+/* Journey section */
+.rf-journey { display:grid;grid-template-columns:1.15fr .85fr;gap:80px;align-items:center;padding:103px 0 88px; }
+.rf-journey-copy h2 { margin:16px 0 20px;font-size:clamp(39px,4vw,58px);line-height:1.08;letter-spacing:-2.3px; }
+.rf-journey-copy h2 em { font-family:'Playfair Display',serif;font-weight:600; }
+.rf-journey-copy p { max-width:550px;margin:0 0 20px;color:#b5c3cb;font-size:13px;line-height:1.8; }
+.rf-journey-copy p:last-child { margin:0; }
+
+/* CSS Rail Art Panel — mirrors industry-network-art */
+.rf-rail-panel { position:relative;min-height:385px;isolation:isolate;display:grid;place-items:center;overflow:hidden;border:1px solid #254756;background:radial-gradient(circle at 50% 48%,rgba(30,115,149,.25),transparent 35%),linear-gradient(145deg,#071721,#0b2b3b); }
+.rf-rail-panel:before { content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(134,210,230,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(134,210,230,.09) 1px,transparent 1px);background-size:37px 37px;mask-image:radial-gradient(circle,black,transparent 74%); }
+
+/* Rail tracks */
+.rf-track { position:absolute;left:0;right:0;bottom:28%;height:5px;background:#2e5a6e;z-index:1; }
+.rf-track2 { bottom:24%;height:5px; }
+
+/* Rail sleepers (cross-ties) */
+.rf-sleeper { position:absolute;width:6px;bottom:22%;height:14px;background:#1a3946;z-index:2; }
+.s1 { left:12%; }
+.s2 { left:25%; }
+.s3 { left:38%; }
+.s4 { left:51%; }
+.s5 { left:64%; }
+
+/* Cargo containers on the train */
+.rf-container { position:absolute;bottom:33%;height:40px;border-radius:2px;z-index:2; }
+.rc1 { left:10%;width:15%;background:linear-gradient(135deg,#ce4233,#9c2a0c); }
+.rc2 { left:26%;width:15%;background:linear-gradient(135deg,#1976d2,#104f8f); }
+.rc3 { left:42%;width:15%;background:linear-gradient(135deg,#3a7a4a,#265234); }
+
+/* Circular core badge */
+.rf-panel-core { position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;width:175px;height:175px;border:1px solid #69b8cc;border-radius:50%;background:rgba(7,30,42,.87);box-shadow:0 0 0 18px rgba(67,158,187,.1),0 0 60px rgba(42,156,192,.22);color:#d7f4fa;text-align:center; }
+.rf-panel-core svg { color:#72c6da;opacity:.85;margin-bottom:6px; }
+.rf-panel-core b { color:var(--lime);font-size:22px;letter-spacing:-1px;line-height:1; }
+.rf-panel-core small { color:#9dbcc7;font-size:9px;margin-top:2px; }
+
+/* Scale / What We Do */
+.rf-scale { display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:start;padding:85px 0 118px;border-top:1px solid rgba(168,205,218,.18); }
+.rf-scale-header h2 { margin:16px 0 20px;font-size:clamp(39px,4vw,58px);line-height:1.08;letter-spacing:-2.3px; }
+.rf-scale-header h2 em { font-family:'Playfair Display',serif;font-weight:600; }
+.rf-scale-header p { max-width:480px;margin:0;color:#b5c3cb;font-size:13px;line-height:1.8; }
+.rf-scale .industry-signals { justify-content:flex-start;margin:27px 0 29px;color:#a5bac4; }
+.rf-scale .industry-signals span { padding:0 17px;font-size:10px;border-color:#274756; }
+.rf-scale .industry-signals span:first-child { padding-left:0; }
+.rf-scale .industry-signals b { color:var(--lime);font-size:17px; }
+
+/* Feature cards */
+.rf-features-grid { display:grid;grid-template-columns:1fr 1fr;gap:9px; }
+.rf-feature-card { background:#0b1b25;border:1px solid #274d5d;padding:32px 26px 30px;transition:background .25s,transform .25s; }
+.rf-feature-card:hover { background:#102b38;transform:translateY(-3px); }
+.rf-feature-icon { width:50px;height:50px;display:grid;place-items:center;border:1px solid #274d5d;color:#63b9da;margin-bottom:19px;background:rgba(25,118,210,.07); }
+.rf-feature-card h3 { margin:0 0 10px;font-size:15px;letter-spacing:-.4px;color:#e8f2f6; }
+.rf-feature-card p { margin:0;font-size:12px;color:#8aaabb;line-height:1.75; }
+
+/* Responsive */
+@media(max-width:850px) {
+  .rf-masthead { padding-left:20px;padding-right:20px; }
+  .rf-company-card { padding:27px; }
+  .rf-journey { grid-template-columns:1fr;gap:52px; }
+  .rf-rail-panel { width:min(100%,520px);min-height:335px;justify-self:center; }
+  .rf-scale { grid-template-columns:1fr;gap:50px; }
+}
+@media(max-width:620px) {
+  .rf-masthead { min-height:284px;padding-top:51px; }
+  .rf-company-card { padding:23px 20px; }
+  .rf-company-card h1 { font-size:37px; }
+  .rf-journey { padding:65px 0;gap:38px; }
+  .rf-journey-copy h2 { font-size:39px; }
+  .rf-rail-panel { min-height:290px; }
+  .rf-scale { padding:65px 0 80px; }
+  .rf-scale-header h2 { font-size:39px; }
+  .rf-features-grid { grid-template-columns:1fr; }
+  .rf-feature-card { padding:26px 18px; }
+  .rf-scale .industry-signals { flex-wrap:wrap;gap:13px;margin:20px 0 24px; }
+  .rf-scale .industry-signals span { padding:0 12px 0 0;border:0;font-size:10px; }
+  .rf-scale .industry-signals b { display:block;margin:0; }
+}
+
+/* ─── Road Freight page — mirrors Industries page visual language ──────── */
+.road-freight-page { min-height:100vh;background:#03090e;color:#f5f7f8; }
+
+/* Masthead */
+.rdf-masthead { position:relative;min-height:326px;padding:72px 40px 0;overflow:hidden;background:linear-gradient(90deg,rgba(4,21,30,.9),rgba(6,20,28,.43)),repeating-linear-gradient(90deg,#1a3946 0 11%,#b44820 11% 14%,#213e49 14% 24%,#be7b29 24% 27%);background-size:auto,210px 100%; }
+.rdf-masthead:after { content:'';position:absolute;inset:0;background:linear-gradient(transparent 0 68%,#03090e); }
+
+/* Company card */
+.rdf-company-card { position:relative;z-index:1;width:min(875px,100%);margin:auto;padding:29px 39px 33px;background:rgba(2,8,13,.94);border-top:2px solid #db5429;box-shadow:0 15px 25px rgba(0,0,0,.45); }
+.rdf-company-card h1 { margin:15px 0 8px;font-size:clamp(32px,3.7vw,51px);line-height:1.03;letter-spacing:-2px; }
+.rdf-company-card h1 em { font-family:'Playfair Display',serif;font-weight:600; }
+.rdf-company-card p { max-width:535px;margin:0;color:#b9c9d2;font-size:13px;line-height:1.7; }
+
+/* Journey section */
+.rdf-journey { display:grid;grid-template-columns:1.15fr .85fr;gap:80px;align-items:center;padding:103px 0 88px; }
+.rdf-journey-copy h2 { margin:16px 0 20px;font-size:clamp(39px,4vw,58px);line-height:1.08;letter-spacing:-2.3px; }
+.rdf-journey-copy h2 em { font-family:'Playfair Display',serif;font-weight:600; }
+.rdf-journey-copy p { max-width:550px;margin:0 0 20px;color:#b5c3cb;font-size:13px;line-height:1.8; }
+.rdf-journey-copy p:last-child { margin:0; }
+
+/* CSS Truck Art Panel — mirrors industry-network-art */
+.rdf-truck-panel { position:relative;min-height:385px;isolation:isolate;display:grid;place-items:center;overflow:hidden;border:1px solid #254756;background:radial-gradient(circle at 50% 48%,rgba(30,115,149,.25),transparent 35%),linear-gradient(145deg,#071721,#0b2b3b); }
+.rdf-truck-panel:before { content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(134,210,230,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(134,210,230,.09) 1px,transparent 1px);background-size:37px 37px;mask-image:radial-gradient(circle,black,transparent 74%); }
+
+/* Road surface */
+.rdf-road { position:absolute;bottom:15%;left:0;right:0;height:55px;background:#0f1e2c;z-index:1; }
+.rdf-road-line { position:absolute;bottom:35%;left:0;right:0;height:4px;background:repeating-linear-gradient(90deg,rgba(198,242,93,.5) 0 22px,transparent 22px 38px);z-index:2; }
+
+/* Truck silhouette */
+.rdf-truck-body { position:absolute;left:12%;bottom:33%;width:48%;height:38px;background:linear-gradient(to right,#1a3946,#213e49);border-radius:3px 3px 0 0;z-index:3; }
+.rdf-truck-cab { position:absolute;left:55%;bottom:33%;width:18%;height:50px;background:linear-gradient(135deg,#b44820,#7a2f10);border-radius:4px 8px 0 0;z-index:3; }
+.rdf-truck-cab:after { content:'';position:absolute;top:10px;left:5px;right:8px;height:15px;background:rgba(198,242,93,.15);border-radius:3px; }
+.rdf-truck-wheel { position:absolute;bottom:26%;width:26px;height:26px;border-radius:50%;background:#091520;border:4px solid #2e5a6e;z-index:4; }
+.w1 { left:17%; }
+.w2 { left:38%; }
+.w3 { left:57%; }
+
+/* Circular core badge */
+.rdf-panel-core { position:relative;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;width:175px;height:175px;border:1px solid #69b8cc;border-radius:50%;background:rgba(7,30,42,.87);box-shadow:0 0 0 18px rgba(67,158,187,.1),0 0 60px rgba(42,156,192,.22);color:#d7f4fa;text-align:center; }
+.rdf-panel-core svg { color:#72c6da;opacity:.85;margin-bottom:6px; }
+.rdf-panel-core b { color:var(--lime);font-size:26px;letter-spacing:-1px;line-height:1; }
+.rdf-panel-core small { color:#9dbcc7;font-size:9px;margin-top:2px; }
+
+/* Scale / What We Do */
+.rdf-scale { display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:start;padding:85px 0 118px;border-top:1px solid rgba(168,205,218,.18); }
+.rdf-scale-header h2 { margin:16px 0 20px;font-size:clamp(39px,4vw,58px);line-height:1.08;letter-spacing:-2.3px; }
+.rdf-scale-header h2 em { font-family:'Playfair Display',serif;font-weight:600; }
+.rdf-scale-header p { max-width:480px;margin:0;color:#b5c3cb;font-size:13px;line-height:1.8; }
+.rdf-scale .industry-signals { justify-content:flex-start;margin:27px 0 29px;color:#a5bac4; }
+.rdf-scale .industry-signals span { padding:0 17px;font-size:10px;border-color:#274756; }
+.rdf-scale .industry-signals span:first-child { padding-left:0; }
+.rdf-scale .industry-signals b { color:var(--lime);font-size:17px; }
+
+/* Feature cards */
+.rdf-features-grid { display:grid;grid-template-columns:1fr 1fr;gap:9px; }
+.rdf-feature-card { background:#0b1b25;border:1px solid #274d5d;padding:32px 26px 30px;transition:background .25s,transform .25s; }
+.rdf-feature-card:hover { background:#102b38;transform:translateY(-3px); }
+.rdf-feature-icon { width:50px;height:50px;display:grid;place-items:center;border:1px solid #274d5d;color:#63b9da;margin-bottom:19px;background:rgba(25,118,210,.07); }
+.rdf-feature-card h3 { margin:0 0 10px;font-size:15px;letter-spacing:-.4px;color:#e8f2f6; }
+.rdf-feature-card p { margin:0;font-size:12px;color:#8aaabb;line-height:1.75; }
+
+/* Responsive */
+@media(max-width:850px) {
+  .rdf-masthead { padding-left:20px;padding-right:20px; }
+  .rdf-company-card { padding:27px; }
+  .rdf-journey { grid-template-columns:1fr;gap:52px; }
+  .rdf-truck-panel { width:min(100%,520px);min-height:335px;justify-self:center; }
+  .rdf-scale { grid-template-columns:1fr;gap:50px; }
+}
+@media(max-width:620px) {
+  .rdf-masthead { min-height:284px;padding-top:51px; }
+  .rdf-company-card { padding:23px 20px; }
+  .rdf-company-card h1 { font-size:37px; }
+  .rdf-journey { padding:65px 0;gap:38px; }
+  .rdf-journey-copy h2 { font-size:39px; }
+  .rdf-truck-panel { min-height:290px; }
+  .rdf-scale { padding:65px 0 80px; }
+  .rdf-scale-header h2 { font-size:39px; }
+  .rdf-features-grid { grid-template-columns:1fr; }
+  .rdf-feature-card { padding:26px 18px; }
+  .rdf-scale .industry-signals { flex-wrap:wrap;gap:13px;margin:20px 0 24px; }
+  .rdf-scale .industry-signals { flex-wrap:wrap;gap:13px;margin:20px 0 24px; }
+  .rdf-scale .industry-signals span { padding:0 12px 0 0;border:0;font-size:10px; }
+  .rdf-scale .industry-signals b { display:block;margin:0; }
+}
+
+/* ─── Social, Weighting & Filling page — mirrors Industries page visual language ──────── */
+.social-weighting-page { min-height:100vh;background:#03090e;color:#f5f7f8; }
+
+/* Masthead */
+.swf-masthead { position:relative;min-height:326px;padding:72px 40px 0;overflow:hidden;background:linear-gradient(90deg,rgba(4,21,30,.9),rgba(6,20,28,.43)),repeating-linear-gradient(90deg,#1a3946 0 11%,#b44820 11% 14%,#213e49 14% 24%,#be7b29 24% 27%);background-size:auto,210px 100%; }
+.swf-masthead:after { content:'';position:absolute;inset:0;background:linear-gradient(transparent 0 68%,#03090e); }
+
+/* Company card */
+.swf-company-card { position:relative;z-index:1;width:min(875px,100%);margin:auto;padding:29px 39px 33px;background:rgba(2,8,13,.94);border-top:2px solid #db5429;box-shadow:0 15px 25px rgba(0,0,0,.45); }
+.swf-company-card h1 { margin:15px 0 8px;font-size:clamp(32px,3.7vw,51px);line-height:1.03;letter-spacing:-2px; }
+.swf-company-card h1 em { font-family:'Playfair Display',serif;font-weight:600; }
+.swf-company-card p { max-width:535px;margin:0;color:#b9c9d2;font-size:13px;line-height:1.7; }
+
+/* Journey section */
+.swf-journey { display:grid;grid-template-columns:1.15fr .85fr;gap:80px;align-items:center;padding:103px 0 88px; }
+.swf-journey-copy h2 { margin:16px 0 20px;font-size:clamp(39px,4vw,58px);line-height:1.08;letter-spacing:-2.3px; }
+.swf-journey-copy h2 em { font-family:'Playfair Display',serif;font-weight:600; }
+.swf-journey-copy p { max-width:550px;margin:0 0 20px;color:#b5c3cb;font-size:13px;line-height:1.8; }
+.swf-journey-copy p:last-child { margin:0; }
+
+/* CSS Phone/Social Art Panel */
+.swf-social-panel { position:relative;min-height:385px;isolation:isolate;display:grid;place-items:center;overflow:hidden;border:1px solid #254756;background:radial-gradient(circle at 50% 48%,rgba(30,115,149,.25),transparent 35%),linear-gradient(145deg,#071721,#0b2b3b); }
+.swf-social-panel:before { content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(134,210,230,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(134,210,230,.09) 1px,transparent 1px);background-size:37px 37px;mask-image:radial-gradient(circle,black,transparent 74%); }
+
+/* Phone silhouette */
+.swf-phone-body { position:absolute;bottom:5%;right:15%;width:120px;height:240px;background:#0c2230;border:3px solid #3c6e86;border-radius:20px;box-shadow:inset 0 0 15px rgba(0,0,0,.5),0 15px 30px rgba(0,0,0,.3);z-index:2;transform:rotate(-8deg); }
+.swf-phone-notch { position:absolute;top:0;left:50%;transform:translateX(-50%);width:40px;height:12px;background:#3c6e86;border-radius:0 0 8px 8px;z-index:3; }
+.swf-phone-screen { position:absolute;inset:4px;background:linear-gradient(to bottom,rgba(255,255,255,.05),transparent);border-radius:15px;overflow:hidden; }
+.swf-feed-card { position:absolute;left:10%;right:10%;height:35px;background:rgba(255,255,255,.1);border-radius:5px; }
+
+/* Orbiting Nodes */
+.swf-orbit { position:absolute;border:1px dashed rgba(105,184,204,.4);border-radius:50%;z-index:1; }
+.swf-orbit span { position:absolute;width:14px;height:14px;background:var(--lime);border-radius:50%;box-shadow:0 0 15px var(--lime); }
+.swf-orb1 { width:200px;height:200px;right:5%;bottom:15%; }
+.swf-orb1 span { top:10%;left:20%; }
+.swf-orb2 { width:260px;height:260px;right:-5%;bottom:5%;border-style:solid;border-color:rgba(105,184,204,.1); }
+.swf-orb2 span { bottom:20%;left:10%;background:#4ca1af;box-shadow:0 0 15px #4ca1af; }
+.swf-orb3 { width:340px;height:340px;right:-15%;bottom:-5%; }
+.swf-orb3 span { top:40%;left:-2%;background:#db5429;box-shadow:0 0 15px #db5429; }
+
+/* Circular core badge */
+.swf-panel-core { position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;width:175px;height:175px;border:1px solid #69b8cc;border-radius:50%;background:rgba(7,30,42,.87);box-shadow:0 0 0 18px rgba(67,158,187,.1),0 0 60px rgba(42,156,192,.22);color:#d7f4fa;text-align:center;justify-self:start;margin-left:10%; }
+.swf-panel-core svg { color:#72c6da;opacity:.85;margin-bottom:6px; }
+.swf-panel-core b { color:var(--lime);font-size:26px;letter-spacing:-1px;line-height:1; }
+.swf-panel-core small { color:#9dbcc7;font-size:9px;margin-top:2px; }
+
+/* Scale / What We Do */
+.swf-scale { display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:start;padding:85px 0 118px;border-top:1px solid rgba(168,205,218,.18); }
+.swf-scale-header h2 { margin:16px 0 20px;font-size:clamp(39px,4vw,58px);line-height:1.08;letter-spacing:-2.3px; }
+.swf-scale-header h2 em { font-family:'Playfair Display',serif;font-weight:600; }
+.swf-scale-header p { max-width:480px;margin:0;color:#b5c3cb;font-size:13px;line-height:1.8; }
+.swf-scale .industry-signals { justify-content:flex-start;margin:27px 0 29px;color:#a5bac4; }
+.swf-scale .industry-signals span { padding:0 17px;font-size:10px;border-color:#274756; }
+.swf-scale .industry-signals span:first-child { padding-left:0; }
+.swf-scale .industry-signals b { color:var(--lime);font-size:17px; }
+
+/* Feature cards */
+.swf-features-grid { display:grid;grid-template-columns:1fr 1fr;gap:9px; }
+.swf-feature-card { background:#0b1b25;border:1px solid #274d5d;padding:32px 26px 30px;transition:background .25s,transform .25s; }
+.swf-feature-card:hover { background:#102b38;transform:translateY(-3px); }
+.swf-feature-icon { width:50px;height:50px;display:grid;place-items:center;border:1px solid #274d5d;color:#63b9da;margin-bottom:19px;background:rgba(25,118,210,.07); }
+.swf-feature-card h3 { margin:0 0 10px;font-size:15px;letter-spacing:-.4px;color:#e8f2f6; }
+.swf-feature-card p { margin:0;font-size:12px;color:#8aaabb;line-height:1.75; }
+
+/* Responsive */
+@media(max-width:850px) {
+  .swf-masthead { padding-left:20px;padding-right:20px; }
+  .swf-company-card { padding:27px; }
+  .swf-journey { grid-template-columns:1fr;gap:52px; }
+  .swf-social-panel { width:min(100%,520px);min-height:335px;justify-self:center; }
+  .swf-panel-core { margin-left:0;justify-self:center; }
+  .swf-scale { grid-template-columns:1fr;gap:50px; }
+}
+@media(max-width:620px) {
+  .swf-masthead { min-height:284px;padding-top:51px; }
+  .swf-company-card { padding:23px 20px; }
+  .swf-company-card h1 { font-size:37px; }
+  .swf-journey { padding:65px 0;gap:38px; }
+  .swf-journey-copy h2 { font-size:39px; }
+  .swf-social-panel { min-height:290px; }
+  .swf-phone-body { width:100px;height:200px; }
+  .swf-scale { padding:65px 0 80px; }
+  .swf-scale-header h2 { font-size:39px; }
+  .swf-features-grid { grid-template-columns:1fr; }
+  .swf-feature-card { padding:26px 18px; }
+  .swf-scale .industry-signals { flex-wrap:wrap;gap:13px;margin:20px 0 24px; }
+  .swf-scale .industry-signals span { padding:0 12px 0 0;border:0;font-size:10px; }
+  .swf-scale .industry-signals b { display:block;margin:0; }
+}
+
+/* ─── Contract Logistics page — mirrors Industries page visual language ──────── */
+.contract-logistics-page { min-height:100vh;background:#03090e;color:#f5f7f8; }
+
+/* Masthead */
+.cl-masthead { position:relative;min-height:326px;padding:72px 40px 0;overflow:hidden;background:linear-gradient(90deg,rgba(4,21,30,.9),rgba(6,20,28,.43)),repeating-linear-gradient(90deg,#1a3946 0 11%,#b44820 11% 14%,#213e49 14% 24%,#be7b29 24% 27%);background-size:auto,210px 100%; }
+.cl-masthead:after { content:'';position:absolute;inset:0;background:linear-gradient(transparent 0 68%,#03090e); }
+
+/* Company card */
+.cl-company-card { position:relative;z-index:1;width:min(875px,100%);margin:auto;padding:29px 39px 33px;background:rgba(2,8,13,.94);border-top:2px solid #db5429;box-shadow:0 15px 25px rgba(0,0,0,.45); }
+.cl-company-card h1 { margin:15px 0 8px;font-size:clamp(32px,3.7vw,51px);line-height:1.03;letter-spacing:-2px; }
+.cl-company-card h1 em { font-family:'Playfair Display',serif;font-weight:600; }
+.cl-company-card p { max-width:535px;margin:0;color:#b9c9d2;font-size:13px;line-height:1.7; }
+
+/* Journey section */
+.cl-journey { display:grid;grid-template-columns:1.15fr .85fr;gap:80px;align-items:center;padding:103px 0 88px; }
+.cl-journey-copy h2 { margin:16px 0 20px;font-size:clamp(39px,4vw,58px);line-height:1.08;letter-spacing:-2.3px; }
+.cl-journey-copy h2 em { font-family:'Playfair Display',serif;font-weight:600; }
+.cl-journey-copy p { max-width:550px;margin:0 0 20px;color:#b5c3cb;font-size:13px;line-height:1.8; }
+.cl-journey-copy p:last-child { margin:0; }
+
+/* CSS Art Panel */
+.cl-art-panel { position:relative;min-height:385px;isolation:isolate;display:grid;place-items:center;overflow:hidden;border:1px solid #254756;background:radial-gradient(circle at 50% 48%,rgba(30,115,149,.25),transparent 35%),linear-gradient(145deg,#071721,#0b2b3b); }
+.cl-art-panel:before { content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(134,210,230,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(134,210,230,.09) 1px,transparent 1px);background-size:37px 37px;mask-image:radial-gradient(circle,black,transparent 74%); }
+
+/* Facility / Shelf Art */
+.cl-facility { position:absolute;bottom:0;background:rgba(219,84,41,.1);border:1px solid rgba(219,84,41,.2);border-bottom:0;z-index:1; }
+.f1 { left:10%;width:20%;height:45%;border-radius:10px 10px 0 0; }
+.f2 { left:35%;width:30%;height:65%;border-radius:10px 10px 0 0; }
+.f3 { right:10%;width:20%;height:35%;border-radius:10px 10px 0 0; }
+
+.cl-shelf { position:absolute;background:rgba(105,184,204,.2);border:1px solid rgba(105,184,204,.4);z-index:2; }
+.s1 { left:40%;bottom:20%;width:20%;height:8px; }
+.s2 { left:40%;bottom:35%;width:20%;height:8px; }
+.s3 { left:40%;bottom:50%;width:20%;height:8px; }
+
+/* Circular core badge */
+.cl-panel-core { position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;width:175px;height:175px;border:1px solid #69b8cc;border-radius:50%;background:rgba(7,30,42,.87);box-shadow:0 0 0 18px rgba(67,158,187,.1),0 0 60px rgba(42,156,192,.22);color:#d7f4fa;text-align:center; }
+.cl-panel-core svg { color:#72c6da;opacity:.85;margin-bottom:6px; }
+.cl-panel-core b { color:var(--lime);font-size:20px;letter-spacing:-1px;line-height:1; }
+.cl-panel-core small { color:#9dbcc7;font-size:9px;margin-top:2px; }
+
+/* Scale / What We Do */
+.cl-scale { display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:start;padding:85px 0 118px;border-top:1px solid rgba(168,205,218,.18); }
+.cl-scale-header h2 { margin:16px 0 20px;font-size:clamp(39px,4vw,58px);line-height:1.08;letter-spacing:-2.3px; }
+.cl-scale-header h2 em { font-family:'Playfair Display',serif;font-weight:600; }
+.cl-scale-header p { max-width:480px;margin:0;color:#b5c3cb;font-size:13px;line-height:1.8; }
+.cl-scale .industry-signals { justify-content:flex-start;margin:27px 0 29px;color:#a5bac4; }
+.cl-scale .industry-signals span { padding:0 17px;font-size:10px;border-color:#274756; }
+.cl-scale .industry-signals span:first-child { padding-left:0; }
+.cl-scale .industry-signals b { color:var(--lime);font-size:17px; }
+
+/* Feature cards */
+.cl-features-grid { display:grid;grid-template-columns:1fr 1fr;gap:9px; }
+.cl-feature-card { background:#0b1b25;border:1px solid #274d5d;padding:32px 26px 30px;transition:background .25s,transform .25s; }
+.cl-feature-card:hover { background:#102b38;transform:translateY(-3px); }
+.cl-feature-icon { width:50px;height:50px;display:grid;place-items:center;border:1px solid #274d5d;color:#63b9da;margin-bottom:19px;background:rgba(25,118,210,.07); }
+.cl-feature-card h3 { margin:0 0 10px;font-size:15px;letter-spacing:-.4px;color:#e8f2f6; }
+.cl-feature-card p { margin:0;font-size:12px;color:#8aaabb;line-height:1.75; }
+
+/* Responsive */
+@media(max-width:850px) {
+  .cl-masthead { padding-left:20px;padding-right:20px; }
+  .cl-company-card { padding:27px; }
+  .cl-journey { grid-template-columns:1fr;gap:52px; }
+  .cl-art-panel { width:min(100%,520px);min-height:335px;justify-self:center; }
+  .cl-scale { grid-template-columns:1fr;gap:50px; }
+}
+@media(max-width:620px) {
+  .cl-masthead { min-height:284px;padding-top:51px; }
+  .cl-company-card { padding:23px 20px; }
+  .cl-company-card h1 { font-size:37px; }
+  .cl-journey { padding:65px 0;gap:38px; }
+  .cl-journey-copy h2 { font-size:39px; }
+  .cl-art-panel { min-height:290px; }
+  .cl-scale { padding:65px 0 80px; }
+  .cl-scale-header h2 { font-size:39px; }
+  .cl-features-grid { grid-template-columns:1fr; }
+  .cl-feature-card { padding:26px 18px; }
+  .cl-scale .industry-signals { flex-wrap:wrap;gap:13px;margin:20px 0 24px; }
+  .cl-scale .industry-signals span { padding:0 12px 0 0;border:0;font-size:10px; }
+  .cl-scale .industry-signals b { display:block;margin:0; }
+}
+
+/* ─── Cross Border E-Commerce page — mirrors Industries page visual language ──────── */
+.cross-border-page { min-height:100vh;background:#03090e;color:#f5f7f8; }
+
+/* Masthead */
+.cbe-masthead { position:relative;min-height:326px;padding:72px 40px 0;overflow:hidden;background:linear-gradient(90deg,rgba(4,21,30,.9),rgba(6,20,28,.43)),repeating-linear-gradient(90deg,#1a3946 0 11%,#b44820 11% 14%,#213e49 14% 24%,#be7b29 24% 27%);background-size:auto,210px 100%; }
+.cbe-masthead:after { content:'';position:absolute;inset:0;background:linear-gradient(transparent 0 68%,#03090e); }
+
+/* Company card */
+.cbe-company-card { position:relative;z-index:1;width:min(875px,100%);margin:auto;padding:29px 39px 33px;background:rgba(2,8,13,.94);border-top:2px solid #db5429;box-shadow:0 15px 25px rgba(0,0,0,.45); }
+.cbe-company-card h1 { margin:15px 0 8px;font-size:clamp(32px,3.7vw,51px);line-height:1.03;letter-spacing:-2px; }
+.cbe-company-card h1 em { font-family:'Playfair Display',serif;font-weight:600; }
+.cbe-company-card p { max-width:535px;margin:0;color:#b9c9d2;font-size:13px;line-height:1.7; }
+
+/* Journey section */
+.cbe-journey { display:grid;grid-template-columns:1.15fr .85fr;gap:80px;align-items:center;padding:103px 0 88px; }
+.cbe-journey-copy h2 { margin:16px 0 20px;font-size:clamp(39px,4vw,58px);line-height:1.08;letter-spacing:-2.3px; }
+.cbe-journey-copy h2 em { font-family:'Playfair Display',serif;font-weight:600; }
+.cbe-journey-copy p { max-width:550px;margin:0 0 20px;color:#b5c3cb;font-size:13px;line-height:1.8; }
+.cbe-journey-copy p:last-child { margin:0; }
+
+/* CSS Art Panel */
+.cbe-art-panel { position:relative;min-height:385px;isolation:isolate;display:grid;place-items:center;overflow:hidden;border:1px solid #254756;background:radial-gradient(circle at 50% 48%,rgba(30,115,149,.25),transparent 35%),linear-gradient(145deg,#071721,#0b2b3b); }
+.cbe-art-panel:before { content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(134,210,230,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(134,210,230,.09) 1px,transparent 1px);background-size:37px 37px;mask-image:radial-gradient(circle,black,transparent 74%); }
+
+/* Orbits and nodes */
+.cbe-orbit { position:absolute;border:1px dashed rgba(105,184,204,.35);border-radius:50%;z-index:1; }
+.cbe-orbit.orbit-one { width:260px;height:260px; }
+.cbe-orbit.orbit-two { width:340px;height:340px;border-color:rgba(219,84,41,.25); }
+
+.cbe-node { position:absolute;width:10px;height:10px;border-radius:50%;background:#69b8cc;box-shadow:0 0 14px #69b8cc;z-index:2; }
+.cbe-node.node-one { top:28%;left:22%; }
+.cbe-node.node-two { bottom:30%;right:18%;background:#db5429;box-shadow:0 0 14px #db5429; }
+.cbe-node.node-three { top:18%;right:32%; }
+
+/* Circular core badge */
+.cbe-panel-core { position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;width:175px;height:175px;border:1px solid #69b8cc;border-radius:50%;background:rgba(7,30,42,.87);box-shadow:0 0 0 18px rgba(67,158,187,.1),0 0 60px rgba(42,156,192,.22);color:#d7f4fa;text-align:center; }
+.cbe-panel-core svg { color:#72c6da;opacity:.85;margin-bottom:6px; }
+.cbe-panel-core b { color:var(--lime);font-size:20px;letter-spacing:-1px;line-height:1; }
+.cbe-panel-core small { color:#9dbcc7;font-size:9px;margin-top:2px; }
+
+/* Scale / What We Do */
+.cbe-scale { display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:start;padding:85px 0 118px;border-top:1px solid rgba(168,205,218,.18); }
+.cbe-scale-header h2 { margin:16px 0 20px;font-size:clamp(39px,4vw,58px);line-height:1.08;letter-spacing:-2.3px; }
+.cbe-scale-header h2 em { font-family:'Playfair Display',serif;font-weight:600; }
+.cbe-scale-header p { max-width:480px;margin:0;color:#b5c3cb;font-size:13px;line-height:1.8; }
+.cbe-scale .industry-signals { justify-content:flex-start;margin:27px 0 29px;color:#a5bac4; }
+.cbe-scale .industry-signals span { padding:0 17px;font-size:10px;border-color:#274756; }
+.cbe-scale .industry-signals span:first-child { padding-left:0; }
+.cbe-scale .industry-signals b { color:var(--lime);font-size:17px; }
+
+/* Feature cards */
+.cbe-features-grid { display:grid;grid-template-columns:1fr 1fr;gap:9px; }
+.cbe-feature-card { background:#0b1b25;border:1px solid #274d5d;padding:32px 26px 30px;transition:background .25s,transform .25s; }
+.cbe-feature-card:hover { background:#102b38;transform:translateY(-3px); }
+.cbe-feature-icon { width:50px;height:50px;display:grid;place-items:center;border:1px solid #274d5d;color:#63b9da;margin-bottom:19px;background:rgba(25,118,210,.07); }
+.cbe-feature-card h3 { margin:0 0 10px;font-size:15px;letter-spacing:-.4px;color:#e8f2f6; }
+.cbe-feature-card p { margin:0;font-size:12px;color:#8aaabb;line-height:1.75; }
+
+/* Responsive */
+@media(max-width:850px) {
+  .cbe-masthead { padding-left:20px;padding-right:20px; }
+  .cbe-company-card { padding:27px; }
+  .cbe-journey { grid-template-columns:1fr;gap:52px; }
+  .cbe-art-panel { width:min(100%,520px);min-height:335px;justify-self:center; }
+  .cbe-scale { grid-template-columns:1fr;gap:50px; }
+}
+@media(max-width:620px) {
+  .cbe-masthead { min-height:284px;padding-top:51px; }
+  .cbe-company-card { padding:23px 20px; }
+  .cbe-company-card h1 { font-size:37px; }
+  .cbe-journey { padding:65px 0;gap:38px; }
+  .cbe-journey-copy h2 { font-size:39px; }
+  .cbe-art-panel { min-height:290px; }
+  .cbe-scale { padding:65px 0 80px; }
+  .cbe-scale-header h2 { font-size:39px; }
+  .cbe-features-grid { grid-template-columns:1fr; }
+  .cbe-feature-card { padding:26px 18px; }
+  .cbe-scale .industry-signals { flex-wrap:wrap;gap:13px;margin:20px 0 24px; }
+  .cbe-scale .industry-signals span { padding:0 12px 0 0;border:0;font-size:10px; }
+  .cbe-scale .industry-signals b { display:block;margin:0; }
+}
+
+/* ─── Customs Brokerage page — mirrors Industries page visual language ──────── */
+.customs-brokerage-page { min-height:100vh;background:#03090e;color:#f5f7f8; }
+
+/* Masthead */
+.cb-masthead { position:relative;min-height:326px;padding:72px 40px 0;overflow:hidden;background:linear-gradient(90deg,rgba(4,21,30,.9),rgba(6,20,28,.43)),repeating-linear-gradient(90deg,#1a3946 0 11%,#b44820 11% 14%,#213e49 14% 24%,#be7b29 24% 27%);background-size:auto,210px 100%; }
+.cb-masthead:after { content:'';position:absolute;inset:0;background:linear-gradient(transparent 0 68%,#03090e); }
+
+/* Company card */
+.cb-company-card { position:relative;z-index:1;width:min(875px,100%);margin:auto;padding:29px 39px 33px;background:rgba(2,8,13,.94);border-top:2px solid #db5429;box-shadow:0 15px 25px rgba(0,0,0,.45); }
+.cb-company-card h1 { margin:15px 0 8px;font-size:clamp(32px,3.7vw,51px);line-height:1.03;letter-spacing:-2px; }
+.cb-company-card h1 em { font-family:'Playfair Display',serif;font-weight:600; }
+.cb-company-card p { max-width:535px;margin:0;color:#b9c9d2;font-size:13px;line-height:1.7; }
+
+/* Journey section */
+.cb-journey { display:grid;grid-template-columns:1.15fr .85fr;gap:80px;align-items:center;padding:103px 0 88px; }
+.cb-journey-copy h2 { margin:16px 0 20px;font-size:clamp(39px,4vw,58px);line-height:1.08;letter-spacing:-2.3px; }
+.cb-journey-copy h2 em { font-family:'Playfair Display',serif;font-weight:600; }
+.cb-journey-copy p { max-width:550px;margin:0 0 20px;color:#b5c3cb;font-size:13px;line-height:1.8; }
+.cb-journey-copy p:last-child { margin:0; }
+
+/* CSS Art Panel */
+.cb-art-panel { position:relative;min-height:385px;isolation:isolate;display:grid;place-items:center;overflow:hidden;border:1px solid #254756;background:radial-gradient(circle at 50% 48%,rgba(30,115,149,.25),transparent 35%),linear-gradient(145deg,#071721,#0b2b3b); }
+.cb-art-panel:before { content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(134,210,230,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(134,210,230,.09) 1px,transparent 1px);background-size:37px 37px;mask-image:radial-gradient(circle,black,transparent 74%); }
+
+/* Orbits and nodes */
+.cb-orbit { position:absolute;border:1px dashed rgba(105,184,204,.35);border-radius:50%;z-index:1; }
+.cb-orbit.orbit-one { width:260px;height:260px; }
+.cb-orbit.orbit-two { width:340px;height:340px;border-color:rgba(219,84,41,.25); }
+
+.cb-node { position:absolute;width:10px;height:10px;border-radius:50%;background:#69b8cc;box-shadow:0 0 14px #69b8cc;z-index:2; }
+.cb-node.node-one { top:28%;left:22%; }
+.cb-node.node-two { bottom:30%;right:18%;background:#db5429;box-shadow:0 0 14px #db5429; }
+.cb-node.node-three { top:18%;right:32%; }
+
+/* Circular core badge */
+.cb-panel-core { position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;width:175px;height:175px;border:1px solid #69b8cc;border-radius:50%;background:rgba(7,30,42,.87);box-shadow:0 0 0 18px rgba(67,158,187,.1),0 0 60px rgba(42,156,192,.22);color:#d7f4fa;text-align:center; }
+.cb-panel-core svg { color:#72c6da;opacity:.85;margin-bottom:6px; }
+.cb-panel-core b { color:var(--lime);font-size:20px;letter-spacing:-1px;line-height:1; }
+.cb-panel-core small { color:#9dbcc7;font-size:9px;margin-top:2px; }
+
+/* Scale / What We Do */
+.cb-scale { display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:start;padding:85px 0 118px;border-top:1px solid rgba(168,205,218,.18); }
+.cb-scale-header h2 { margin:16px 0 20px;font-size:clamp(39px,4vw,58px);line-height:1.08;letter-spacing:-2.3px; }
+.cb-scale-header h2 em { font-family:'Playfair Display',serif;font-weight:600; }
+.cb-scale-header p { max-width:480px;margin:0;color:#b5c3cb;font-size:13px;line-height:1.8; }
+.cb-scale .industry-signals { justify-content:flex-start;margin:27px 0 29px;color:#a5bac4; }
+.cb-scale .industry-signals span { padding:0 17px;font-size:10px;border-color:#274756; }
+.cb-scale .industry-signals span:first-child { padding-left:0; }
+.cb-scale .industry-signals b { color:var(--lime);font-size:17px; }
+
+/* Feature cards */
+.cb-features-grid { display:grid;grid-template-columns:1fr 1fr;gap:9px; }
+.cb-feature-card { background:#0b1b25;border:1px solid #274d5d;padding:32px 26px 30px;transition:background .25s,transform .25s; }
+.cb-feature-card:hover { background:#102b38;transform:translateY(-3px); }
+.cb-feature-icon { width:50px;height:50px;display:grid;place-items:center;border:1px solid #274d5d;color:#63b9da;margin-bottom:19px;background:rgba(25,118,210,.07); }
+.cb-feature-card h3 { margin:0 0 10px;font-size:15px;letter-spacing:-.4px;color:#e8f2f6; }
+.cb-feature-card p { margin:0;font-size:12px;color:#8aaabb;line-height:1.75; }
+
+/* Responsive */
+@media(max-width:850px) {
+  .cb-masthead { padding-left:20px;padding-right:20px; }
+  .cb-company-card { padding:27px; }
+  .cb-journey { grid-template-columns:1fr;gap:52px; }
+  .cb-art-panel { width:min(100%,520px);min-height:335px;justify-self:center; }
+  .cb-scale { grid-template-columns:1fr;gap:50px; }
+}
+@media(max-width:620px) {
+  .cb-masthead { min-height:284px;padding-top:51px; }
+  .cb-company-card { padding:23px 20px; }
+  .cb-company-card h1 { font-size:37px; }
+  .cb-journey { padding:65px 0;gap:38px; }
+  .cb-journey-copy h2 { font-size:39px; }
+  .cb-art-panel { min-height:290px; }
+  .cb-scale { padding:65px 0 80px; }
+  .cb-scale-header h2 { font-size:39px; }
+  .cb-features-grid { grid-template-columns:1fr; }
+  .cb-feature-card { padding:26px 18px; }
+  .cb-scale .industry-signals { flex-wrap:wrap;gap:13px;margin:20px 0 24px; }
+  .cb-scale .industry-signals span { padding:0 12px 0 0;border:0;font-size:10px; }
+  .cb-scale .industry-signals b { display:block;margin:0; }
+}
+
+/* ─── Green Solution page — mirrors Industries page visual language ──────── */
+.green-solution-page { min-height:100vh;background:#03090e;color:#f5f7f8; }
+
+/* Masthead */
+.gs-masthead { position:relative;min-height:326px;padding:72px 40px 0;overflow:hidden;background:linear-gradient(90deg,rgba(4,21,30,.9),rgba(6,20,28,.43)),repeating-linear-gradient(90deg,#1a3946 0 11%,#1b4332 11% 14%,#213e49 14% 24%,#2d6a4f 24% 27%);background-size:auto,210px 100%; }
+.gs-masthead:after { content:'';position:absolute;inset:0;background:linear-gradient(transparent 0 68%,#03090e); }
+
+/* Company card */
+.gs-company-card { position:relative;z-index:1;width:min(875px,100%);margin:auto;padding:29px 39px 33px;background:rgba(2,8,13,.94);border-top:2px solid #52b788;box-shadow:0 15px 25px rgba(0,0,0,.45); }
+.gs-company-card h1 { margin:15px 0 8px;font-size:clamp(32px,3.7vw,51px);line-height:1.03;letter-spacing:-2px; }
+.gs-company-card h1 em { font-family:'Playfair Display',serif;font-weight:600; }
+.gs-company-card p { max-width:535px;margin:0;color:#b9c9d2;font-size:13px;line-height:1.7; }
+
+/* Journey section */
+.gs-journey { display:grid;grid-template-columns:1.15fr .85fr;gap:80px;align-items:center;padding:103px 0 88px; }
+.gs-journey-copy h2 { margin:16px 0 20px;font-size:clamp(39px,4vw,58px);line-height:1.08;letter-spacing:-2.3px; }
+.gs-journey-copy h2 em { font-family:'Playfair Display',serif;font-weight:600; }
+.gs-journey-copy p { max-width:550px;margin:0 0 20px;color:#b5c3cb;font-size:13px;line-height:1.8; }
+.gs-journey-copy p:last-child { margin:0; }
+
+/* CSS Art Panel */
+.gs-art-panel { position:relative;min-height:385px;isolation:isolate;display:grid;place-items:center;overflow:hidden;border:1px solid #204e3b;background:radial-gradient(circle at 50% 48%,rgba(45,106,79,.3),transparent 35%),linear-gradient(145deg,#041c14,#082a20); }
+.gs-art-panel:before { content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(82,183,136,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(82,183,136,.09) 1px,transparent 1px);background-size:37px 37px;mask-image:radial-gradient(circle,black,transparent 74%); }
+
+/* Orbits and nodes */
+.gs-orbit { position:absolute;border:1px dashed rgba(82,183,136,.35);border-radius:50%;z-index:1; }
+.gs-orbit.orbit-one { width:260px;height:260px; }
+.gs-orbit.orbit-two { width:340px;height:340px;border-color:rgba(116,198,157,.25); }
+
+.gs-node { position:absolute;width:10px;height:10px;border-radius:50%;background:#52b788;box-shadow:0 0 14px #52b788;z-index:2; }
+.gs-node.node-one { top:28%;left:22%; }
+.gs-node.node-two { bottom:30%;right:18%;background:#74c69d;box-shadow:0 0 14px #74c69d; }
+.gs-node.node-three { top:18%;right:32%; }
+
+/* Circular core badge */
+.gs-panel-core { position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;width:175px;height:175px;border:1px solid #52b788;border-radius:50%;background:rgba(4,28,20,.87);box-shadow:0 0 0 18px rgba(45,106,79,.12),0 0 60px rgba(82,183,136,.22);color:#d8f3dc;text-align:center; }
+.gs-panel-core svg { color:#74c69d;opacity:.88;margin-bottom:6px; }
+.gs-panel-core b { color:#95d5b2;font-size:20px;letter-spacing:-1px;line-height:1; }
+.gs-panel-core small { color:#b7e4c7;font-size:9px;margin-top:2px; }
+
+/* Scale / What We Do */
+.gs-scale { display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:start;padding:85px 0 118px;border-top:1px solid rgba(168,205,218,.18); }
+.gs-scale-header h2 { margin:16px 0 20px;font-size:clamp(39px,4vw,58px);line-height:1.08;letter-spacing:-2.3px; }
+.gs-scale-header h2 em { font-family:'Playfair Display',serif;font-weight:600; }
+.gs-scale-header p { max-width:480px;margin:0;color:#b5c3cb;font-size:13px;line-height:1.8; }
+.gs-scale .industry-signals { justify-content:flex-start;margin:27px 0 29px;color:#a5bac4; }
+.gs-scale .industry-signals span { padding:0 17px;font-size:10px;border-color:#204e3b; }
+.gs-scale .industry-signals span:first-child { padding-left:0; }
+.gs-scale .industry-signals b { color:#95d5b2;font-size:17px; }
+
+/* Feature cards */
+.gs-features-grid { display:grid;grid-template-columns:1fr 1fr;gap:9px; }
+.gs-feature-card { background:#0b1b25;border:1px solid #204e3b;padding:32px 26px 30px;transition:background .25s,transform .25s; }
+.gs-feature-card:hover { background:#0d261e;transform:translateY(-3px); }
+.gs-feature-icon { width:50px;height:50px;display:grid;place-items:center;border:1px solid #2d6a4f;color:#74c69d;margin-bottom:19px;background:rgba(45,106,79,.1); }
+.gs-feature-card h3 { margin:0 0 10px;font-size:15px;letter-spacing:-.4px;color:#e8f2f6; }
+.gs-feature-card p { margin:0;font-size:12px;color:#8aaabb;line-height:1.75; }
+
+/* Responsive */
+@media(max-width:850px) {
+  .gs-masthead { padding-left:20px;padding-right:20px; }
+  .gs-company-card { padding:27px; }
+  .gs-journey { grid-template-columns:1fr;gap:52px; }
+  .gs-art-panel { width:min(100%,520px);min-height:335px;justify-self:center; }
+  .gs-scale { grid-template-columns:1fr;gap:50px; }
+}
+@media(max-width:620px) {
+  .gs-masthead { min-height:284px;padding-top:51px; }
+  .gs-company-card { padding:23px 20px; }
+  .gs-company-card h1 { font-size:37px; }
+  .gs-journey { padding:65px 0;gap:38px; }
+  .gs-journey-copy h2 { font-size:39px; }
+  .gs-art-panel { min-height:290px; }
+  .gs-scale { padding:65px 0 80px; }
+  .gs-scale-header h2 { font-size:39px; }
+  .gs-features-grid { grid-template-columns:1fr; }
+  .gs-feature-card { padding:26px 18px; }
+  .gs-scale .industry-signals { flex-wrap:wrap;gap:13px;margin:20px 0 24px; }
+  .gs-scale .industry-signals span { padding:0 12px 0 0;border:0;font-size:10px; }
+  .gs-scale .industry-signals b { display:block;margin:0; }
+}
+
+/* ─── Technology & Customer Solution page — mirrors Industries visual language ──────── */
+.technology-customer-solution-page { min-height:100vh;background:#03090e;color:#f5f7f8; }
+
+/* Masthead */
+.tcs-masthead { position:relative;min-height:326px;padding:72px 40px 0;overflow:hidden;background:linear-gradient(90deg,rgba(4,21,30,.9),rgba(6,20,28,.43)),repeating-linear-gradient(90deg,#1a3946 0 11%,#b44820 11% 14%,#213e49 14% 24%,#be7b29 24% 27%);background-size:auto,210px 100%; }
+.tcs-masthead:after { content:'';position:absolute;inset:0;background:linear-gradient(transparent 0 68%,#03090e); }
+
+/* Company card */
+.tcs-company-card { position:relative;z-index:1;width:min(875px,100%);margin:auto;padding:29px 39px 33px;background:rgba(2,8,13,.94);border-top:2px solid #db5429;box-shadow:0 15px 25px rgba(0,0,0,.45); }
+.tcs-company-card h1 { margin:15px 0 8px;font-size:clamp(32px,3.7vw,51px);line-height:1.03;letter-spacing:-2px; }
+.tcs-company-card h1 em { font-family:'Playfair Display',serif;font-weight:600; }
+.tcs-company-card p { max-width:535px;margin:0;color:#b9c9d2;font-size:13px;line-height:1.7; }
+
+/* Journey section */
+.tcs-journey { display:grid;grid-template-columns:1.15fr .85fr;gap:80px;align-items:center;padding:103px 0 88px; }
+.tcs-journey-copy h2 { margin:16px 0 20px;font-size:clamp(39px,4vw,58px);line-height:1.08;letter-spacing:-2.3px; }
+.tcs-journey-copy h2 em { font-family:'Playfair Display',serif;font-weight:600; }
+.tcs-journey-copy p { max-width:550px;margin:0 0 20px;color:#b5c3cb;font-size:13px;line-height:1.8; }
+.tcs-journey-copy p:last-child { margin:0; }
+
+/* CSS Art Panel */
+.tcs-art-panel { position:relative;min-height:385px;isolation:isolate;display:grid;place-items:center;overflow:hidden;border:1px solid #254756;background:radial-gradient(circle at 50% 48%,rgba(30,115,149,.25),transparent 35%),linear-gradient(145deg,#071721,#0b2b3b); }
+.tcs-art-panel:before { content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(134,210,230,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(134,210,230,.09) 1px,transparent 1px);background-size:37px 37px;mask-image:radial-gradient(circle,black,transparent 74%); }
+
+/* Orbits and nodes */
+.tcs-orbit { position:absolute;border:1px dashed rgba(105,184,204,.35);border-radius:50%;z-index:1; }
+.tcs-orbit.orbit-one { width:260px;height:260px; }
+.tcs-orbit.orbit-two { width:340px;height:340px;border-color:rgba(219,84,41,.25); }
+
+.tcs-node { position:absolute;width:10px;height:10px;border-radius:50%;background:#69b8cc;box-shadow:0 0 14px #69b8cc;z-index:2; }
+.tcs-node.node-one { top:28%;left:22%; }
+.tcs-node.node-two { bottom:30%;right:18%;background:#db5429;box-shadow:0 0 14px #db5429; }
+.tcs-node.node-three { top:18%;right:32%; }
+
+/* Circular core badge */
+.tcs-panel-core { position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;width:175px;height:175px;border:1px solid #69b8cc;border-radius:50%;background:rgba(7,30,42,.87);box-shadow:0 0 0 18px rgba(67,158,187,.1),0 0 60px rgba(42,156,192,.22);color:#d7f4fa;text-align:center; }
+.tcs-panel-core svg { color:#72c6da;opacity:.85;margin-bottom:6px; }
+.tcs-panel-core b { color:var(--lime);font-size:20px;letter-spacing:-1px;line-height:1; }
+.tcs-panel-core small { color:#9dbcc7;font-size:9px;margin-top:2px; }
+
+/* Scale / What We Do */
+.tcs-scale { display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:start;padding:85px 0 118px;border-top:1px solid rgba(168,205,218,.18); }
+.tcs-scale-header h2 { margin:16px 0 20px;font-size:clamp(39px,4vw,58px);line-height:1.08;letter-spacing:-2.3px; }
+.tcs-scale-header h2 em { font-family:'Playfair Display',serif;font-weight:600; }
+.tcs-scale-header p { max-width:480px;margin:0;color:#b5c3cb;font-size:13px;line-height:1.8; }
+.tcs-scale .industry-signals { justify-content:flex-start;margin:27px 0 29px;color:#a5bac4; }
+.tcs-scale .industry-signals span { padding:0 17px;font-size:10px;border-color:#274756; }
+.tcs-scale .industry-signals span:first-child { padding-left:0; }
+.tcs-scale .industry-signals b { color:var(--lime);font-size:17px; }
+
+/* Feature cards */
+.tcs-features-grid { display:grid;grid-template-columns:1fr 1fr;gap:9px; }
+.tcs-feature-card { background:#0b1b25;border:1px solid #274d5d;padding:32px 26px 30px;transition:background .25s,transform .25s; }
+.tcs-feature-card:hover { background:#102b38;transform:translateY(-3px); }
+.tcs-feature-icon { width:50px;height:50px;display:grid;place-items:center;border:1px solid #274d5d;color:#63b9da;margin-bottom:19px;background:rgba(25,118,210,.07); }
+.tcs-feature-card h3 { margin:0 0 10px;font-size:15px;letter-spacing:-.4px;color:#e8f2f6; }
+.tcs-feature-card p { margin:0;font-size:12px;color:#8aaabb;line-height:1.75; }
+
+/* Responsive */
+@media(max-width:850px) {
+  .tcs-masthead { padding-left:20px;padding-right:20px; }
+  .tcs-company-card { padding:27px; }
+  .tcs-journey { grid-template-columns:1fr;gap:52px; }
+  .tcs-art-panel { width:min(100%,520px);min-height:335px;justify-self:center; }
+  .tcs-scale { grid-template-columns:1fr;gap:50px; }
+}
+@media(max-width:620px) {
+  .tcs-masthead { min-height:284px;padding-top:51px; }
+  .tcs-company-card { padding:23px 20px; }
+  .tcs-company-card h1 { font-size:37px; }
+  .tcs-journey { padding:65px 0;gap:38px; }
+  .tcs-journey-copy h2 { font-size:39px; }
+  .tcs-art-panel { min-height:290px; }
+  .tcs-scale { padding:65px 0 80px; }
+  .tcs-scale-header h2 { font-size:39px; }
+  .tcs-features-grid { grid-template-columns:1fr; }
+  .tcs-feature-card { padding:26px 18px; }
+  .tcs-scale .industry-signals { flex-wrap:wrap;gap:13px;margin:20px 0 24px; }
+  .tcs-scale .industry-signals span { padding:0 12px 0 0;border:0;font-size:10px; }
+  .tcs-scale .industry-signals b { display:block;margin:0; }
+}
+
+
+
+
