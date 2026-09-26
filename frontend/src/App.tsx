@@ -93,68 +93,86 @@ function App() {
   }, [])
 
   const track = () => setTrackMessage(trackValue.trim() ? `Tracking ${trackValue.toUpperCase()} — status ready to view.` : 'Enter your shipment number to begin.')
-  const navigateTo = (event: ReactMouseEvent<HTMLAnchorElement>, path: string) => {
+  const navigateTo = (event: ReactMouseEvent<HTMLAnchorElement>, path: string, beforeUpdate?: () => void) => {
     event.preventDefault()
-    if (path === pagePath) return
+    const [basePath, hash] = path.split('#')
+    
+    if (basePath === pagePath) {
+      if (beforeUpdate) beforeUpdate()
+      if (hash) {
+        window.history.pushState({}, '', path)
+        setTimeout(() => document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' }), 10)
+      } else {
+        window.scrollTo(0, 0)
+      }
+      return
+    }
     const updatePage = () => {
+      if (beforeUpdate) beforeUpdate()
       window.history.pushState({}, '', path)
-      setPagePath(path)
-      window.scrollTo(0, 0)
+      setPagePath(basePath)
+      if (hash) {
+        setTimeout(() => document.getElementById(hash)?.scrollIntoView(), 10)
+      } else {
+        window.scrollTo(0, 0)
+      }
     }
     const documentWithTransition = document as Document & { startViewTransition?: (callback: () => void) => void }
     documentWithTransition.startViewTransition ? documentWithTransition.startViewTransition(updatePage) : updatePage()
   }
   const selectService = (event: ReactMouseEvent<HTMLAnchorElement>, name: string) => {
     event.preventDefault()
-    setServicesOpen(false)
-    setMobileServicesOpen(false)
-    setMobileOpen(false)
+    const closeMenus = () => {
+      setServicesOpen(false)
+      setMobileServicesOpen(false)
+      setMobileOpen(false)
+    }
     if (name === 'Air Freight') {
-      navigateTo(event, '/air-freight')
+      navigateTo(event, '/air-freight', closeMenus)
       return
     }
     if (name === 'Cargo Insurance') {
-      navigateTo(event, '/cargo-insurance')
+      navigateTo(event, '/cargo-insurance', closeMenus)
       return
     }
     if (name === 'Ocean Freight (FCL)') {
-      navigateTo(event, '/ocean-freight-fcl')
+      navigateTo(event, '/ocean-freight-fcl', closeMenus)
       return
     }
     if (name === 'Ocean Freight (LCL)') {
-      navigateTo(event, '/ocean-freight-lcl')
+      navigateTo(event, '/ocean-freight-lcl', closeMenus)
       return
     }
     if (name === 'Rail Freight') {
-      navigateTo(event, '/rail-freight')
+      navigateTo(event, '/rail-freight', closeMenus)
       return
     }
     if (name === 'Road Freight') {
-      navigateTo(event, '/road-freight')
+      navigateTo(event, '/road-freight', closeMenus)
       return
     }
     if (name === 'Social & Weighting & Filling') {
-      navigateTo(event, '/social-weighting')
+      navigateTo(event, '/social-weighting', closeMenus)
       return
     }
     if (name === 'Contract Logistics') {
-      navigateTo(event, '/contract-logistics')
+      navigateTo(event, '/contract-logistics', closeMenus)
       return
     }
     if (name === 'Cross Border E-Commerce' || name.toLowerCase().includes('cross border')) {
-      navigateTo(event, '/cross-border')
+      navigateTo(event, '/cross-border', closeMenus)
       return
     }
     if (name === 'Customs Brokerage' || name.toLowerCase().includes('custom')) {
-      navigateTo(event, '/customs-brokerage')
+      navigateTo(event, '/customs-brokerage', closeMenus)
       return
     }
     if (name === 'Green Solution' || name.toLowerCase().includes('green')) {
-      navigateTo(event, '/green-solution')
+      navigateTo(event, '/green-solution', closeMenus)
       return
     }
     if (name.toLowerCase().includes('technology') || name.toLowerCase().includes('customer solution') || name.toLowerCase().includes('custommer')) {
-      navigateTo(event, '/technology-customer-solution')
+      navigateTo(event, '/technology-customer-solution', closeMenus)
       return
     }
     setSelectedService(name)
@@ -198,7 +216,7 @@ function App() {
         ) : <a key={item} className={i === 0 ? 'active' : ''} href={navHref(item)} onClick={item === 'Industries' || item === 'About Us' || item === 'Contact Us' ? event => navigateTo(event, navHref(item)) : undefined}>{item}</a>)}
       </nav>
       <div className="header-actions"><Button className="quote-top">Get a Quote <ArrowUpRight size={16} /></Button><button className="menu-button" onClick={() => setMobileOpen(!mobileOpen)} aria-expanded={mobileOpen} aria-label="Toggle navigation">{mobileOpen ? <X /> : <Menu />}</button></div>
-      <div className={`mobile-nav ${mobileOpen ? 'open' : ''}`}>{navItems.map(item => item === 'Services' ? <div className="mobile-services" key={item}><button type="button" onClick={() => setMobileServicesOpen(open => !open)} aria-expanded={mobileServicesOpen} aria-controls="mobile-services-list">Services <ChevronDown size={16}/></button><div id="mobile-services-list" className={mobileServicesOpen ? 'open' : ''}>{services.map(({ name }) => <a key={name} href={`#${serviceId(name)}`} aria-current={selectedService === name ? 'true' : undefined} onClick={event => selectService(event, name)}>{name}<ChevronRight size={14}/></a>)}</div></div> : <a onClick={event => { setMobileOpen(false); if (item === 'Industries' || item === 'About Us' || item === 'Contact Us') navigateTo(event, navHref(item)) }} key={item} href={navHref(item)}>{item}<ArrowRight size={16}/></a>)}<Button>Get a Quote <ArrowRight size={16}/></Button></div>
+      <div className={`mobile-nav ${mobileOpen ? 'open' : ''}`}>{navItems.map(item => item === 'Services' ? <div className="mobile-services" key={item}><button type="button" onClick={() => setMobileServicesOpen(open => !open)} aria-expanded={mobileServicesOpen} aria-controls="mobile-services-list">Services <ChevronDown size={16}/></button><div id="mobile-services-list" className={mobileServicesOpen ? 'open' : ''}>{services.map(({ name }) => <a key={name} href={`#${serviceId(name)}`} aria-current={selectedService === name ? 'true' : undefined} onClick={event => selectService(event, name)}>{name}<ChevronRight size={14}/></a>)}</div></div> : <a onClick={event => { if (item === 'Industries' || item === 'About Us' || item === 'Contact Us') navigateTo(event, navHref(item), () => setMobileOpen(false)) }} key={item} href={navHref(item)}>{item}<ArrowRight size={16}/></a>)}<Button>Get a Quote <ArrowRight size={16}/></Button></div>
     </header>
 
     <main>
@@ -230,7 +248,10 @@ function App() {
       <section className="section-shell services-section" id="services">
         <div className="section-intro"><div><span className="eyebrow"><span /> What we do</span><h2>One network.<br /><em>Every shipping need.</em></h2></div><p>From ocean freight to complete supply-chain solutions, we help businesses move cargo across borders with confidence.</p></div>
         {selectedService && <SelectedServicePanel service={services.find(service => service.name === selectedService)!} onClear={() => { setSelectedService(null); window.history.replaceState(null, '', '#services') }} />}
-        <div className="services-grid">{services.map(({icon: Icon, name, description, tag}) => <article className={`service-card ${selectedService === name ? 'selected' : ''}`} id={serviceId(name)} key={name} tabIndex={-1}><div className="service-top"><div className="line-icon"><Icon size={24}/></div><span>{tag}</span></div><h3>{name}</h3><p>{description}</p><a href="#quote" aria-label={`Request a quote for ${name}`} onClick={() => setSelectedService(name)}>Request a quote <ArrowRight size={16}/></a></article>)}</div>
+        <div className="services-grid">{services.map(({icon: Icon, name, description, tag}) => {
+          const path = name === 'Air Freight' ? '/air-freight' : name === 'Cargo Insurance' ? '/cargo-insurance' : name === 'Ocean Freight (FCL)' ? '/ocean-freight-fcl' : name === 'Ocean Freight (LCL)' ? '/ocean-freight-lcl' : name === 'Rail Freight' ? '/rail-freight' : name === 'Road Freight' ? '/road-freight' : name === 'Social & Weighting & Filling' ? '/social-weighting' : name === 'Contract Logistics' ? '/contract-logistics' : name === 'Cross Border E-Commerce' ? '/cross-border' : name === 'Customs Brokerage' ? '/customs-brokerage' : name === 'Green Solution' ? '/green-solution' : '/technology-customer-solution';
+          return <article className={`service-card ${selectedService === name ? 'selected' : ''}`} id={serviceId(name)} key={name} tabIndex={0} style={{ cursor: 'pointer' }} onClick={(e) => navigateTo(e as any, path)}><div className="service-top"><div className="line-icon"><Icon size={24}/></div><span>{tag}</span></div><h3>{name}</h3><p>{description}</p><a href={path} aria-label={`Request a quote for ${name}`} onClick={(e) => { e.preventDefault(); e.stopPropagation(); navigateTo(e as any, path); }}>Request a quote <ArrowRight size={16}/></a></article>
+        })}</div>
       </section>
 
       <section className="process-section section-shell" id="solutions"><div className="center-intro"><span className="eyebrow"><span /> How it works</span><h2>Complex logistics.<br /><em>Made clear.</em></h2><p>One experienced partner from the first request to final delivery.</p></div><div className="process-line">{process.map(([number, title, copy], i) => <article key={title}><span>{number}</span><i className={i === 0 ? 'active-dot' : ''}/><h3>{title}</h3><p>{copy}</p></article>)}</div></section>
@@ -264,7 +285,7 @@ function SelectedServicePanel({ service, onClear }: { service: typeof services[n
 
 function AboutPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HTMLAnchorElement>, path: string) => void }) {
   return <div className="about-page">
-    <header className="about-header"><div className="about-header-inner"><Logo href="/" /><nav aria-label="Primary navigation"><a href="/" onClick={event => onNavigate(event, '/')}>Home</a><a href="/#services">Services</a><a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a><a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a><a className="active" href="/about">About Us</a></nav><a className="industries-quote" href="/#quote">Get a Quote <ArrowUpRight size={15}/></a></div></header>
+    <header className="about-header"><div className="about-header-inner"><Logo href="/" /><nav aria-label="Primary navigation"><a href="/" onClick={event => onNavigate(event, '/')}>Home</a><a href="/#services" onClick={event => onNavigate(event, '/#services')}>Services</a><a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a><a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a><a className="active" href="/about">About Us</a></nav><a className="industries-quote" href="/#quote">Get a Quote <ArrowUpRight size={15}/></a></div></header>
     <main>
       <section className="about-masthead"><div className="about-company-card"><span className="eyebrow light"><span /> LARA SHIPPING LINE</span><h1>A trusted partner in global logistics.</h1><p>We deliver thoughtful cargo transportation solutions, with operational clarity at every stage.</p></div></section>
       <section className="about-story section-shell"><div className="about-truck-art" aria-hidden="true"><i className="truck-box"/><i className="truck-cab"/><i className="truck-window"/><i className="truck-wheel wheel-one"/><i className="truck-wheel wheel-two"/></div><div className="about-copy"><span className="eyebrow light"><span /> About us</span><h2>Secure &amp; swift<br /><em>logistics solutions.</em></h2><p>LARA Shipping Line is a trusted name in global logistics, specializing in efficient cargo transportation solutions. Through our network of carriers and partners, we provide reliable and timely delivery around the world.</p><p>From ocean freight and air cargo to inland transportation, we offer a complete range of services designed around the way your business moves.</p></div></section>
@@ -282,7 +303,7 @@ function ContactPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HTMLA
   }
 
   return <div className="contact-page">
-    <header className="about-header"><div className="about-header-inner"><Logo href="/" /><nav aria-label="Primary navigation"><a href="/" onClick={event => onNavigate(event, '/')}>Home</a><a href="/#services">Services</a><a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a><a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a><a className="active" href="/contact">Contact Us</a></nav><a className="industries-quote" href="/#quote">Get a Quote <ArrowUpRight size={15}/></a></div></header>
+    <header className="about-header"><div className="about-header-inner"><Logo href="/" /><nav aria-label="Primary navigation"><a href="/" onClick={event => onNavigate(event, '/')}>Home</a><a href="/#services" onClick={event => onNavigate(event, '/#services')}>Services</a><a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a><a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a><a className="active" href="/contact">Contact Us</a></nav><a className="industries-quote" href="/#quote">Get a Quote <ArrowUpRight size={15}/></a></div></header>
     <main className="contact-main section-shell"><section className="contact-details"><span className="eyebrow light"><span /> Contact us</span><h1>Get in <em>touch.</em></h1><p className="contact-company">Lara Shipping Line</p><ContactOffice title="Head Office" details={[['address', '114/115, Vivaan Arcade, Ramlakshman Nagar, East Zone, Sowripalayam Post, Coimbatore-641028'], ['email', 'sales@larashippingline.com'], ['phone', '+91 81481 14238'], ['phone', '+91 81481 14279']]} /><ContactOffice title="Mumbai Branch Office" details={[['address', 'G-34, Haware Fantasia Business Park, Plot No. 47, Sector -30A, Vashi, Navi Mumbai - 400703.'], ['phone', '+91 22 45773828']]} /><ContactOffice title="Dubai Branch Office" subtitle="LARA SHIPPING LINE LLC" details={[['address', 'M-Floor Office – 208, Hamsa A Wing, Al Karama, Dubai, UAE.'], ['phone', '+971 56 542 0228']]} /></section>
       <section className="contact-form-wrap"><div className="contact-form-heading"><span className="eyebrow light"><span /> Send a message</span><h2>How can we help?</h2><p>Tell us about your shipment or question, and our team will respond shortly.</p><div className="contact-response-note"><span><i /> Typically replies within one business day</span><span>Secure &amp; confidential</span></div></div><form className="contact-form" onSubmit={submitContact}>{submitted ? <div className="contact-success" role="status"><Check size={22}/><div><strong>Message received</strong><p>Thank you. Our team will be in touch soon.</p></div><button type="button" onClick={() => setSubmitted(false)}>Send another message</button></div> : <><div className="contact-form-row"><label>Name<input name="name" autoComplete="name" placeholder="Your full name" required /></label><label>Email <b>*</b><input name="email" type="email" autoComplete="email" placeholder="you@company.com" required /></label></div><label>Subject<input name="subject" placeholder="How can we help?" required /></label><label>Message<textarea name="message" rows={6} placeholder="Tell us about your shipment, route, or requirement…" required /></label><div className="contact-form-footer"><small>By submitting, you agree to be contacted by our logistics team.</small><button className="contact-submit" type="submit">Send message <ArrowRight size={16}/></button></div></>}</form></section>
     </main>
@@ -298,7 +319,7 @@ function IndustriesPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HT
   const [activeTab, setActiveTab] = useState<keyof typeof industryTabs>('Achievements')
 
   return <div className="industries-page">
-    <header className="about-header"><div className="about-header-inner"><Logo href="/" /><nav aria-label="Primary navigation"><a href="/" onClick={event => onNavigate(event, '/')}>Home</a><a href="/#services">Services</a><a className="active" href="/industries">Industries</a><a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a><a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a></nav><a className="industries-quote" href="/#quote">Get a Quote <ArrowUpRight size={15}/></a></div></header>
+    <header className="about-header"><div className="about-header-inner"><Logo href="/" /><nav aria-label="Primary navigation"><a href="/" onClick={event => onNavigate(event, '/')}>Home</a><a href="/#services" onClick={event => onNavigate(event, '/#services')}>Services</a><a className="active" href="/industries">Industries</a><a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a><a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a></nav><a className="industries-quote" href="/#quote">Get a Quote <ArrowUpRight size={15}/></a></div></header>
     <main>
       <section className="industries-masthead"><div className="industries-company-card"><span className="eyebrow light"><span /> LARA SHIPPING LINE</span><h1>Industries we<br /><em>move forward.</em></h1><p>Specialized logistics capabilities built around the needs, pace, and standards of your industry.</p></div></section>
       <section className="industries-journey section-shell">
@@ -323,7 +344,7 @@ function AirFreightPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HT
           <Logo href="/" />
           <nav aria-label="Primary navigation">
             <a href="/" onClick={event => onNavigate(event, '/')}>Home</a>
-            <a href="/#services" className="active">Services</a>
+            <a href="/#services" className="active" onClick={event => onNavigate(event, '/#services')}>Services</a>
             <a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a>
             <a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a>
             <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
@@ -430,7 +451,7 @@ function CargoInsurancePage({ onNavigate }: { onNavigate: (event: ReactMouseEven
           <Logo href="/" />
           <nav aria-label="Primary navigation">
             <a href="/" onClick={event => onNavigate(event, '/')}>Home</a>
-            <a href="/#services" className="active">Services</a>
+            <a href="/#services" className="active" onClick={event => onNavigate(event, '/#services')}>Services</a>
             <a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a>
             <a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a>
             <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
@@ -536,7 +557,7 @@ function OceanFreightLCLPage({ onNavigate }: { onNavigate: (event: ReactMouseEve
           <Logo href="/" />
           <nav aria-label="Primary navigation">
             <a href="/" onClick={event => onNavigate(event, '/')}>Home</a>
-            <a href="/#services" className="active">Services</a>
+            <a href="/#services" className="active" onClick={event => onNavigate(event, '/#services')}>Services</a>
             <a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a>
             <a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a>
             <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
@@ -638,7 +659,7 @@ function OceanFreightFCLPage({ onNavigate }: { onNavigate: (event: ReactMouseEve
           <Logo href="/" />
           <nav aria-label="Primary navigation">
             <a href="/" onClick={event => onNavigate(event, '/')}>Home</a>
-            <a href="/#services" className="active">Services</a>
+            <a href="/#services" className="active" onClick={event => onNavigate(event, '/#services')}>Services</a>
             <a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a>
             <a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a>
             <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
@@ -740,7 +761,7 @@ function RailFreightPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<H
           <Logo href="/" />
           <nav aria-label="Primary navigation">
             <a href="/" onClick={event => onNavigate(event, '/')}>Home</a>
-            <a href="/#services" className="active">Services</a>
+            <a href="/#services" className="active" onClick={event => onNavigate(event, '/#services')}>Services</a>
             <a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a>
             <a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a>
             <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
@@ -848,7 +869,7 @@ function RoadFreightPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<H
           <Logo href="/" />
           <nav aria-label="Primary navigation">
             <a href="/" onClick={event => onNavigate(event, '/')}>Home</a>
-            <a href="/#services" className="active">Services</a>
+            <a href="/#services" className="active" onClick={event => onNavigate(event, '/#services')}>Services</a>
             <a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a>
             <a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a>
             <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
@@ -953,7 +974,7 @@ function SocialWeightingPage({ onNavigate }: { onNavigate: (event: ReactMouseEve
           <Logo href="/" />
           <nav aria-label="Primary navigation">
             <a href="/" onClick={event => onNavigate(event, '/')}>Home</a>
-            <a href="/#services" className="active">Services</a>
+            <a href="/#services" className="active" onClick={event => onNavigate(event, '/#services')}>Services</a>
             <a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a>
             <a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a>
             <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
@@ -1064,7 +1085,7 @@ function ContractLogisticsPage({ onNavigate }: { onNavigate: (event: ReactMouseE
           <Logo href="/" />
           <nav aria-label="Primary navigation">
             <a href="/" onClick={event => onNavigate(event, '/')}>Home</a>
-            <a href="/#services" className="active">Services</a>
+            <a href="/#services" className="active" onClick={event => onNavigate(event, '/#services')}>Services</a>
             <a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a>
             <a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a>
             <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
@@ -1170,7 +1191,7 @@ function CrossBorderEcommercePage({ onNavigate }: { onNavigate: (event: ReactMou
           <Logo href="/" />
           <nav aria-label="Primary navigation">
             <a href="/" onClick={event => onNavigate(event, '/')}>Home</a>
-            <a href="/#services" className="active">Services</a>
+            <a href="/#services" className="active" onClick={event => onNavigate(event, '/#services')}>Services</a>
             <a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a>
             <a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a>
             <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
@@ -1274,7 +1295,7 @@ function CustomsBrokeragePage({ onNavigate }: { onNavigate: (event: ReactMouseEv
           <Logo href="/" />
           <nav aria-label="Primary navigation">
             <a href="/" onClick={event => onNavigate(event, '/')}>Home</a>
-            <a href="/#services" className="active">Services</a>
+            <a href="/#services" className="active" onClick={event => onNavigate(event, '/#services')}>Services</a>
             <a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a>
             <a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a>
             <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
@@ -1378,7 +1399,7 @@ function GreenSolutionPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent
           <Logo href="/" />
           <nav aria-label="Primary navigation">
             <a href="/" onClick={event => onNavigate(event, '/')}>Home</a>
-            <a href="/#services" className="active">Services</a>
+            <a href="/#services" className="active" onClick={event => onNavigate(event, '/#services')}>Services</a>
             <a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a>
             <a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a>
             <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
@@ -1482,7 +1503,7 @@ function TechnologyCustomerSolutionPage({ onNavigate }: { onNavigate: (event: Re
           <Logo href="/" />
           <nav aria-label="Primary navigation">
             <a href="/" onClick={event => onNavigate(event, '/')}>Home</a>
-            <a href="/#services" className="active">Services</a>
+            <a href="/#services" className="active" onClick={event => onNavigate(event, '/#services')}>Services</a>
             <a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a>
             <a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a>
             <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
