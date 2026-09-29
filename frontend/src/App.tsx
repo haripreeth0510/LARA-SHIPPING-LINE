@@ -58,7 +58,7 @@ const benefits: { icon: ElementType; title: string; copy: string }[] = [
   { icon: CircleHelp, title: 'Dedicated support', copy: 'Real people, ready to help whenever your shipment needs attention.' },
 ]
 
-function Logo({ href = '#home' }: { href?: string }) { return <a className="logo" href={href} aria-label="Lara Shipping home"><span className="logo-mark"><i /><i /><i /></span><span>LARA<small>SHIPPING</small></span></a> }
+function Logo({ href = '#home' }: { href?: string }) { return <a className="logo" href={href} aria-label="Lara Shipping home"><img src="/logo.png" alt="LARA Shipping Logo" style={{ height: '45px', width: 'auto', display: 'block' }} /></a> }
 
 function Button({ children, variant = 'primary', className = '' }: { children: React.ReactNode; variant?: 'primary' | 'secondary' | 'dark'; className?: string }) {
   return <a href="#quote" className={`button ${variant} ${className}`}>{children}</a>
@@ -267,11 +267,68 @@ function App() {
       <section className="quote-section" id="quote"><div className="quote-inner"><span className="eyebrow light"><span /> Let’s move forward</span><h2>Ready to move your<br /><em>business forward?</em></h2><p>Tell us what you’re shipping, where it’s going, and we’ll help find the right logistics solution.</p><div><Button>Get a Quote <ArrowRight size={17}/></Button><Button variant="secondary">Talk to our team</Button></div></div></section>
     </main>
 
-    <footer><div className="footer-top section-shell"><div className="footer-brand"><Logo/><p>Global logistics, made more intelligent.</p><div><a href="#linkedin" aria-label="LinkedIn"><Link size={17}/></a><a href="#instagram" aria-label="Instagram"><Camera size={17}/></a><a href="#x" aria-label="X"><Send size={17}/></a></div></div><FooterColumn title="Company" items={['About Us', 'Careers', 'Global Network', 'Contact']}/><FooterColumn title="Services" items={['Ocean Freight', 'Air Freight', 'Warehousing', 'Customs', 'Transportation']}/><FooterColumn title="Resources" items={['Track Shipment', 'Get a Quote', 'FAQs', 'Support']}/></div><div className="footer-bottom section-shell"><span>© 2026 LARA SHIPPING. All rights reserved.</span><div><a href="#privacy">Privacy policy</a><a href="#terms">Terms of use</a></div></div></footer>
+    <footer><div className="footer-top section-shell"><div className="footer-brand"><Logo/><p>Global logistics, made more intelligent.</p><span>Connect With Us</span><div><a href="#linkedin" aria-label="LinkedIn"><Link size={17}/></a><a href="#instagram" aria-label="Instagram"><Camera size={17}/></a><a href="#x" aria-label="X"><Send size={17}/></a></div></div><FooterColumn title="Company" items={['About Us', 'Careers', 'Global Network', 'Contact']}/><FooterColumn title="Services" items={['Ocean Freight', 'Air Freight', 'Warehousing', 'Customs', 'Transportation']}/><FooterColumn title="Resources" items={['Track Shipment', 'Get a Quote', 'FAQs', 'Support']}/></div><div className="footer-bottom section-shell"><span>© 2026 LARA SHIPPING. All rights reserved.</span><div><a href="#privacy">Privacy policy</a><a href="#terms">Terms of use</a></div></div></footer>
   </div>
 }
 
-function FooterColumn({title, items}: {title: string; items: string[]}) { return <div className="footer-column"><h3>{title}</h3>{items.map(item => <a key={item} href="#home">{item}</a>)}</div> }
+const getFooterLinkPath = (name: string) => {
+  if (name === 'Home') return '/'
+  if (name === 'About Us') return '/about'
+  if (name === 'Services') return '/#services'
+  if (name === 'Industries') return '/industries'
+  if (name === 'Contact' || name === 'Contact Us') return '/contact'
+  if (name === 'Air Freight') return '/air-freight'
+  if (name === 'Cargo Insurance') return '/cargo-insurance'
+  if (name === 'Ocean Freight' || name === 'Ocean Freight(FCL)' || name === 'Ocean Freight (FCL)') return '/ocean-freight-fcl'
+  if (name === 'Ocean Freight(LCL)' || name === 'Ocean Freight (LCL)') return '/ocean-freight-lcl'
+  if (name === 'Rail Freight') return '/rail-freight'
+  if (name === 'Road Freight') return '/road-freight'
+  if (name === 'Multi Modal') return '/#services'
+  if (name === 'Social, Weighting and Filling' || name === 'Social & Weighting & Filling' || name === 'Warehousing') return '/social-weighting'
+  if (name === 'Contract Logistics') return '/contract-logistics'
+  if (name === 'Cross Border E-Commerce') return '/cross-border'
+  if (name === 'Customs Brokerage' || name === 'Customs') return '/customs-brokerage'
+  if (name === 'Green Solution') return '/green-solution'
+  if (name === 'Technology & Customer Services' || name === 'Technology & Customer Solution') return '/technology-customer-solution'
+  if (name === 'Global Network') return '/#global-network'
+  if (name === 'Careers' || name === 'Track Shipment' || name === 'Get a Quote' || name === 'FAQs' || name === 'Support' || name === 'Transportation') return '/#quote'
+  return '/'
+}
+
+function FooterColumn({title, items}: {title: string; items: string[]}) {
+  const navigate = (e: ReactMouseEvent<HTMLAnchorElement>, path: string) => {
+    e.preventDefault();
+    const [basePath, hash] = path.split('#');
+    if (basePath === window.location.pathname || (basePath === '' && !hash)) {
+      if (hash) {
+        window.history.pushState({}, '', path);
+        setTimeout(() => document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' }), 10);
+      } else {
+        window.scrollTo(0, 0);
+      }
+      return;
+    }
+    const updatePage = () => {
+      window.history.pushState({}, '', path);
+      window.dispatchEvent(new PopStateEvent('popstate'));
+      if (hash) {
+        setTimeout(() => document.getElementById(hash)?.scrollIntoView(), 10);
+      } else {
+        window.scrollTo(0, 0);
+      }
+    };
+    const documentWithTransition = document as Document & { startViewTransition?: (callback: () => void) => void };
+    documentWithTransition.startViewTransition ? documentWithTransition.startViewTransition(updatePage) : updatePage();
+  };
+
+  return <div className="footer-column">
+    <h3>{title}</h3>
+    {items.map(item => {
+      const path = getFooterLinkPath(item);
+      return <a key={item} href={path} onClick={(e) => navigate(e as any, path)}>{item}</a>
+    })}
+  </div>
+}
 
 function SelectedServicePanel({ service, onClear }: { service: typeof services[number]; onClear: () => void }) {
   const Icon = service.icon
