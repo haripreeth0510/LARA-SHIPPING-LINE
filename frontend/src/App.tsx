@@ -184,23 +184,24 @@ function App() {
     })
   }
 
-  if (pagePath === '/industries') return <IndustriesPage onNavigate={navigateTo} />
-  if (pagePath === '/about') return <AboutPage onNavigate={navigateTo} />
-  if (pagePath === '/contact') return <ContactPage onNavigate={navigateTo} />
-  if (pagePath === '/air-freight') return <AirFreightPage onNavigate={navigateTo} />
-  if (pagePath === '/cargo-insurance') return <CargoInsurancePage onNavigate={navigateTo} />
-  if (pagePath === '/ocean-freight-fcl') return <OceanFreightFCLPage onNavigate={navigateTo} />
-  if (pagePath === '/ocean-freight-lcl') return <OceanFreightLCLPage onNavigate={navigateTo} />
-  if (pagePath === '/rail-freight') return <RailFreightPage onNavigate={navigateTo} />
-  if (pagePath === '/road-freight') return <RoadFreightPage onNavigate={navigateTo} />
-  if (pagePath === '/social-weighting') return <SocialWeightingPage onNavigate={navigateTo} />
-  if (pagePath === '/contract-logistics') return <ContractLogisticsPage onNavigate={navigateTo} />
-  if (pagePath === '/cross-border') return <CrossBorderEcommercePage onNavigate={navigateTo} />
-  if (pagePath === '/customs-brokerage') return <CustomsBrokeragePage onNavigate={navigateTo} />
-  if (pagePath === '/green-solution') return <GreenSolutionPage onNavigate={navigateTo} />
-  if (pagePath === '/technology-customer-solution') return <TechnologyCustomerSolutionPage onNavigate={navigateTo} />
-
-  return <div>
+  let content = null;
+  if (pagePath === '/industries') content = <IndustriesPage onNavigate={navigateTo} />
+  else if (pagePath === '/about') content = <AboutPage onNavigate={navigateTo} />
+  else if (pagePath === '/contact') content = <ContactPage onNavigate={navigateTo} />
+  else if (pagePath === '/our-offer') content = <OurOfferPage onNavigate={navigateTo} />
+  else if (pagePath === '/air-freight') content = <AirFreightPage onNavigate={navigateTo} />
+  else if (pagePath === '/cargo-insurance') content = <CargoInsurancePage onNavigate={navigateTo} />
+  else if (pagePath === '/ocean-freight-fcl') content = <OceanFreightFCLPage onNavigate={navigateTo} />
+  else if (pagePath === '/ocean-freight-lcl') content = <OceanFreightLCLPage onNavigate={navigateTo} />
+  else if (pagePath === '/rail-freight') content = <RailFreightPage onNavigate={navigateTo} />
+  else if (pagePath === '/road-freight') content = <RoadFreightPage onNavigate={navigateTo} />
+  else if (pagePath === '/social-weighting') content = <SocialWeightingPage onNavigate={navigateTo} />
+  else if (pagePath === '/contract-logistics') content = <ContractLogisticsPage onNavigate={navigateTo} />
+  else if (pagePath === '/cross-border') content = <CrossBorderEcommercePage onNavigate={navigateTo} />
+  else if (pagePath === '/customs-brokerage') content = <CustomsBrokeragePage onNavigate={navigateTo} />
+  else if (pagePath === '/green-solution') content = <GreenSolutionPage onNavigate={navigateTo} />
+  else if (pagePath === '/technology-customer-solution') content = <TechnologyCustomerSolutionPage onNavigate={navigateTo} />
+  else content = <div>
     <header className={`header ${scrolled ? 'is-scrolled' : ''}`}>
       <Logo />
       <nav className="desktop-nav" aria-label="Primary navigation">
@@ -267,8 +268,38 @@ function App() {
       <section className="quote-section" id="quote"><div className="quote-inner"><span className="eyebrow light"><span /> Let’s move forward</span><h2>Ready to move your<br /><em>business forward?</em></h2><p>Tell us what you’re shipping, where it’s going, and we’ll help find the right logistics solution.</p><div><Button>Get a Quote <ArrowRight size={17}/></Button><Button variant="secondary">Talk to our team</Button></div></div></section>
     </main>
 
-    <footer><div className="footer-top section-shell"><div className="footer-brand"><Logo/><p>Global logistics, made more intelligent.</p><span>Connect With Us</span><div><a href="#linkedin" aria-label="LinkedIn"><Link size={17}/></a><a href="#instagram" aria-label="Instagram"><Camera size={17}/></a><a href="#x" aria-label="X"><Send size={17}/></a></div></div><FooterColumn title="Company" items={['About Us', 'Careers', 'Global Network', 'Contact']}/><FooterColumn title="Services" items={['Ocean Freight', 'Air Freight', 'Warehousing', 'Customs', 'Transportation']}/><FooterColumn title="Resources" items={['Track Shipment', 'Get a Quote', 'FAQs', 'Support']}/></div><div className="footer-bottom section-shell"><span>© 2026 LARA SHIPPING. All rights reserved.</span><div><a href="#privacy">Privacy policy</a><a href="#terms">Terms of use</a></div></div></footer>
-  </div>
+    <footer><div className="footer-top section-shell"><div className="footer-brand"><Logo/><p>Global logistics, made more intelligent.</p><span>Connect With Us</span><div><a href="https://www.linkedin.com/company/lara-shipping-line-llc/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><Link size={17}/></a><a href="https://www.instagram.com/larashippingline?igsh=bDRicTA2M3lpbXR" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Camera size={17}/></a><a href="#x" aria-label="X"><Send size={17}/></a></div></div><FooterColumn title="Company" items={['About Us', 'Careers', 'Global Network', 'Contact']}/><FooterColumn title="Services" items={['Ocean Freight', 'Air Freight', 'Warehousing', 'Customs', 'Transportation']}/><FooterColumn title="Resources" items={['Track Shipment', 'Get a Quote', 'FAQs', 'Support']}/></div><div className="footer-bottom section-shell"><span>© 2026 LARA SHIPPING. All rights reserved.</span><div><a href="#privacy">Privacy policy</a><a href="#terms">Terms of use</a></div></div></footer>
+  </div>;
+
+  return (
+    <>
+      {content}
+      <FloatingSidebar onNavigate={navigateTo} />
+    </>
+  )
+}
+
+function FloatingSidebar({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HTMLAnchorElement>, path: string) => void }) {
+  return (
+    <div className="floating-sidebar">
+      <a href="/our-offer" className="fs-item" onClick={e => onNavigate(e, '/our-offer')}>
+        <Link size={20} strokeWidth={2.5} />
+        <span>Our Offer</span>
+      </a>
+      <a href="/contact" className="fs-item" onClick={e => onNavigate(e, '/contact')}>
+        <Mail size={20} strokeWidth={2.5} />
+        <span>Contact<br/>Us</span>
+      </a>
+      <a href="/#quote" className="fs-item" onClick={e => onNavigate(e, '/#quote')}>
+        <Box size={20} strokeWidth={2.5} />
+        <span>Inco<br/>Terms</span>
+      </a>
+      <a href="/#about" className="fs-item" onClick={e => onNavigate(e, '/#about')}>
+        <FileText size={20} strokeWidth={2.5} />
+        <span>Container<br/>Specification</span>
+      </a>
+    </div>
+  )
 }
 
 const getFooterLinkPath = (name: string) => {
@@ -348,7 +379,7 @@ function AboutPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HTMLAnc
       <section className="about-story section-shell"><div className="about-truck-art" aria-hidden="true"><i className="truck-box"/><i className="truck-cab"/><i className="truck-window"/><i className="truck-wheel wheel-one"/><i className="truck-wheel wheel-two"/></div><div className="about-copy"><span className="eyebrow light"><span /> About us</span><h2>Secure &amp; swift<br /><em>logistics solutions.</em></h2><p>LARA Shipping Line is a trusted name in global logistics, specializing in efficient cargo transportation solutions. Through our network of carriers and partners, we provide reliable and timely delivery around the world.</p><p>From ocean freight and air cargo to inland transportation, we offer a complete range of services designed around the way your business moves.</p></div></section>
       <section className="why-us section-shell"><div><span className="eyebrow light"><span /> Why choose us</span><h2>Faster and trusted<br /><em>logistics services.</em></h2><p>We understand that choosing the right logistics partner is crucial. Our team combines global reach with a focused, responsive service experience.</p><ul>{['Global reach across key trade routes', 'Customized solutions for each shipment', '24/7 customer support', 'Customer-first operations', 'Environmental responsibility'].map(item => <li key={item}><Check size={14}/>{item}</li>)}</ul><a className="about-read-more" href="/#quote">Talk to our team <ArrowRight size={16}/></a></div><div className="about-ship-art" aria-hidden="true"><i className="about-ship-stack"/><i className="about-ship-bridge"/><i className="about-ship-hull"/><b/></div></section>
     </main>
-    <footer className="industries-footer"><div className="industries-footer-inner section-shell"><div className="industries-footer-brand"><Logo /><p>LARA SHIPPING LINE PVT LTD</p><span>Connect With Us</span><div><a href="#facebook" aria-label="Facebook">f</a><a href="#instagram" aria-label="Instagram">◎</a><a href="#linkedin" aria-label="LinkedIn">in</a><a href="#x" aria-label="X">𝕏</a></div></div><FooterColumn title="Useful Links" items={['Home', 'About Us', 'Services', 'Industries', 'Contact Us']}/><FooterColumn title="Services" items={['Air Freight', 'Cargo Insurance', 'Ocean Freight (FCL)', 'Ocean Freight (LCL)', 'Rail Freight', 'Road Freight']}/><FooterColumn title="Customer Solutions" items={['Contract Logistics', 'Cross Border E-Commerce', 'Customs Brokerage', 'Green Solution', 'Technology & Customer Services']}/></div></footer>
+    <footer className="industries-footer"><div className="industries-footer-inner section-shell"><div className="industries-footer-brand"><Logo /><p>LARA SHIPPING LINE PVT LTD</p><span>Connect With Us</span><div><a href="https://www.facebook.com/people/Lara-shipping-line-pvt-ltd/61559639342106/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><a href="https://www.instagram.com/larashippingline?igsh=bDRicTA2M3lpbXR" target="_blank" rel="noopener noreferrer" aria-label="Instagram">◎</a><a href="https://www.linkedin.com/company/lara-shipping-line-llc/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a><a href="#x" aria-label="X">𝕏</a></div></div><FooterColumn title="Useful Links" items={['Home', 'About Us', 'Services', 'Industries', 'Contact Us']}/><FooterColumn title="Services" items={['Air Freight', 'Cargo Insurance', 'Ocean Freight (FCL)', 'Ocean Freight (LCL)', 'Rail Freight', 'Road Freight']}/><FooterColumn title="Customer Solutions" items={['Contract Logistics', 'Cross Border E-Commerce', 'Customs Brokerage', 'Green Solution', 'Technology & Customer Services']}/></div></footer>
   </div>
 }
 
@@ -364,12 +395,70 @@ function ContactPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HTMLA
     <main className="contact-main section-shell"><section className="contact-details"><span className="eyebrow light"><span /> Contact us</span><h1>Get in <em>touch.</em></h1><p className="contact-company">Lara Shipping Line</p><ContactOffice title="Head Office" details={[['address', '114/115, Vivaan Arcade, Ramlakshman Nagar, East Zone, Sowripalayam Post, Coimbatore-641028'], ['email', 'sales@larashippingline.com'], ['phone', '+91 81481 14238'], ['phone', '+91 81481 14279']]} /><ContactOffice title="Mumbai Branch Office" details={[['address', 'G-34, Haware Fantasia Business Park, Plot No. 47, Sector -30A, Vashi, Navi Mumbai - 400703.'], ['phone', '+91 22 45773828']]} /><ContactOffice title="Dubai Branch Office" subtitle="LARA SHIPPING LINE LLC" details={[['address', 'M-Floor Office – 208, Hamsa A Wing, Al Karama, Dubai, UAE.'], ['phone', '+971 56 542 0228']]} /></section>
       <section className="contact-form-wrap"><div className="contact-form-heading"><span className="eyebrow light"><span /> Send a message</span><h2>How can we help?</h2><p>Tell us about your shipment or question, and our team will respond shortly.</p><div className="contact-response-note"><span><i /> Typically replies within one business day</span><span>Secure &amp; confidential</span></div></div><form className="contact-form" onSubmit={submitContact}>{submitted ? <div className="contact-success" role="status"><Check size={22}/><div><strong>Message received</strong><p>Thank you. Our team will be in touch soon.</p></div><button type="button" onClick={() => setSubmitted(false)}>Send another message</button></div> : <><div className="contact-form-row"><label>Name<input name="name" autoComplete="name" placeholder="Your full name" required /></label><label>Email <b>*</b><input name="email" type="email" autoComplete="email" placeholder="you@company.com" required /></label></div><label>Subject<input name="subject" placeholder="How can we help?" required /></label><label>Message<textarea name="message" rows={6} placeholder="Tell us about your shipment, route, or requirement…" required /></label><div className="contact-form-footer"><small>By submitting, you agree to be contacted by our logistics team.</small><button className="contact-submit" type="submit">Send message <ArrowRight size={16}/></button></div></>}</form></section>
     </main>
-    <footer className="industries-footer"><div className="industries-footer-inner section-shell"><div className="industries-footer-brand"><Logo /><p>LARA SHIPPING LINE PVT LTD</p><span>Connect With Us</span><div><a href="#facebook" aria-label="Facebook">f</a><a href="#instagram" aria-label="Instagram">◎</a><a href="#linkedin" aria-label="LinkedIn">in</a><a href="#x" aria-label="X">𝕏</a></div></div><FooterColumn title="Useful Links" items={['Home', 'About Us', 'Services', 'Industries', 'Contact Us']}/><FooterColumn title="Services" items={['Air Freight', 'Cargo Insurance', 'Ocean Freight (FCL)', 'Ocean Freight (LCL)', 'Rail Freight', 'Road Freight']}/><FooterColumn title="Customer Solutions" items={['Contract Logistics', 'Cross Border E-Commerce', 'Customs Brokerage', 'Green Solution', 'Technology & Customer Services']}/></div></footer>
+    <footer className="industries-footer"><div className="industries-footer-inner section-shell"><div className="industries-footer-brand"><Logo /><p>LARA SHIPPING LINE PVT LTD</p><span>Connect With Us</span><div><a href="https://www.facebook.com/people/Lara-shipping-line-pvt-ltd/61559639342106/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><a href="https://www.instagram.com/larashippingline?igsh=bDRicTA2M3lpbXR" target="_blank" rel="noopener noreferrer" aria-label="Instagram">◎</a><a href="https://www.linkedin.com/company/lara-shipping-line-llc/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a><a href="#x" aria-label="X">𝕏</a></div></div><FooterColumn title="Useful Links" items={['Home', 'About Us', 'Services', 'Industries', 'Contact Us']}/><FooterColumn title="Services" items={['Air Freight', 'Cargo Insurance', 'Ocean Freight (FCL)', 'Ocean Freight (LCL)', 'Rail Freight', 'Road Freight']}/><FooterColumn title="Customer Solutions" items={['Contract Logistics', 'Cross Border E-Commerce', 'Customs Brokerage', 'Green Solution', 'Technology & Customer Services']}/></div></footer>
   </div>
 }
 
 function ContactOffice({ title, subtitle, details }: { title: string; subtitle?: string; details: [string, string][] }) {
   return <section className="contact-office"><h2>{title}</h2>{subtitle && <strong>{subtitle}</strong>}{details.map(([type, content], index) => { const Icon = type === 'address' ? MapPin : type === 'email' ? Mail : Phone; return <p key={`${type}-${index}`}><Icon size={20}/><span>{content}</span></p> })}</section>
+}
+
+function OurOfferPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HTMLAnchorElement>, path: string) => void }) {
+  const [submitted, setSubmitted] = useState(false)
+  const submitOffer = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setSubmitted(true)
+  }
+
+  return <div className="contact-page">
+    <header className="about-header"><div className="about-header-inner"><Logo href="/" /><nav aria-label="Primary navigation"><a href="/" onClick={event => onNavigate(event, '/')}>Home</a><a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a><a href="/#services" onClick={event => onNavigate(event, '/#services')}>Services</a><a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a><a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a></nav><a className="industries-quote" href="/#quote">Get a Quote <ArrowUpRight size={15}/></a></div></header>
+    <main className="contact-main section-shell">
+      <section className="contact-details">
+        <span className="eyebrow light"><span /> Our Offer</span>
+        <h1>We're here <em>for you!</em></h1>
+        <p className="contact-company">Lara Shipping Line</p>
+        <p style={{color:'#b3c7cf', maxWidth:'400px', lineHeight:'1.7', marginTop:'30px'}}>Tell us about your requirements, select the services you need, and our dedicated team will work with you to find the most efficient logistics solution.</p>
+      </section>
+      <section className="contact-form-wrap">
+        <div className="contact-form-heading">
+          <span className="eyebrow light"><span /> Request an offer</span>
+          <h2>Submit Details</h2>
+          <p>Provide your cargo and contact details below.</p>
+          <div className="contact-response-note"><span><i /> Typically replies within one business day</span><span>Secure &amp; confidential</span></div>
+        </div>
+        <form className="contact-form" onSubmit={submitOffer}>
+          {submitted ? <div className="contact-success" role="status"><Check size={22}/><div><strong>Request received</strong><p>Thank you. Our team will review your offer request.</p></div><button type="button" onClick={() => setSubmitted(false)}>Submit another</button></div> : <>
+            <div className="contact-form-row">
+              <label>Your Name<input name="name" autoComplete="name" placeholder="Your full name" required /></label>
+              <label>Company Name<input name="company" placeholder="Company name" /></label>
+            </div>
+            <div className="contact-form-row">
+              <label>Email Id <b>*</b><input name="email" type="email" autoComplete="email" placeholder="you@company.com" required /></label>
+              <label>Contact No <b>*</b><input name="contact" type="tel" placeholder="Phone number" required /></label>
+            </div>
+            <div className="contact-form-row">
+              <label>Select Service <b>*</b>
+                <div style={{position:'relative'}}>
+                  <select name="service" required defaultValue="" style={{width:'100%', height:'46px', padding:'0 16px', border:'1px solid #527586', background:'rgba(255,255,255,.96)', borderRadius:'2px', color:'#000', outline:'none', appearance:'none', fontSize:'13px', boxShadow:'inset 0 1px rgba(3,25,36,.08)'}}>
+                    <option value="" disabled>Select Service</option>
+                    {services.map(s => <option key={s.name} value={s.name}>{s.name}</option>)}
+                  </select>
+                  <ChevronDown size={14} style={{position:'absolute', right:'16px', top:'16px', color:'#527586', pointerEvents:'none'}} />
+                </div>
+              </label>
+              <label>Commodity <b>*</b><input name="commodity" placeholder="Cargo type" required /></label>
+            </div>
+            <label>Remarks<textarea name="remarks" rows={4} placeholder="Any specific requirements or details..." style={{minHeight:'90px'}} /></label>
+            <div className="contact-form-footer">
+              <small>By submitting, you agree to be contacted by our logistics team.</small>
+              <button className="contact-submit" type="submit">Submit <ArrowRight size={16}/></button>
+            </div>
+          </>}
+        </form>
+      </section>
+    </main>
+    <footer className="industries-footer"><div className="industries-footer-inner section-shell"><div className="industries-footer-brand"><Logo /><p>LARA SHIPPING LINE PVT LTD</p><span>Connect With Us</span><div><a href="https://www.facebook.com/people/Lara-shipping-line-pvt-ltd/61559639342106/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><a href="https://www.instagram.com/larashippingline?igsh=bDRicTA2M3lpbXR" target="_blank" rel="noopener noreferrer" aria-label="Instagram">◎</a><a href="https://www.linkedin.com/company/lara-shipping-line-llc/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a><a href="#x" aria-label="X">𝕏</a></div></div><FooterColumn title="Useful Links" items={['Home', 'About Us', 'Services', 'Industries', 'Contact Us']}/><FooterColumn title="Services" items={['Air Freight', 'Cargo Insurance', 'Ocean Freight(FCL)', 'Multi Modal', 'Ocean Freight(LCL)', 'Rail Freight', 'Road Freight', 'Social, Weighting and Filling']}/><FooterColumn title="Customer Solutions" items={['Contract Logistics', 'Cross Border E-Commerce', 'Customs Brokerage', 'Green Solution', 'Technology & Customer Services']}/></div></footer>
+  </div>
 }
 
 function IndustriesPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HTMLAnchorElement>, path: string) => void }) {
@@ -389,7 +478,7 @@ function IndustriesPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HT
       <section className="industry-scale section-shell"><div className="industry-scale-art" aria-hidden="true"><div className="scale-container-row"><i/><i/><i/><i/><i/><i/><i/><i/></div><div className="scale-vessel"><span/></div></div><div><span className="eyebrow light"><span /> Global scale</span><h2>One network.<br /><em>Every opportunity.</em></h2><p>Whether you are expanding into new markets or improving the flow of everyday operations, Lara Shipping connects the services and intelligence that keep business moving.</p><div className="industry-signals"><span><b>120+</b> Countries served</span><span><b>24/7</b> Dedicated support</span><span><b>98%</b> On-time operations</span></div><a className="about-read-more" href="/#quote">Explore our solutions <ArrowRight size={16}/></a></div>
       </section>
     </main>
-    <footer className="industries-footer"><div className="industries-footer-inner section-shell"><div className="industries-footer-brand"><Logo /><p>LARA SHIPPING LINE PVT LTD</p><span>Connect With Us</span><div><a href="#facebook" aria-label="Facebook">f</a><a href="#instagram" aria-label="Instagram">◎</a><a href="#linkedin" aria-label="LinkedIn">in</a><a href="#x" aria-label="X">𝕏</a></div></div><FooterColumn title="Useful Links" items={['Home', 'About Us', 'Services', 'Industries', 'Contact Us']}/><FooterColumn title="Services" items={['Air Freight', 'Cargo Insurance', 'Ocean Freight(FCL)', 'Multi Modal', 'Ocean Freight(LCL)', 'Rail Freight', 'Road Freight', 'Social, Weighting and Filling']}/><FooterColumn title="Customer Solutions" items={['Contract Logistics', 'Cross Border E-Commerce', 'Customs Brokerage', 'Green Solution', 'Technology & Customer Services']}/></div></footer>
+    <footer className="industries-footer"><div className="industries-footer-inner section-shell"><div className="industries-footer-brand"><Logo /><p>LARA SHIPPING LINE PVT LTD</p><span>Connect With Us</span><div><a href="https://www.facebook.com/people/Lara-shipping-line-pvt-ltd/61559639342106/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><a href="https://www.instagram.com/larashippingline?igsh=bDRicTA2M3lpbXR" target="_blank" rel="noopener noreferrer" aria-label="Instagram">◎</a><a href="https://www.linkedin.com/company/lara-shipping-line-llc/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a><a href="#x" aria-label="X">𝕏</a></div></div><FooterColumn title="Useful Links" items={['Home', 'About Us', 'Services', 'Industries', 'Contact Us']}/><FooterColumn title="Services" items={['Air Freight', 'Cargo Insurance', 'Ocean Freight(FCL)', 'Multi Modal', 'Ocean Freight(LCL)', 'Rail Freight', 'Road Freight', 'Social, Weighting and Filling']}/><FooterColumn title="Customer Solutions" items={['Contract Logistics', 'Cross Border E-Commerce', 'Customs Brokerage', 'Green Solution', 'Technology & Customer Services']}/></div></footer>
   </div>
 }
 
@@ -485,9 +574,9 @@ function AirFreightPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HT
             <p>LARA SHIPPING LINE PVT LTD</p>
             <span>Connect With Us</span>
             <div>
-              <a href="#facebook" aria-label="Facebook">f</a>
-              <a href="#instagram" aria-label="Instagram">◎</a>
-              <a href="#linkedin" aria-label="LinkedIn">in</a>
+              <a href="https://www.facebook.com/people/Lara-shipping-line-pvt-ltd/61559639342106/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a>
+              <a href="https://www.instagram.com/larashippingline?igsh=bDRicTA2M3lpbXR" target="_blank" rel="noopener noreferrer" aria-label="Instagram">◎</a>
+              <a href="https://www.linkedin.com/company/lara-shipping-line-llc/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
               <a href="#x" aria-label="X">𝕏</a>
             </div>
           </div>
@@ -591,9 +680,9 @@ function CargoInsurancePage({ onNavigate }: { onNavigate: (event: ReactMouseEven
             <p>LARA SHIPPING LINE PVT LTD</p>
             <span>Connect With Us</span>
             <div>
-              <a href="#facebook" aria-label="Facebook">f</a>
-              <a href="#instagram" aria-label="Instagram">◎</a>
-              <a href="#linkedin" aria-label="LinkedIn">in</a>
+              <a href="https://www.facebook.com/people/Lara-shipping-line-pvt-ltd/61559639342106/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a>
+              <a href="https://www.instagram.com/larashippingline?igsh=bDRicTA2M3lpbXR" target="_blank" rel="noopener noreferrer" aria-label="Instagram">◎</a>
+              <a href="https://www.linkedin.com/company/lara-shipping-line-llc/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
               <a href="#x" aria-label="X">𝕏</a>
             </div>
           </div>
@@ -693,9 +782,9 @@ function OceanFreightLCLPage({ onNavigate }: { onNavigate: (event: ReactMouseEve
             <p>LARA SHIPPING LINE PVT LTD</p>
             <span>Connect With Us</span>
             <div>
-              <a href="#facebook" aria-label="Facebook">f</a>
-              <a href="#instagram" aria-label="Instagram">◎</a>
-              <a href="#linkedin" aria-label="LinkedIn">in</a>
+              <a href="https://www.facebook.com/people/Lara-shipping-line-pvt-ltd/61559639342106/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a>
+              <a href="https://www.instagram.com/larashippingline?igsh=bDRicTA2M3lpbXR" target="_blank" rel="noopener noreferrer" aria-label="Instagram">◎</a>
+              <a href="https://www.linkedin.com/company/lara-shipping-line-llc/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
               <a href="#x" aria-label="X">𝕏</a>
             </div>
           </div>
@@ -795,9 +884,9 @@ function OceanFreightFCLPage({ onNavigate }: { onNavigate: (event: ReactMouseEve
             <p>LARA SHIPPING LINE PVT LTD</p>
             <span>Connect With Us</span>
             <div>
-              <a href="#facebook" aria-label="Facebook">f</a>
-              <a href="#instagram" aria-label="Instagram">◎</a>
-              <a href="#linkedin" aria-label="LinkedIn">in</a>
+              <a href="https://www.facebook.com/people/Lara-shipping-line-pvt-ltd/61559639342106/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a>
+              <a href="https://www.instagram.com/larashippingline?igsh=bDRicTA2M3lpbXR" target="_blank" rel="noopener noreferrer" aria-label="Instagram">◎</a>
+              <a href="https://www.linkedin.com/company/lara-shipping-line-llc/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
               <a href="#x" aria-label="X">𝕏</a>
             </div>
           </div>
@@ -903,9 +992,9 @@ function RailFreightPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<H
             <p>LARA SHIPPING LINE PVT LTD</p>
             <span>Connect With Us</span>
             <div>
-              <a href="#facebook" aria-label="Facebook">f</a>
-              <a href="#instagram" aria-label="Instagram">◎</a>
-              <a href="#linkedin" aria-label="LinkedIn">in</a>
+              <a href="https://www.facebook.com/people/Lara-shipping-line-pvt-ltd/61559639342106/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a>
+              <a href="https://www.instagram.com/larashippingline?igsh=bDRicTA2M3lpbXR" target="_blank" rel="noopener noreferrer" aria-label="Instagram">◎</a>
+              <a href="https://www.linkedin.com/company/lara-shipping-line-llc/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
               <a href="#x" aria-label="X">𝕏</a>
             </div>
           </div>
@@ -1008,9 +1097,9 @@ function RoadFreightPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<H
             <p>LARA SHIPPING LINE PVT LTD</p>
             <span>Connect With Us</span>
             <div>
-              <a href="#facebook" aria-label="Facebook">f</a>
-              <a href="#instagram" aria-label="Instagram">◎</a>
-              <a href="#linkedin" aria-label="LinkedIn">in</a>
+              <a href="https://www.facebook.com/people/Lara-shipping-line-pvt-ltd/61559639342106/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a>
+              <a href="https://www.instagram.com/larashippingline?igsh=bDRicTA2M3lpbXR" target="_blank" rel="noopener noreferrer" aria-label="Instagram">◎</a>
+              <a href="https://www.linkedin.com/company/lara-shipping-line-llc/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
               <a href="#x" aria-label="X">𝕏</a>
             </div>
           </div>
@@ -1119,9 +1208,9 @@ function SocialWeightingPage({ onNavigate }: { onNavigate: (event: ReactMouseEve
             <p>LARA SHIPPING LINE PVT LTD</p>
             <span>Connect With Us</span>
             <div>
-              <a href="#facebook" aria-label="Facebook">f</a>
-              <a href="#instagram" aria-label="Instagram">◎</a>
-              <a href="#linkedin" aria-label="LinkedIn">in</a>
+              <a href="https://www.facebook.com/people/Lara-shipping-line-pvt-ltd/61559639342106/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a>
+              <a href="https://www.instagram.com/larashippingline?igsh=bDRicTA2M3lpbXR" target="_blank" rel="noopener noreferrer" aria-label="Instagram">◎</a>
+              <a href="https://www.linkedin.com/company/lara-shipping-line-llc/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
               <a href="#x" aria-label="X">𝕏</a>
             </div>
           </div>
@@ -1225,9 +1314,9 @@ function ContractLogisticsPage({ onNavigate }: { onNavigate: (event: ReactMouseE
             <p>LARA SHIPPING LINE PVT LTD</p>
             <span>Connect With Us</span>
             <div>
-              <a href="#facebook" aria-label="Facebook">f</a>
-              <a href="#instagram" aria-label="Instagram">◎</a>
-              <a href="#linkedin" aria-label="LinkedIn">in</a>
+              <a href="https://www.facebook.com/people/Lara-shipping-line-pvt-ltd/61559639342106/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a>
+              <a href="https://www.instagram.com/larashippingline?igsh=bDRicTA2M3lpbXR" target="_blank" rel="noopener noreferrer" aria-label="Instagram">◎</a>
+              <a href="https://www.linkedin.com/company/lara-shipping-line-llc/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
               <a href="#x" aria-label="X">𝕏</a>
             </div>
           </div>
@@ -1329,9 +1418,9 @@ function CrossBorderEcommercePage({ onNavigate }: { onNavigate: (event: ReactMou
             <p>LARA SHIPPING LINE PVT LTD</p>
             <span>Connect With Us</span>
             <div>
-              <a href="#facebook" aria-label="Facebook">f</a>
-              <a href="#instagram" aria-label="Instagram">◎</a>
-              <a href="#linkedin" aria-label="LinkedIn">in</a>
+              <a href="https://www.facebook.com/people/Lara-shipping-line-pvt-ltd/61559639342106/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a>
+              <a href="https://www.instagram.com/larashippingline?igsh=bDRicTA2M3lpbXR" target="_blank" rel="noopener noreferrer" aria-label="Instagram">◎</a>
+              <a href="https://www.linkedin.com/company/lara-shipping-line-llc/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
               <a href="#x" aria-label="X">𝕏</a>
             </div>
           </div>
@@ -1433,9 +1522,9 @@ function CustomsBrokeragePage({ onNavigate }: { onNavigate: (event: ReactMouseEv
             <p>LARA SHIPPING LINE PVT LTD</p>
             <span>Connect With Us</span>
             <div>
-              <a href="#facebook" aria-label="Facebook">f</a>
-              <a href="#instagram" aria-label="Instagram">◎</a>
-              <a href="#linkedin" aria-label="LinkedIn">in</a>
+              <a href="https://www.facebook.com/people/Lara-shipping-line-pvt-ltd/61559639342106/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a>
+              <a href="https://www.instagram.com/larashippingline?igsh=bDRicTA2M3lpbXR" target="_blank" rel="noopener noreferrer" aria-label="Instagram">◎</a>
+              <a href="https://www.linkedin.com/company/lara-shipping-line-llc/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
               <a href="#x" aria-label="X">𝕏</a>
             </div>
           </div>
@@ -1537,9 +1626,9 @@ function GreenSolutionPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent
             <p>LARA SHIPPING LINE PVT LTD</p>
             <span>Connect With Us</span>
             <div>
-              <a href="#facebook" aria-label="Facebook">f</a>
-              <a href="#instagram" aria-label="Instagram">◎</a>
-              <a href="#linkedin" aria-label="LinkedIn">in</a>
+              <a href="https://www.facebook.com/people/Lara-shipping-line-pvt-ltd/61559639342106/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a>
+              <a href="https://www.instagram.com/larashippingline?igsh=bDRicTA2M3lpbXR" target="_blank" rel="noopener noreferrer" aria-label="Instagram">◎</a>
+              <a href="https://www.linkedin.com/company/lara-shipping-line-llc/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
               <a href="#x" aria-label="X">𝕏</a>
             </div>
           </div>
@@ -1641,9 +1730,9 @@ function TechnologyCustomerSolutionPage({ onNavigate }: { onNavigate: (event: Re
             <p>LARA SHIPPING LINE PVT LTD</p>
             <span>Connect With Us</span>
             <div>
-              <a href="#facebook" aria-label="Facebook">f</a>
-              <a href="#instagram" aria-label="Instagram">◎</a>
-              <a href="#linkedin" aria-label="LinkedIn">in</a>
+              <a href="https://www.facebook.com/people/Lara-shipping-line-pvt-ltd/61559639342106/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a>
+              <a href="https://www.instagram.com/larashippingline?igsh=bDRicTA2M3lpbXR" target="_blank" rel="noopener noreferrer" aria-label="Instagram">◎</a>
+              <a href="https://www.linkedin.com/company/lara-shipping-line-llc/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
               <a href="#x" aria-label="X">𝕏</a>
             </div>
           </div>
