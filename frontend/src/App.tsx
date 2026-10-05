@@ -201,6 +201,8 @@ function App() {
   else if (pagePath === '/customs-brokerage') content = <CustomsBrokeragePage onNavigate={navigateTo} />
   else if (pagePath === '/green-solution') content = <GreenSolutionPage onNavigate={navigateTo} />
   else if (pagePath === '/technology-customer-solution') content = <TechnologyCustomerSolutionPage onNavigate={navigateTo} />
+  else if (pagePath === '/inco-terms') content = <IncoTermsPage onNavigate={navigateTo} />
+  else if (pagePath === '/container-spec') content = <ContainerSpecPage onNavigate={navigateTo} />
   else content = <div>
     <header className={`header ${scrolled ? 'is-scrolled' : ''}`}>
       <Logo />
@@ -290,11 +292,11 @@ function FloatingSidebar({ onNavigate }: { onNavigate: (event: ReactMouseEvent<H
         <Mail size={20} strokeWidth={2.5} />
         <span>Contact<br/>Us</span>
       </a>
-      <a href="/#quote" className="fs-item" onClick={e => onNavigate(e, '/#quote')}>
+      <a href="/inco-terms" className="fs-item" onClick={e => onNavigate(e, '/inco-terms')}>
         <Box size={20} strokeWidth={2.5} />
         <span>Inco<br/>Terms</span>
       </a>
-      <a href="/#about" className="fs-item" onClick={e => onNavigate(e, '/#about')}>
+      <a href="/container-spec" className="fs-item" onClick={e => onNavigate(e, '/container-spec')}>
         <FileText size={20} strokeWidth={2.5} />
         <span>Container<br/>Specification</span>
       </a>
@@ -1738,6 +1740,393 @@ function TechnologyCustomerSolutionPage({ onNavigate }: { onNavigate: (event: Re
           </div>
           <FooterColumn title="Useful Links" items={['Home', 'About Us', 'Services', 'Industries', 'Contact Us']} />
           <FooterColumn title="Services" items={['Air Freight', 'Cargo Insurance', 'Ocean Freight (FCL)', 'Multi Modal', 'Ocean Freight (LCL)', 'Rail Freight', 'Road Freight', 'Social, Weighting and Filling']} />
+          <FooterColumn title="Customer Solutions" items={['Contract Logistics', 'Cross Border E-Commerce', 'Customs Brokerage', 'Green Solution', 'Technology & Customer Services']} />
+        </div>
+      </footer>
+    </div>
+  )
+}
+
+function IncoTermsPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HTMLAnchorElement>, path: string) => void }) {
+  const incoterms = [
+    { term: 'EXW', loadingTruck: 'Buyer', exportCustoms: 'Buyer', cartagePOE: 'Buyer', unloadingPOE: 'Buyer', loadingChargesPOE: 'Buyer', oceanFreight: 'Buyer', cartagePOI: 'Buyer', unloadingPOI: 'Buyer', loadingTruckPOI: 'Buyer', cartageDest: 'Buyer', insurance: 'Buyer', importCustoms: 'Buyer', importTaxes: 'Buyer' },
+    { term: 'FCA', loadingTruck: 'Seller', exportCustoms: 'Seller', cartagePOE: 'Buyer', unloadingPOE: 'Buyer', loadingChargesPOE: 'Buyer', oceanFreight: 'Buyer', cartagePOI: 'Buyer', unloadingPOI: 'Buyer', loadingTruckPOI: 'Buyer', cartageDest: 'Buyer', insurance: 'Buyer', importCustoms: 'Buyer', importTaxes: 'Buyer' },
+    { term: 'FAS', loadingTruck: 'Seller', exportCustoms: 'Seller', cartagePOE: 'Seller', unloadingPOE: 'Seller', loadingChargesPOE: 'Buyer', oceanFreight: 'Buyer', cartagePOI: 'Buyer', unloadingPOI: 'Buyer', loadingTruckPOI: 'Buyer', cartageDest: 'Buyer', insurance: 'Buyer', importCustoms: 'Buyer', importTaxes: 'Buyer' },
+    { term: 'FOB', loadingTruck: 'Seller', exportCustoms: 'Seller', cartagePOE: 'Seller', unloadingPOE: 'Seller', loadingChargesPOE: 'Seller', oceanFreight: 'Buyer', cartagePOI: 'Buyer', unloadingPOI: 'Buyer', loadingTruckPOI: 'Buyer', cartageDest: 'Buyer', insurance: 'Buyer', importCustoms: 'Buyer', importTaxes: 'Buyer' },
+    { term: 'CPT', loadingTruck: 'Seller', exportCustoms: 'Seller', cartagePOE: 'Seller', unloadingPOE: 'Seller', loadingChargesPOE: 'Seller', oceanFreight: 'Seller', cartagePOI: 'Seller', unloadingPOI: 'Buyer', loadingTruckPOI: 'Buyer', cartageDest: 'Buyer', insurance: 'Buyer', importCustoms: 'Buyer', importTaxes: 'Buyer' },
+    { term: 'CIF', loadingTruck: 'Seller', exportCustoms: 'Seller', cartagePOE: 'Seller', unloadingPOE: 'Seller', loadingChargesPOE: 'Seller', oceanFreight: 'Seller', cartagePOI: 'Buyer', unloadingPOI: 'Buyer', loadingTruckPOI: 'Buyer', cartageDest: 'Buyer', insurance: 'Seller', importCustoms: 'Buyer', importTaxes: 'Buyer' },
+    { term: 'DAT', loadingTruck: 'Seller', exportCustoms: 'Seller', cartagePOE: 'Seller', unloadingPOE: 'Seller', loadingChargesPOE: 'Seller', oceanFreight: 'Seller', cartagePOI: 'Seller', unloadingPOI: 'Seller', loadingTruckPOI: 'Buyer', cartageDest: 'Buyer', insurance: 'Buyer', importCustoms: 'Buyer', importTaxes: 'Buyer' },
+    { term: 'DPT', loadingTruck: 'Seller', exportCustoms: 'Seller', cartagePOE: 'Seller', unloadingPOE: 'Seller', loadingChargesPOE: 'Seller', oceanFreight: 'Seller', cartagePOI: 'Seller', unloadingPOI: 'Seller', loadingTruckPOI: 'Seller', cartageDest: 'Buyer', insurance: 'Seller', importCustoms: 'Buyer', importTaxes: 'Buyer' },
+    { term: 'DAP', loadingTruck: 'Seller', exportCustoms: 'Seller', cartagePOE: 'Seller', unloadingPOE: 'Seller', loadingChargesPOE: 'Seller', oceanFreight: 'Seller', cartagePOI: 'Seller', unloadingPOI: 'Seller', loadingTruckPOI: 'Seller', cartageDest: 'Seller', insurance: 'Seller', importCustoms: 'Buyer', importTaxes: 'Buyer' },
+    { term: 'CIP', loadingTruck: 'Seller', exportCustoms: 'Seller', cartagePOE: 'Seller', unloadingPOE: 'Seller', loadingChargesPOE: 'Seller', oceanFreight: 'Seller', cartagePOI: 'Seller', unloadingPOI: 'Seller', loadingTruckPOI: 'Seller', cartageDest: 'Seller', insurance: 'Seller', importCustoms: 'Buyer', importTaxes: 'Buyer' },
+    { term: 'DDP', loadingTruck: 'Seller', exportCustoms: 'Seller', cartagePOE: 'Seller', unloadingPOE: 'Seller', loadingChargesPOE: 'Seller', oceanFreight: 'Seller', cartagePOI: 'Seller', unloadingPOI: 'Seller', loadingTruckPOI: 'Seller', cartageDest: 'Seller', insurance: 'Seller', importCustoms: 'Seller', importTaxes: 'Seller' },
+  ]
+
+  const columns = [
+    { key: 'term', label: 'Incoterms 2023' },
+    { key: 'loadingTruck', label: 'Loading on truck (carrier)' },
+    { key: 'exportCustoms', label: 'Export Customs declaration' },
+    { key: 'cartagePOE', label: 'Carriage to port of export' },
+    { key: 'unloadingPOE', label: 'Unloading of truck in port of export' },
+    { key: 'loadingChargesPOE', label: 'Loading charges in port of export' },
+    { key: 'oceanFreight', label: 'Ocean Freight' },
+    { key: 'cartagePOI', label: 'Carriage to port of Import' },
+    { key: 'unloadingPOI', label: 'Unloading charges in port of Import' },
+    { key: 'loadingTruckPOI', label: 'Loading on truck in port of Import' },
+    { key: 'cartageDest', label: 'Carriage to place of destination' },
+    { key: 'insurance', label: 'Insurance' },
+    { key: 'importCustoms', label: 'Import Customs Clearance' },
+    { key: 'importTaxes', label: 'Import Taxes' },
+  ]
+
+  return (
+    <div className="inco-page">
+      <header className="about-header">
+        <div className="about-header-inner">
+          <Logo href="/" />
+          <nav aria-label="Primary navigation">
+            <a href="/" onClick={event => onNavigate(event, '/')}>Home</a>
+            <a href="/#services" onClick={event => onNavigate(event, '/#services')}>Services</a>
+            <a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a>
+            <a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a>
+            <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
+          </nav>
+          <a className="industries-quote" href="/#quote">Get a Quote <ArrowUpRight size={15}/></a>
+        </div>
+      </header>
+
+      <main>
+        {/* Masthead — same stripe pattern as other service pages */}
+        <section className="inco-masthead">
+          <div className="inco-masthead-card">
+            <span className="eyebrow light"><span /> LARA SHIPPING LINE</span>
+            <h1>Inco Terms,<br /><em>made clear.</em></h1>
+            <p>Incoterms® 2023 rules define the responsibilities of buyers and sellers for the delivery of goods under sales contracts.</p>
+          </div>
+        </section>
+
+        {/* Legend + table section */}
+        <section className="inco-table-section section-shell">
+          <div className="inco-table-header">
+            <div>
+              <span className="eyebrow light"><span /> Responsibility matrix</span>
+              <h2>Incoterms 2023</h2>
+              <p>Each cell shows who bears the cost and risk at each stage of the journey.</p>
+            </div>
+            <div className="inco-legend">
+              <span className="inco-legend-buyer">Buyer</span>
+              <span className="inco-legend-seller">Seller</span>
+            </div>
+          </div>
+
+          <div className="inco-table-wrap">
+            <table className="inco-table" aria-label="Incoterms 2023 responsibility matrix">
+              <thead>
+                <tr>
+                  {columns.map(col => (
+                    <th key={col.key}>{col.label}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {incoterms.map(row => (
+                  <tr key={row.term}>
+                    {columns.map(col => {
+                      const val = row[col.key as keyof typeof row]
+                      if (col.key === 'term') return <td key={col.key} className="inco-term-label">{val}</td>
+                      return (
+                        <td key={col.key} className={val === 'Buyer' ? 'inco-buyer' : 'inco-seller'}>
+                          {val}
+                        </td>
+                      )
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+
+      <footer className="industries-footer">
+        <div className="industries-footer-inner section-shell">
+          <div className="industries-footer-brand">
+            <Logo />
+            <p>LARA SHIPPING LINE PVT LTD</p>
+            <span>Connect With Us</span>
+            <div>
+              <a href="https://www.facebook.com/people/Lara-shipping-line-pvt-ltd/61559639342106/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a>
+              <a href="https://www.instagram.com/larashippingline?igsh=bDRicTA2M3lpbXR" target="_blank" rel="noopener noreferrer" aria-label="Instagram">◎</a>
+              <a href="https://www.linkedin.com/company/lara-shipping-line-llc/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
+              <a href="#x" aria-label="X">𝕏</a>
+            </div>
+          </div>
+          <FooterColumn title="Useful Links" items={['Home', 'About Us', 'Services', 'Industries', 'Contact Us']} />
+          <FooterColumn title="Services" items={['Air Freight', 'Cargo Insurance', 'Ocean Freight (FCL)', 'Ocean Freight (LCL)', 'Rail Freight', 'Road Freight']} />
+          <FooterColumn title="Customer Solutions" items={['Contract Logistics', 'Cross Border E-Commerce', 'Customs Brokerage', 'Green Solution', 'Technology & Customer Services']} />
+        </div>
+      </footer>
+    </div>
+  )
+}
+
+const containerTypes = [
+  {
+    name: "20' Standard",
+    imgBg: '#2563a8',
+    rows: [
+      { label: 'Inside Length', ext: "19'4\"", int: '5,898m' },
+      { label: 'Inside Width', ext: "7'8\"", int: '2,352m' },
+      { label: 'Inside Height', ext: "7'10\"", int: '2,385m' },
+      { label: 'Door Width', ext: "7'8\"", int: '2,340m' },
+      { label: 'Door Height', ext: "7'5\"", int: '2,274m' },
+      { label: 'Capacity', ext: '', int: '33.2 CBM' },
+      { label: 'Tare Weight', ext: '', int: '2,200 kgs' },
+      { label: 'Max Cargo', ext: '', int: '28,280 kgs' },
+    ]
+  },
+  {
+    name: "40' Standard",
+    imgBg: '#2563a8',
+    rows: [
+      { label: 'Inside Length', ext: "39'5\"", int: '12,032m' },
+      { label: 'Inside Width', ext: "7'8\"", int: '2,352m' },
+      { label: 'Inside Height', ext: "7'10\"", int: '2,385m' },
+      { label: 'Door Width', ext: "7'8\"", int: '2,340m' },
+      { label: 'Door Height', ext: "7'5\"", int: '2,274m' },
+      { label: 'Capacity', ext: '', int: '67.7 CBM' },
+      { label: 'Tare Weight', ext: '', int: '3,750 kgs' },
+      { label: 'Max Cargo', ext: '', int: '26,730 kgs' },
+    ]
+  },
+  {
+    name: "40' High Cube",
+    imgBg: '#1e4d8c',
+    rows: [
+      { label: 'Inside Length', ext: "39'5\"", int: '12,032m' },
+      { label: 'Inside Width', ext: "7'8\"", int: '2,352m' },
+      { label: 'Inside Height', ext: "8'10\"", int: '2,698m' },
+      { label: 'Door Width', ext: "7'8\"", int: '2,340m' },
+      { label: 'Door Height', ext: "8'5\"", int: '2,585m' },
+      { label: 'Capacity', ext: '', int: '76.3 CBM' },
+      { label: 'Tare Weight', ext: '', int: '3,900 kgs' },
+      { label: 'Max Cargo', ext: '', int: '26,580 kgs' },
+    ]
+  },
+  {
+    name: "20' Open Top",
+    imgBg: '#3a6ea8',
+    rows: [
+      { label: 'Inside Length', ext: "19'4\"", int: '5,898m' },
+      { label: 'Inside Width', ext: "7'8\"", int: '2,352m' },
+      { label: 'Inside Height', ext: "7'5\"", int: '2,350m' },
+      { label: 'Door Width', ext: "7'8\"", int: '2,340m' },
+      { label: 'Door Height', ext: "6'11\"", int: '2,090m' },
+      { label: 'Capacity', ext: '', int: '32.7 CBM' },
+      { label: 'Tare Weight', ext: '', int: '2,350 kgs' },
+      { label: 'Max Cargo', ext: '', int: '28,130 kgs' },
+    ]
+  },
+  {
+    name: "40' Open Top",
+    imgBg: '#3a6ea8',
+    rows: [
+      { label: 'Inside Length', ext: "39'5\"", int: '12,032m' },
+      { label: 'Inside Width', ext: "7'8\"", int: '2,352m' },
+      { label: 'Inside Height', ext: "7'5\"", int: '2,350m' },
+      { label: 'Door Width', ext: "7'8\"", int: '2,340m' },
+      { label: 'Door Height', ext: "6'11\"", int: '2,090m' },
+      { label: 'Capacity', ext: '', int: '66.4 CBM' },
+      { label: 'Tare Weight', ext: '', int: '4,100 kgs' },
+      { label: 'Max Cargo', ext: '', int: '40,900 kgs' },
+    ]
+  },
+  {
+    name: "Flat Rack 20'",
+    imgBg: '#4a7c9e',
+    rows: [
+      { label: 'Inside Length', ext: "18'5\"", int: '5,620m' },
+      { label: 'Inside Width', ext: "8'0\"", int: '2,438m' },
+      { label: 'Inside Height', ext: '—', int: '—' },
+      { label: 'Door Width', ext: '—', int: '—' },
+      { label: 'Door Height', ext: '—', int: '—' },
+      { label: 'Capacity', ext: '', int: '—' },
+      { label: 'Tare Weight', ext: '', int: '2,700 kgs' },
+      { label: 'Max Cargo', ext: '', int: '45,000 kgs' },
+    ]
+  },
+  {
+    name: "Flat Rack 40'",
+    imgBg: '#4a7c9e',
+    rows: [
+      { label: 'Inside Length', ext: "39'5\"", int: '12,000m' },
+      { label: 'Inside Width', ext: "8'0\"", int: '2,438m' },
+      { label: 'Inside Height', ext: '—', int: '—' },
+      { label: 'Door Width', ext: '—', int: '—' },
+      { label: 'Door Height', ext: '—', int: '—' },
+      { label: 'Capacity', ext: '', int: '—' },
+      { label: 'Tare Weight', ext: '', int: '5,000 kgs' },
+      { label: 'Max Cargo', ext: '', int: '40,000 kgs' },
+    ]
+  },
+  {
+    name: "Tank Container 20'",
+    imgBg: '#6b8fa8',
+    rows: [
+      { label: 'Inside Length', ext: '—', int: '6,058m' },
+      { label: 'Inside Width', ext: '—', int: '2,438m' },
+      { label: 'Inside Height', ext: '—', int: '2,591m' },
+      { label: 'Door Width', ext: '—', int: '—' },
+      { label: 'Door Height', ext: '—', int: '—' },
+      { label: 'Capacity', ext: '', int: '21,000 L' },
+      { label: 'Tare Weight', ext: '', int: '3,500 kgs' },
+      { label: 'Max Cargo', ext: '', int: '26,000 kgs' },
+    ]
+  },
+  {
+    name: "Platform 20'",
+    imgBg: '#5a7a8c',
+    rows: [
+      { label: 'Inside Length', ext: "19'5\"", int: '5,920m' },
+      { label: 'Inside Width', ext: "8'0\"", int: '2,438m' },
+      { label: 'Inside Height', ext: '—', int: '—' },
+      { label: 'Door Width', ext: '—', int: '—' },
+      { label: 'Door Height', ext: '—', int: '—' },
+      { label: 'Capacity', ext: '', int: '—' },
+      { label: 'Tare Weight', ext: '', int: '2,700 kgs' },
+      { label: 'Max Cargo', ext: '', int: '30,480 kgs' },
+    ]
+  },
+  {
+    name: "Platform 40'",
+    imgBg: '#5a7a8c',
+    rows: [
+      { label: 'Inside Length', ext: "39'5\"", int: '12,000m' },
+      { label: 'Inside Width', ext: "8'0\"", int: '2,438m' },
+      { label: 'Inside Height', ext: '—', int: '—' },
+      { label: 'Door Width', ext: '—', int: '—' },
+      { label: 'Door Height', ext: '—', int: '—' },
+      { label: 'Capacity', ext: '', int: '—' },
+      { label: 'Tare Weight', ext: '', int: '5,200 kgs' },
+      { label: 'Max Cargo', ext: '', int: '40,000 kgs' },
+    ]
+  },
+]
+
+const flatRackExtendable = [
+  { name: "Flat Rack Extended 20'", length: 'Overall Length: 6,058m', maxCargo: '45,000 kgs', tare: '2,700 kgs' },
+  { name: "Flat Rack Extended 40'", length: 'Overall Length: 12,192m', maxCargo: '40,000 kgs', tare: '5,000 kgs' },
+  { name: "Flat Rack Collapsible 20'", length: 'Overall Length: 6,058m', maxCargo: '45,000 kgs', tare: '2,800 kgs' },
+  { name: "Flat Rack Collapsible 40'", length: 'Overall Length: 12,192m', maxCargo: '40,000 kgs', tare: '5,100 kgs' },
+]
+
+function ContainerSpecPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HTMLAnchorElement>, path: string) => void }) {
+  const specCols = ['Inside Length', 'Inside Width', 'Inside Height', 'Door Width', 'Door Height', 'Capacity', 'Tare Weight', 'Max Cargo']
+
+  return (
+    <div className="cspec-page">
+      <header className="about-header">
+        <div className="about-header-inner">
+          <Logo href="/" />
+          <nav aria-label="Primary navigation">
+            <a href="/" onClick={event => onNavigate(event, '/')}>Home</a>
+            <a href="/#services" onClick={event => onNavigate(event, '/#services')}>Services</a>
+            <a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a>
+            <a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a>
+            <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
+          </nav>
+          <a className="industries-quote" href="/#quote">Get a Quote <ArrowUpRight size={15}/></a>
+        </div>
+      </header>
+
+      <main>
+        {/* Masthead */}
+        <section className="cspec-masthead">
+          <div className="cspec-masthead-card">
+            <span className="eyebrow light"><span /> LARA SHIPPING LINE</span>
+            <h1>Container Specification,<br /><em>every detail.</em></h1>
+            <p>Technical dimensions, capacities, and weight limits for all standard ISO shipping containers.</p>
+          </div>
+        </section>
+
+        {/* Main spec table */}
+        <section className="cspec-table-section section-shell">
+          <div className="cspec-table-header">
+            <div>
+              <span className="eyebrow light"><span /> Technical reference</span>
+              <h2>Container Specification</h2>
+              <p>All measurements shown in imperial and metric. Max Cargo = Gross Weight minus Tare Weight.</p>
+            </div>
+          </div>
+
+          <div className="cspec-table-wrap">
+            <table className="cspec-table" aria-label="Container specification table">
+              <thead>
+                <tr>
+                  <th className="cspec-th-container">Container Type</th>
+                  {specCols.map(col => <th key={col}>{col}</th>)}
+                </tr>
+              </thead>
+              <tbody>
+                {containerTypes.map(ct => (
+                  <tr key={ct.name}>
+                    <td className="cspec-name-cell">
+                      <div className="cspec-img" style={{ background: ct.imgBg }} aria-hidden="true">
+                        <div className="cspec-img-inner" />
+                      </div>
+                      <span>{ct.name}</span>
+                    </td>
+                    {ct.rows.map(r => (
+                      <td key={r.label} className="cspec-data-cell">
+                        <span className="cspec-ext">{r.ext || '—'}</span>
+                        <span className="cspec-int">{r.int}</span>
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Flat Rack / Extendable secondary table */}
+          <div className="cspec-ext-section">
+            <h3>Flat Rack &amp; Collapsible — Extendable Dimensions</h3>
+            <div className="cspec-ext-grid">
+              {flatRackExtendable.map(fr => (
+                <div className="cspec-ext-card" key={fr.name}>
+                  <div className="cspec-ext-img" aria-hidden="true">
+                    <div className="cspec-ext-img-inner" />
+                  </div>
+                  <div className="cspec-ext-info">
+                    <strong>{fr.name}</strong>
+                    <span>{fr.length}</span>
+                    <div className="cspec-ext-vals">
+                      <span>Tare: {fr.tare}</span>
+                      <span>Max Cargo: {fr.maxCargo}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="industries-footer">
+        <div className="industries-footer-inner section-shell">
+          <div className="industries-footer-brand">
+            <Logo />
+            <p>LARA SHIPPING LINE PVT LTD</p>
+            <span>Connect With Us</span>
+            <div>
+              <a href="https://www.facebook.com/people/Lara-shipping-line-pvt-ltd/61559639342106/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a>
+              <a href="https://www.instagram.com/larashippingline?igsh=bDRicTA2M3lpbXR" target="_blank" rel="noopener noreferrer" aria-label="Instagram">◎</a>
+              <a href="https://www.linkedin.com/company/lara-shipping-line-llc/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
+              <a href="#x" aria-label="X">𝕏</a>
+            </div>
+          </div>
+          <FooterColumn title="Useful Links" items={['Home', 'About Us', 'Services', 'Industries', 'Contact Us']} />
+          <FooterColumn title="Services" items={['Air Freight', 'Cargo Insurance', 'Ocean Freight (FCL)', 'Ocean Freight (LCL)', 'Rail Freight', 'Road Freight']} />
           <FooterColumn title="Customer Solutions" items={['Contract Logistics', 'Cross Border E-Commerce', 'Customs Brokerage', 'Green Solution', 'Technology & Customer Services']} />
         </div>
       </footer>
