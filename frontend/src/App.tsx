@@ -1,10 +1,11 @@
 import { useEffect, useState, type ElementType, type FormEvent, type MouseEvent as ReactMouseEvent } from 'react'
 import MapComponent from './MapComponent'
+import ChatWidget from './ChatWidget'
 import {
   ArrowDown, ArrowRight, ArrowUpRight, Box, ChevronDown, ChevronRight, ClipboardCheck, Globe2, Menu, MoveRight,
   PackageCheck, Plane, Ship, Truck, Warehouse, X, Zap, MapPin, ScanLine, Route, FileCheck2, BarChart3,
   Link, Camera, Send, Check, CircleHelp, ShieldCheck, Train, PackagePlus, Handshake, ShoppingCart, FileText,
-  Leaf, MonitorSmartphone, Award, Target, Eye, Sparkles, Mail, Phone, Megaphone
+  Leaf, MonitorSmartphone, Award, Target, Eye, Sparkles, Mail, Phone, Megaphone, MessageCircle, MessageSquare
 } from 'lucide-react'
 
 const navItems = ['Home', 'Services', 'Tracking', 'Industries', 'Contact Us', 'About Us']
@@ -74,6 +75,7 @@ function App() {
   const [scrolled, setScrolled] = useState(false)
   const [trackValue, setTrackValue] = useState('')
   const [trackMessage, setTrackMessage] = useState('')
+  const [isChatOpen, setIsChatOpen] = useState(false)
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 30)
@@ -233,7 +235,7 @@ function App() {
           <div className="eyebrow light"><span /> Global freight, intelligently connected</div>
           <h1>Moving the world.<br /><em>Delivering what matters.</em></h1>
           <p>Reliable global shipping and logistics solutions designed to move your cargo efficiently, securely, and on time.</p>
-          <div className="hero-actions"><Button onClick={e => navigateTo(e, '/quote')}>Get a Quote <ArrowRight size={17}/></Button><Button variant="secondary" onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}>Explore Services <ArrowDown size={17}/></Button></div>
+          <div className="hero-actions"><Button onClick={e => navigateTo(e, '/quote')}>Get a Quote <ArrowRight size={17}/></Button><Button variant="secondary" onClick={() => setIsChatOpen(true)}>Chat with Us <MessageCircle size={17}/></Button><Button variant="secondary" onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}>Services <ArrowDown size={15}/></Button></div>
           <div className="trust"><Check size={14}/> Global reach <b /> Reliable operations <b /> End-to-end logistics</div>
         </div>
         <a className="scroll-cue" href="#tracking"><span>SCROLL TO EXPLORE</span><i><ArrowDown size={15}/></i></a>
@@ -269,7 +271,7 @@ function App() {
 
       <section className="reliability section-shell" id="about"><div><span className="eyebrow"><span /> Why Lara Shipping</span><h2>Built around<br /><em>reliability.</em></h2></div><div className="benefits">{benefits.map(({icon: Icon, title, copy}) => <article key={title}><div className="line-icon"><Icon size={21}/></div><div><h3>{title}</h3><p>{copy}</p></div></article>)}</div></section>
 
-      <section className="quote-section" id="quote"><div className="quote-inner"><span className="eyebrow light"><span /> Let’s move forward</span><h2>Ready to move your<br /><em>business forward?</em></h2><p>Tell us what you’re shipping, where it’s going, and we’ll help find the right logistics solution.</p><div><Button onClick={e => navigateTo(e, '/quote')}>Get a Quote <ArrowRight size={17}/></Button><Button variant="secondary" href="/contact" onClick={e => navigateTo(e, '/contact')}>Talk to our team</Button></div></div></section>
+      <section className="quote-section" id="quote"><div className="quote-inner"><span className="eyebrow light"><span /> Let’s move forward</span><h2>Ready to move your<br /><em>business forward?</em></h2><p>Tell us what you’re shipping, where it’s going, and we’ll help find the right logistics solution.</p><div><Button onClick={e => navigateTo(e, '/quote')}>Get a Quote <ArrowRight size={17}/></Button><Button variant="secondary" onClick={() => setIsChatOpen(true)}>Chat with Us <MessageCircle size={17}/></Button></div></div></section>
     </main>
 
     <footer><div className="footer-top section-shell"><div className="footer-brand"><Logo/><p>Global logistics, made more intelligent.</p><span>Connect With Us</span><div><a href="https://www.linkedin.com/company/lara-shipping-line-llc/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><Link size={17}/></a><a href="https://www.instagram.com/larashippingline?igsh=bDRicTA2M3lpbXR" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Camera size={17}/></a><a href="#x" aria-label="X"><Send size={17}/></a></div></div><FooterColumn title="Company" items={['About Us', 'Careers', 'Global Network', 'Contact']}/><FooterColumn title="Services" items={['Ocean Freight', 'Air Freight', 'Warehousing', 'Customs', 'Transportation']}/><FooterColumn title="Resources" items={['Track Shipment', 'Get a Quote', 'FAQs', 'Support']}/></div><div className="footer-bottom section-shell"><span>© 2026 All Rights Reserved by Lara Shipping Line Pvt Ltd</span><div><a href="#privacy">Privacy policy</a><a href="#terms">Terms of use</a></div></div></footer>
@@ -278,14 +280,19 @@ function App() {
   return (
     <>
       {content}
-      <FloatingSidebar onNavigate={navigateTo} />
+      <FloatingSidebar onNavigate={navigateTo} onOpenChat={() => setIsChatOpen(true)} />
+      <ChatWidget isOpen={isChatOpen} setIsOpen={setIsChatOpen} onNavigate={navigateTo} />
     </>
   )
 }
 
-function FloatingSidebar({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HTMLAnchorElement>, path: string) => void }) {
+function FloatingSidebar({ onNavigate, onOpenChat }: { onNavigate: (event: ReactMouseEvent<HTMLAnchorElement>, path: string) => void; onOpenChat: () => void }) {
   return (
     <div className="floating-sidebar">
+      <button type="button" className="fs-item fs-chat-item" onClick={onOpenChat} title="Chat with Us">
+        <MessageCircle size={20} strokeWidth={2.5} />
+        <span>Chat<br/>With Us</span>
+      </button>
       <a href="/our-offer" className="fs-item" onClick={e => onNavigate(e, '/our-offer')}>
         <Link size={20} strokeWidth={2.5} />
         <span>Our Offer</span>
