@@ -62,12 +62,77 @@ const benefits: { icon: ElementType; title: string; copy: string }[] = [
 
 function Logo({ href = '#home' }: { href?: string }) { return <a className="logo" href={href} aria-label="Lara Shipping home"><img src="/logo.png" alt="LARA Shipping Logo" style={{ height: '45px', width: 'auto', display: 'block' }} /></a> }
 
-function Button({ children, variant = 'primary', className = '', href = '/quote', onClick }: { children: React.ReactNode; variant?: 'primary' | 'secondary' | 'dark'; className?: string; href?: string; onClick?: (e: ReactMouseEvent<HTMLAnchorElement>) => void }) {
-  return <a href={href} onClick={onClick} className={`button ${variant} ${className}`}>{children}</a>
+function Button({
+  children,
+  variant = 'primary',
+  className = '',
+  href,
+  onClick,
+  type = 'button'
+}: {
+  children: React.ReactNode
+  variant?: 'primary' | 'secondary' | 'dark'
+  className?: string
+  href?: string
+  onClick?: (e: ReactMouseEvent<HTMLElement>) => void
+  type?: 'button' | 'submit' | 'reset'
+}) {
+  if (href) {
+    return (
+      <a
+        href={href}
+        onClick={onClick as (e: ReactMouseEvent<HTMLAnchorElement>) => void}
+        className={`button ${variant} ${className}`}
+      >
+        {children}
+      </a>
+    )
+  }
+  return (
+    <button
+      type={type}
+      onClick={onClick as (e: ReactMouseEvent<HTMLButtonElement>) => void}
+      className={`button ${variant} ${className}`}
+    >
+      {children}
+    </button>
+  )
+}
+
+function smoothScrollTo(targetY: number, duration: number = 850, onComplete?: () => void) {
+  const startY = window.pageYOffset || document.documentElement.scrollTop
+  const diff = targetY - startY
+  if (Math.abs(diff) < 2) {
+    if (onComplete) onComplete()
+    return
+  }
+  const startTime = performance.now()
+
+  function easeOutQuint(x: number): number {
+    return 1 - Math.pow(1 - x, 5)
+  }
+
+  function step(currentTime: number) {
+    const elapsed = currentTime - startTime
+    const progress = Math.min(elapsed / duration, 1)
+    const easedProgress = easeOutQuint(progress)
+
+    window.scrollTo(0, startY + diff * easedProgress)
+
+    if (progress < 1) {
+      requestAnimationFrame(step)
+    } else {
+      window.scrollTo(0, targetY)
+      if (onComplete) onComplete()
+    }
+  }
+
+  requestAnimationFrame(step)
 }
 
 function App() {
   const [pagePath, setPagePath] = useState(() => window.location.pathname)
+  const [pageTransitioning, setPageTransitioning] = useState<'idle' | 'leaving' | 'entering'>('idle')
   const [mobileOpen, setMobileOpen] = useState(false)
   const [servicesOpen, setServicesOpen] = useState(false)
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false)
@@ -96,32 +161,46 @@ function App() {
   }, [])
 
   const track = () => setTrackMessage(trackValue.trim() ? `Tracking ${trackValue.toUpperCase()} — status ready to view.` : 'Enter your shipment number to begin.')
-  const navigateTo = (event: ReactMouseEvent<HTMLAnchorElement>, path: string, beforeUpdate?: () => void) => {
-    event.preventDefault()
+  const navigateTo = (event?: ReactMouseEvent<HTMLElement>, path?: string, beforeUpdate?: () => void) => {
+    if (event && event.preventDefault) event.preventDefault()
+    if (!path) return
     const [basePath, hash] = path.split('#')
     
-    if (basePath === pagePath) {
+    if (basePath === pagePath || (basePath === '' && hash)) {
       if (beforeUpdate) beforeUpdate()
       if (hash) {
         window.history.pushState({}, '', path)
-        setTimeout(() => document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' }), 10)
+        const el = document.getElementById(hash)
+        if (el) {
+          const y = Math.max(0, el.getBoundingClientRect().top + window.pageYOffset - 84)
+          smoothScrollTo(y, 850)
+        }
       } else {
-        window.scrollTo(0, 0)
+        smoothScrollTo(0, 650)
       }
       return
     }
-    const updatePage = () => {
-      if (beforeUpdate) beforeUpdate()
+
+    if (beforeUpdate) beforeUpdate()
+    setPageTransitioning('leaving')
+
+    setTimeout(() => {
       window.history.pushState({}, '', path)
       setPagePath(basePath)
-      if (hash) {
-        setTimeout(() => document.getElementById(hash)?.scrollIntoView(), 10)
-      } else {
-        window.scrollTo(0, 0)
-      }
-    }
-    const documentWithTransition = document as Document & { startViewTransition?: (callback: () => void) => void }
-    documentWithTransition.startViewTransition ? documentWithTransition.startViewTransition(updatePage) : updatePage()
+      window.scrollTo(0, 0)
+      setPageTransitioning('entering')
+
+      setTimeout(() => {
+        setPageTransitioning('idle')
+        if (hash) {
+          const el = document.getElementById(hash)
+          if (el) {
+            const y = Math.max(0, el.getBoundingClientRect().top + window.pageYOffset - 84)
+            smoothScrollTo(y, 850)
+          }
+        }
+      }, 40)
+    }, 180)
   }
   const selectService = (event: ReactMouseEvent<HTMLAnchorElement>, name: string) => {
     event.preventDefault()
@@ -235,7 +314,7 @@ function App() {
           <div className="eyebrow light"><span /> Global freight, intelligently connected</div>
           <h1>Moving the world.<br /><em>Delivering what matters.</em></h1>
           <p>Reliable global shipping and logistics solutions designed to move your cargo efficiently, securely, and on time.</p>
-          <div className="hero-actions"><Button onClick={e => navigateTo(e, '/quote')}>Get a Quote <ArrowRight size={17}/></Button><Button variant="secondary" onClick={() => setIsChatOpen(true)}>Chat with Us <MessageCircle size={17}/></Button><Button variant="secondary" onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}>Services <ArrowDown size={15}/></Button></div>
+          <div className="hero-actions"><Button onClick={e => navigateTo(e, '/quote')}>Get a Quote <ArrowRight size={17}/></Button><Button variant="secondary" onClick={(e) => { e.preventDefault(); setIsChatOpen(true); }}>Chat with Us <MessageCircle size={17}/></Button><Button variant="secondary" href="#services" onClick={(e) => { e.preventDefault(); const el = document.getElementById('services'); if (el) { const y = Math.max(0, el.getBoundingClientRect().top + window.pageYOffset - 84); smoothScrollTo(y, 900, () => window.history.pushState(null, '', '#services')); } }}>Services <ArrowDown size={15}/></Button></div>
           <div className="trust"><Check size={14}/> Global reach <b /> Reliable operations <b /> End-to-end logistics</div>
         </div>
         <a className="scroll-cue" href="#tracking"><span>SCROLL TO EXPLORE</span><i><ArrowDown size={15}/></i></a>
@@ -263,15 +342,15 @@ function App() {
 
       <section className="process-section section-shell" id="solutions"><div className="center-intro"><span className="eyebrow"><span /> How it works</span><h2>Complex logistics.<br /><em>Made clear.</em></h2><p>One experienced partner from the first request to final delivery.</p></div><div className="process-line">{process.map(([number, title, copy], i) => <article key={title}><span>{number}</span><i className={i === 0 ? 'active-dot' : ''}/><h3>{title}</h3><p>{copy}</p></article>)}</div></section>
 
-      <section className="network" id="global-network"><div className="network-map" aria-hidden="true"><div className="map-continent continent-a"/><div className="map-continent continent-b"/><div className="map-continent continent-c"/><svg viewBox="0 0 1000 500" preserveAspectRatio="none"><path d="M145 210 C280 45, 430 420, 550 190 S710 145, 830 220"/><path d="M140 210 C335 410, 500 45, 725 290 S860 120, 945 270"/><path d="M300 330 C460 245, 570 335, 720 290"/></svg><span className="pin p1"/><span className="pin p2"/><span className="pin p3"/><span className="pin p4"/><span className="pin p5"/></div><div className="network-inner section-shell"><span className="eyebrow light"><span /> Global network</span><h2>Connected across<br /><em>continents.</em></h2><p>Our network connects major trade routes, ports, and logistics hubs around the world.</p><Button variant="secondary">Explore our network <ArrowRight size={17}/></Button><div className="network-regions"><span>ASIA</span><span>EUROPE</span><span>AMERICAS</span><span>MIDDLE EAST</span><span>AFRICA</span></div></div></section>
+      <section className="network" id="global-network"><div className="network-map" aria-hidden="true"><div className="map-continent continent-a"/><div className="map-continent continent-b"/><div className="map-continent continent-c"/><svg viewBox="0 0 1000 500" preserveAspectRatio="none"><path d="M145 210 C280 45, 430 420, 550 190 S710 145, 830 220"/><path d="M140 210 C335 410, 500 45, 725 290 S860 120, 945 270"/><path d="M300 330 C460 245, 570 335, 720 290"/></svg><span className="pin p1"/><span className="pin p2"/><span className="pin p3"/><span className="pin p4"/><span className="pin p5"/></div><div className="network-inner section-shell"><span className="eyebrow light"><span /> Global network</span><h2>Connected across<br /><em>continents.</em></h2><p>Our network connects major trade routes, ports, and logistics hubs around the world.</p><Button variant="secondary" onClick={() => { const el = document.getElementById('global-network'); if (el) { const y = el.getBoundingClientRect().top + window.scrollY - 80; window.scrollTo({ top: y, behavior: 'smooth' }); } }}>Explore our network <ArrowRight size={17}/></Button><div className="network-regions"><span>ASIA</span><span>EUROPE</span><span>AMERICAS</span><span>MIDDLE EAST</span><span>AFRICA</span></div></div></section>
 
-      <section className="technology section-shell"><div className="tech-copy"><span className="eyebrow"><span /> The Lara advantage</span><h2>Logistics, powered<br />by <em>intelligence.</em></h2><p>We combine global operations with digital clarity, giving you a more informed and responsive way to move cargo.</p><Button variant="dark">Explore digital tools <ArrowRight size={17}/></Button></div><div className="dashboard"><div className="dash-top"><span>LIVE SHIPMENT OVERVIEW</span><i>● Online</i></div><div className="dash-route"><div><span>Origin</span><strong>SHANGHAI</strong></div><MoveRight/><div><span>Destination</span><strong>ROTTERDAM</strong></div></div><div className="dash-progress"><div><span>Voyage progress</span><b>68%</b></div><i><em/></i><small>Day 18 of 26 · ETA 08 Sep</small></div><div className="dash-bottom"><div className="chart"><span/><span/><span/><span/><span/><span/><span/></div><div className="eta"><span>ESTIMATED ARRIVAL</span><strong>08 <small>SEP</small></strong><p>On schedule <Check size={13}/></p></div></div></div></section>
+      <section className="technology section-shell"><div className="tech-copy"><span className="eyebrow"><span /> The Lara advantage</span><h2>Logistics, powered<br />by <em>intelligence.</em></h2><p>We combine global operations with digital clarity, giving you a more informed and responsive way to move cargo.</p><Button variant="dark" onClick={e => navigateTo(e, '/technology-customer-solution')}>Explore digital tools <ArrowRight size={17}/></Button></div><div className="dashboard"><div className="dash-top"><span>LIVE SHIPMENT OVERVIEW</span><i>● Online</i></div><div className="dash-route"><div><span>Origin</span><strong>SHANGHAI</strong></div><MoveRight/><div><span>Destination</span><strong>ROTTERDAM</strong></div></div><div className="dash-progress"><div><span>Voyage progress</span><b>68%</b></div><i><em/></i><small>Day 18 of 26 · ETA 08 Sep</small></div><div className="dash-bottom"><div className="chart"><span/><span/><span/><span/><span/><span/><span/></div><div className="eta"><span>ESTIMATED ARRIVAL</span><strong>08 <small>SEP</small></strong><p>On schedule <Check size={13}/></p></div></div></div></section>
 
-      <section className="featured"><div className="feature-ship"><div className="small-wake"/><div className="feature-stack"/><div className="feature-hull"/></div><div className="feature-content"><span className="eyebrow light"><span /> Ocean freight</span><h2>From port<br />to <em>port.</em></h2><p>Your cargo moves with precision across the world’s major trade routes.</p><Button>Discover our capabilities <ArrowRight size={17}/></Button></div></section>
+      <section className="featured"><div className="feature-ship"><div className="small-wake"/><div className="feature-stack"/><div className="feature-hull"/></div><div className="feature-content"><span className="eyebrow light"><span /> Ocean freight</span><h2>From port<br />to <em>port.</em></h2><p>Your cargo moves with precision across the world’s major trade routes.</p><Button onClick={e => navigateTo(e, '/ocean-freight-fcl')}>Discover our capabilities <ArrowRight size={17}/></Button></div></section>
 
       <section className="reliability section-shell" id="about"><div><span className="eyebrow"><span /> Why Lara Shipping</span><h2>Built around<br /><em>reliability.</em></h2></div><div className="benefits">{benefits.map(({icon: Icon, title, copy}) => <article key={title}><div className="line-icon"><Icon size={21}/></div><div><h3>{title}</h3><p>{copy}</p></div></article>)}</div></section>
 
-      <section className="quote-section" id="quote"><div className="quote-inner"><span className="eyebrow light"><span /> Let’s move forward</span><h2>Ready to move your<br /><em>business forward?</em></h2><p>Tell us what you’re shipping, where it’s going, and we’ll help find the right logistics solution.</p><div><Button onClick={e => navigateTo(e, '/quote')}>Get a Quote <ArrowRight size={17}/></Button><Button variant="secondary" onClick={() => setIsChatOpen(true)}>Chat with Us <MessageCircle size={17}/></Button></div></div></section>
+      <section className="quote-section" id="quote"><div className="quote-inner"><span className="eyebrow light"><span /> Let’s move forward</span><h2>Ready to move your<br /><em>business forward?</em></h2><p>Tell us what you’re shipping, where it’s going, and we’ll help find the right logistics solution.</p><div><Button onClick={e => navigateTo(e, '/quote')}>Get a Quote <ArrowRight size={17}/></Button><Button variant="secondary" onClick={(e) => { e.preventDefault(); setIsChatOpen(true); }}>Chat with Us <MessageCircle size={17}/></Button></div></div></section>
     </main>
 
     <footer><div className="footer-top section-shell"><div className="footer-brand"><Logo/><p>Global logistics, made more intelligent.</p><span>Connect With Us</span><div><a href="https://www.linkedin.com/company/lara-shipping-line-llc/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><Link size={17}/></a><a href="https://www.instagram.com/larashippingline?igsh=bDRicTA2M3lpbXR" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Camera size={17}/></a><a href="#x" aria-label="X"><Send size={17}/></a></div></div><FooterColumn title="Company" items={['About Us', 'Careers', 'Global Network', 'Contact']}/><FooterColumn title="Services" items={['Ocean Freight', 'Air Freight', 'Warehousing', 'Customs', 'Transportation']}/><FooterColumn title="Resources" items={['Track Shipment', 'Get a Quote', 'FAQs', 'Support']}/></div><div className="footer-bottom section-shell"><span>© 2026 All Rights Reserved by Lara Shipping Line Pvt Ltd</span><div><a href="#privacy">Privacy policy</a><a href="#terms">Terms of use</a></div></div></footer>
@@ -279,7 +358,10 @@ function App() {
 
   return (
     <>
-      {content}
+      <div className={`page-redirect-bar ${pageTransitioning !== 'idle' ? 'active' : ''}`} />
+      <div className={`page-transition-wrap ${pageTransitioning}`}>
+        {content}
+      </div>
       <FloatingSidebar onNavigate={navigateTo} onOpenChat={() => setIsChatOpen(true)} />
       <ChatWidget isOpen={isChatOpen} setIsOpen={setIsChatOpen} onNavigate={navigateTo} />
     </>
