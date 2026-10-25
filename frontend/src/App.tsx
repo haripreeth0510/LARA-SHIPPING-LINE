@@ -1,15 +1,18 @@
 import { useEffect, useState, type ElementType, type FormEvent, type MouseEvent as ReactMouseEvent } from 'react'
 import MapComponent from './MapComponent'
 import ChatWidget from './ChatWidget'
+import CbmCalculator from './CbmCalculator'
+import { ConverterPage } from './ConverterPage'
 import {
   ArrowDown, ArrowRight, ArrowUpRight, Box, ChevronDown, ChevronRight, ClipboardCheck, Globe2, Menu, MoveRight,
   PackageCheck, Plane, Ship, Truck, Warehouse, X, Zap, MapPin, ScanLine, Route, FileCheck2, BarChart3,
   Link, Camera, Send, Check, CircleHelp, ShieldCheck, Train, PackagePlus, Handshake, ShoppingCart, FileText,
-  Leaf, MonitorSmartphone, Award, Target, Eye, Sparkles, Mail, Phone, Megaphone, MessageCircle, MessageSquare
+  Leaf, MonitorSmartphone, Award, Target, Eye, Sparkles, Mail, Phone, Megaphone, MessageCircle, MessageSquare,
+  Calculator, Network
 } from 'lucide-react'
 
-const navItems = ['Home', 'Services', 'Tracking', 'Industries', 'Contact Us', 'About Us']
-const navHref = (item: string) => item === 'Industries' ? '/industries' : item === 'About Us' ? '/about' : item === 'Contact Us' ? '/contact' : `#${item.toLowerCase().replace(' ', '-')}`
+const navItems = ['Home', 'Services', 'Tracking', 'CBM Calculator', 'Industries', 'Contact Us', 'About Us']
+const navHref = (item: string) => item === 'Industries' ? '/industries' : item === 'About Us' ? '/about' : item === 'Contact Us' ? '/contact' : item === 'CBM Calculator' ? '/cbm-calculator' : `#${item.toLowerCase().replace(' ', '-')}`
 const serviceId = (name: string) => `service-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`
 
 const industryTabs = {
@@ -20,22 +23,43 @@ const industryTabs = {
 
 const industryTabIcons = { Achievements: Award, Goals: Target, Vision: Eye } as const
 
-const services: { icon: ElementType; name: string; description: string; tag: string }[] = [
-  { icon: Plane, name: 'Air Freight', description: 'Fast, controlled international movement for time-sensitive cargo.', tag: 'Air' },
-  { icon: ShieldCheck, name: 'Cargo Insurance', description: 'Practical protection for your cargo from origin through to final delivery.', tag: 'Protection' },
-  { icon: Ship, name: 'Ocean Freight (FCL)', description: 'Dedicated full-container shipments with dependable schedules and port coverage.', tag: 'Sea' },
-  { icon: PackagePlus, name: 'Ocean Freight (LCL)', description: 'Flexible consolidated shipping for cargo that does not require a full container.', tag: 'Sea' },
-  { icon: Train, name: 'Rail Freight', description: 'Efficient rail connections that keep inland cargo moving reliably.', tag: 'Rail' },
-  { icon: Truck, name: 'Road Freight', description: 'Reliable first-mile and last-mile delivery across key markets.', tag: 'Road' },
-  { icon: Warehouse, name: 'Social & Weighting & Filling', description: 'Careful cargo handling, weighing, and filling services tailored to your shipment.', tag: 'Handling' },
-  { icon: Handshake, name: 'Contract Logistics', description: 'Integrated logistics operations designed around your ongoing business needs.', tag: 'Solutions' },
-  { icon: ShoppingCart, name: 'Cross Border E-Commerce', description: 'Streamlined international fulfilment and delivery for online commerce.', tag: 'E-commerce' },
-  { icon: FileText, name: 'Customs Brokerage', description: 'Expert customs documentation and clearance support for smoother border crossings.', tag: 'Customs' },
-  { icon: Leaf, name: 'Green Solution', description: 'Lower-impact logistics options that support more sustainable supply chains.', tag: 'Sustainable' },
-  { icon: MonitorSmartphone, name: 'Technology & Customer Solution', description: 'Digital tools and responsive support that keep every shipment visible and simple.', tag: 'Digital' },
+const services: { icon: ElementType; name: string; description: string; tag: string; sector: 'Freight Forwarding Services' | 'Customer Solution' }[] = [
+  // Sector 1: Freight Forwarding Services
+  { icon: Plane, name: 'Air Freight', description: 'Fast, controlled international movement for time-sensitive cargo.', tag: 'Air', sector: 'Freight Forwarding Services' },
+  { icon: ShieldCheck, name: 'Cargo Insurance', description: 'Practical protection for your cargo from origin through to final delivery.', tag: 'Protection', sector: 'Freight Forwarding Services' },
+  { icon: Ship, name: 'Ocean Freight (FCL)', description: 'Dedicated full-container shipments with dependable schedules and port coverage.', tag: 'Sea', sector: 'Freight Forwarding Services' },
+  { icon: Network, name: 'Multi Modal', description: 'Integrated multi-modal transport combining sea, air, rail, and road under a single bill of lading.', tag: 'Multi-Modal', sector: 'Freight Forwarding Services' },
+  { icon: PackagePlus, name: 'Ocean Freight (LCL)', description: 'Flexible consolidated shipping for cargo that does not require a full container.', tag: 'Sea', sector: 'Freight Forwarding Services' },
+  { icon: Train, name: 'Rail Freight', description: 'Efficient rail connections that keep inland cargo moving reliably.', tag: 'Rail', sector: 'Freight Forwarding Services' },
+  { icon: Truck, name: 'Road Freight', description: 'Reliable first-mile and last-mile delivery across key markets.', tag: 'Road', sector: 'Freight Forwarding Services' },
+  { icon: Warehouse, name: 'Social & Weighting & Filling', description: 'Careful cargo handling, weighing, and filling services tailored to your shipment.', tag: 'Handling', sector: 'Freight Forwarding Services' },
+
+  // Sector 2: Customer Solution
+  { icon: Handshake, name: 'Contract Logistics', description: 'Integrated logistics operations designed around your ongoing business needs.', tag: 'Solutions', sector: 'Customer Solution' },
+  { icon: ShoppingCart, name: 'Cross Border E-Commerce', description: 'Streamlined international fulfilment and delivery for online commerce.', tag: 'E-commerce', sector: 'Customer Solution' },
+  { icon: FileText, name: 'Customs Brokerage', description: 'Expert customs documentation and clearance support for smoother border crossings.', tag: 'Customs', sector: 'Customer Solution' },
+  { icon: Leaf, name: 'Green Solution', description: 'Lower-impact logistics options that support more sustainable supply chains.', tag: 'Sustainable', sector: 'Customer Solution' },
+  { icon: MonitorSmartphone, name: 'Technology & Customer Solution', description: 'Digital tools and responsive support that keep every shipment visible and simple.', tag: 'Digital', sector: 'Customer Solution' },
 ]
 
 const serviceFromHash = () => services.find(service => `#${serviceId(service.name)}` === window.location.hash)?.name ?? null
+
+const getServicePath = (name: string) => {
+  if (name === 'Air Freight') return '/air-freight'
+  if (name === 'Cargo Insurance') return '/cargo-insurance'
+  if (name === 'Ocean Freight (FCL)') return '/ocean-freight-fcl'
+  if (name === 'Multi Modal' || name.toLowerCase().includes('multi modal') || name.toLowerCase().includes('multimodal')) return '/multi-modal'
+  if (name === 'Ocean Freight (LCL)') return '/ocean-freight-lcl'
+  if (name === 'Rail Freight') return '/rail-freight'
+  if (name === 'Road Freight') return '/road-freight'
+  if (name === 'Social & Weighting & Filling' || name.toLowerCase().includes('social') || name.toLowerCase().includes('weighting')) return '/social-weighting'
+  if (name === 'Contract Logistics') return '/contract-logistics'
+  if (name === 'Cross Border E-Commerce' || name.toLowerCase().includes('cross border')) return '/cross-border'
+  if (name === 'Customs Brokerage' || name.toLowerCase().includes('custom')) return '/customs-brokerage'
+  if (name === 'Green Solution') return '/green-solution'
+  if (name.toLowerCase().includes('technology') || name.toLowerCase().includes('customer solution')) return '/technology-customer-solution'
+  return '/#services'
+}
 
 const stats = [
   ['120+', 'Countries served'], ['50K+', 'Shipments managed'], ['98%', 'On-time operations'], ['24/7', 'Global support']
@@ -138,6 +162,7 @@ function App() {
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false)
   const [selectedService, setSelectedService] = useState<string | null>(serviceFromHash)
   const [scrolled, setScrolled] = useState(false)
+  const [activeSector, setActiveSector] = useState<'all' | 'Freight Forwarding Services' | 'Customer Solution'>('all')
   const [trackValue, setTrackValue] = useState('')
   const [trackMessage, setTrackMessage] = useState('')
   const [isChatOpen, setIsChatOpen] = useState(false)
@@ -221,6 +246,10 @@ function App() {
       navigateTo(event, '/ocean-freight-fcl', closeMenus)
       return
     }
+    if (name === 'Multi Modal' || name.toLowerCase().includes('multi modal') || name.toLowerCase().includes('multimodal')) {
+      navigateTo(event, '/multi-modal', closeMenus)
+      return
+    }
     if (name === 'Ocean Freight (LCL)') {
       navigateTo(event, '/ocean-freight-lcl', closeMenus)
       return
@@ -275,6 +304,7 @@ function App() {
   else if (pagePath === '/air-freight') content = <AirFreightPage onNavigate={navigateTo} />
   else if (pagePath === '/cargo-insurance') content = <CargoInsurancePage onNavigate={navigateTo} />
   else if (pagePath === '/ocean-freight-fcl') content = <OceanFreightFCLPage onNavigate={navigateTo} />
+  else if (pagePath === '/multi-modal') content = <MultiModalPage onNavigate={navigateTo} />
   else if (pagePath === '/ocean-freight-lcl') content = <OceanFreightLCLPage onNavigate={navigateTo} />
   else if (pagePath === '/rail-freight') content = <RailFreightPage onNavigate={navigateTo} />
   else if (pagePath === '/road-freight') content = <RoadFreightPage onNavigate={navigateTo} />
@@ -286,6 +316,7 @@ function App() {
   else if (pagePath === '/technology-customer-solution') content = <TechnologyCustomerSolutionPage onNavigate={navigateTo} />
   else if (pagePath === '/inco-terms') content = <IncoTermsPage onNavigate={navigateTo} />
   else if (pagePath === '/container-spec') content = <ContainerSpecPage onNavigate={navigateTo} />
+  else if (pagePath === '/cbm-calculator' || pagePath === '/converter') content = <ConverterPage onNavigate={navigateTo} />
   else content = <div>
     <header className={`header ${scrolled ? 'is-scrolled' : ''}`}>
       <Logo />
@@ -296,13 +327,16 @@ function App() {
               Services <ChevronDown size={15} aria-hidden="true" />
             </button>
             <div className={`services-dropdown ${servicesOpen ? 'open' : ''}`} role="menu" aria-label="Services">
-              {services.map(({ name }) => <a key={name} href={`#${serviceId(name)}`} role="menuitem" aria-current={selectedService === name ? 'true' : undefined} onClick={event => selectService(event, name)}>{name}</a>)}
+              <div className="services-dropdown-sector-title">Freight Forwarding Services</div>
+              {services.filter(s => s.sector === 'Freight Forwarding Services').map(({ name }) => <a key={name} href={`#${serviceId(name)}`} role="menuitem" aria-current={selectedService === name ? 'true' : undefined} onClick={event => selectService(event, name)}>{name}</a>)}
+              <div className="services-dropdown-sector-title">Customer Solution</div>
+              {services.filter(s => s.sector === 'Customer Solution').map(({ name }) => <a key={name} href={`#${serviceId(name)}`} role="menuitem" aria-current={selectedService === name ? 'true' : undefined} onClick={event => selectService(event, name)}>{name}</a>)}
             </div>
           </div>
-        ) : <a key={item} className={i === 0 ? 'active' : ''} href={navHref(item)} onClick={item === 'Industries' || item === 'About Us' || item === 'Contact Us' ? event => navigateTo(event, navHref(item)) : undefined}>{item}</a>)}
+        ) : <a key={item} className={i === 0 ? 'active' : ''} href={navHref(item)} onClick={item === 'Industries' || item === 'About Us' || item === 'Contact Us' || item === 'CBM Calculator' || item === 'Tracking' ? event => navigateTo(event, navHref(item)) : undefined}>{item}</a>)}
       </nav>
       <div className="header-actions"><Button className="quote-top" onClick={e => navigateTo(e, '/quote')}>Get a Quote <ArrowUpRight size={16} /></Button><button className="menu-button" onClick={() => setMobileOpen(!mobileOpen)} aria-expanded={mobileOpen} aria-label="Toggle navigation">{mobileOpen ? <X /> : <Menu />}</button></div>
-      <div className={`mobile-nav ${mobileOpen ? 'open' : ''}`}>{navItems.map(item => item === 'Services' ? <div className="mobile-services" key={item}><button type="button" onClick={() => setMobileServicesOpen(open => !open)} aria-expanded={mobileServicesOpen} aria-controls="mobile-services-list">Services <ChevronDown size={16}/></button><div id="mobile-services-list" className={mobileServicesOpen ? 'open' : ''}>{services.map(({ name }) => <a key={name} href={`#${serviceId(name)}`} aria-current={selectedService === name ? 'true' : undefined} onClick={event => selectService(event, name)}>{name}<ChevronRight size={14}/></a>)}</div></div> : <a onClick={event => { if (item === 'Industries' || item === 'About Us' || item === 'Contact Us') navigateTo(event, navHref(item), () => setMobileOpen(false)) }} key={item} href={navHref(item)}>{item}<ArrowRight size={16}/></a>)}<Button onClick={e => navigateTo(e, '/quote')}>Get a Quote <ArrowRight size={16}/></Button></div>
+      <div className={`mobile-nav ${mobileOpen ? 'open' : ''}`}>{navItems.map(item => item === 'Services' ? <div className="mobile-services" key={item}><button type="button" onClick={() => setMobileServicesOpen(open => !open)} aria-expanded={mobileServicesOpen} aria-controls="mobile-services-list">Services <ChevronDown size={16}/></button><div id="mobile-services-list" className={mobileServicesOpen ? 'open' : ''}><div className="mobile-sector-title">Freight Forwarding Services</div>{services.filter(s => s.sector === 'Freight Forwarding Services').map(({ name }) => <a key={name} href={`#${serviceId(name)}`} aria-current={selectedService === name ? 'true' : undefined} onClick={event => selectService(event, name)}>{name}<ChevronRight size={14}/></a>)}<div className="mobile-sector-title">Customer Solution</div>{services.filter(s => s.sector === 'Customer Solution').map(({ name }) => <a key={name} href={`#${serviceId(name)}`} aria-current={selectedService === name ? 'true' : undefined} onClick={event => selectService(event, name)}>{name}<ChevronRight size={14}/></a>)}</div></div> : <a onClick={event => { if (item === 'Industries' || item === 'About Us' || item === 'Contact Us' || item === 'CBM Calculator' || item === 'Tracking') navigateTo(event, navHref(item), () => setMobileOpen(false)) }} key={item} href={navHref(item)}>{item}<ArrowRight size={16}/></a>)}<Button onClick={e => navigateTo(e, '/quote')}>Get a Quote <ArrowRight size={16}/></Button></div>
     </header>
 
     <main>
@@ -334,10 +368,91 @@ function App() {
       <section className="section-shell services-section" id="services">
         <div className="section-intro"><div><span className="eyebrow"><span /> What we do</span><h2>One network.<br /><em>Every shipping need.</em></h2></div><p>From ocean freight to complete supply-chain solutions, we help businesses move cargo across borders with confidence.</p></div>
         {selectedService && <SelectedServicePanel service={services.find(service => service.name === selectedService)!} onClear={() => { setSelectedService(null); window.history.replaceState(null, '', '#services') }} />}
-        <div className="services-grid">{services.map(({icon: Icon, name, description, tag}) => {
-          const path = name === 'Air Freight' ? '/air-freight' : name === 'Cargo Insurance' ? '/cargo-insurance' : name === 'Ocean Freight (FCL)' ? '/ocean-freight-fcl' : name === 'Ocean Freight (LCL)' ? '/ocean-freight-lcl' : name === 'Rail Freight' ? '/rail-freight' : name === 'Road Freight' ? '/road-freight' : name === 'Social & Weighting & Filling' ? '/social-weighting' : name === 'Contract Logistics' ? '/contract-logistics' : name === 'Cross Border E-Commerce' ? '/cross-border' : name === 'Customs Brokerage' ? '/customs-brokerage' : name === 'Green Solution' ? '/green-solution' : '/technology-customer-solution';
-          return <article className={`service-card ${selectedService === name ? 'selected' : ''}`} id={serviceId(name)} key={name} tabIndex={0} style={{ cursor: 'pointer' }} onClick={(e) => navigateTo(e as any, path)}><div className="service-top"><div className="line-icon"><Icon size={24}/></div><span>{tag}</span></div><h3>{name}</h3><p>{description}</p><a href={path} aria-label={`Request a quote for ${name}`} onClick={(e) => { e.preventDefault(); e.stopPropagation(); navigateTo(e as any, path); }}>Request a quote <ArrowRight size={16}/></a></article>
-        })}</div>
+
+        {/* Sector Filter Tabs */}
+        <div className="services-sector-tabs">
+          <button
+            type="button"
+            className={`services-sector-tab-btn ${activeSector === 'all' ? 'active' : ''}`}
+            onClick={() => setActiveSector('all')}
+          >
+            All Services <span className="tab-count">{services.length}</span>
+          </button>
+          <button
+            type="button"
+            className={`services-sector-tab-btn ${activeSector === 'Freight Forwarding Services' ? 'active' : ''}`}
+            onClick={() => setActiveSector('Freight Forwarding Services')}
+          >
+            Freight Forwarding Services <span className="tab-count">{services.filter(s => s.sector === 'Freight Forwarding Services').length}</span>
+          </button>
+          <button
+            type="button"
+            className={`services-sector-tab-btn ${activeSector === 'Customer Solution' ? 'active' : ''}`}
+            onClick={() => setActiveSector('Customer Solution')}
+          >
+            Customer Solution <span className="tab-count">{services.filter(s => s.sector === 'Customer Solution').length}</span>
+          </button>
+        </div>
+
+        {/* Sector 1: Freight Forwarding Services */}
+        {(activeSector === 'all' || activeSector === 'Freight Forwarding Services') && (
+          <div className="services-sector-block" id="freight-forwarding-services">
+            <div className="services-sector-heading">
+              <div className="services-sector-heading-left">
+                <span className="eyebrow"><span /> Sector 01</span>
+                <h3>Freight Forwarding Services</h3>
+                <p>Comprehensive international transport solutions spanning air, ocean, rail, road, and multimodal networks.</p>
+              </div>
+              <span className="services-sector-count">8 Services</span>
+            </div>
+            <div className="services-grid services-grid-forwarding">
+              {services.filter(s => s.sector === 'Freight Forwarding Services').map(({icon: Icon, name, description, tag}) => {
+                const path = getServicePath(name)
+                return (
+                  <article className={`service-card ${selectedService === name ? 'selected' : ''}`} id={serviceId(name)} key={name} tabIndex={0} style={{ cursor: 'pointer' }} onClick={(e) => navigateTo(e as any, path)}>
+                    <div className="service-top">
+                      <div className="line-icon"><Icon size={24}/></div>
+                      <span>{tag}</span>
+                    </div>
+                    <h3>{name}</h3>
+                    <p>{description}</p>
+                    <a href={path} aria-label={`Request a quote for ${name}`} onClick={(e) => { e.preventDefault(); e.stopPropagation(); navigateTo(e as any, path); }}>Request a quote <ArrowRight size={16}/></a>
+                  </article>
+                )
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Sector 2: Customer Solution */}
+        {(activeSector === 'all' || activeSector === 'Customer Solution') && (
+          <div className="services-sector-block" id="customer-solution" style={{ marginTop: activeSector === 'all' ? '64px' : '0' }}>
+            <div className="services-sector-heading">
+              <div className="services-sector-heading-left">
+                <span className="eyebrow"><span /> Sector 02</span>
+                <h3>Customer Solution</h3>
+                <p>Integrated contract logistics, customs brokerage, cross-border e-commerce, green initiatives, and digital systems.</p>
+              </div>
+              <span className="services-sector-count">5 Services</span>
+            </div>
+            <div className="services-grid services-grid-solutions">
+              {services.filter(s => s.sector === 'Customer Solution').map(({icon: Icon, name, description, tag}) => {
+                const path = getServicePath(name)
+                return (
+                  <article className={`service-card ${selectedService === name ? 'selected' : ''}`} id={serviceId(name)} key={name} tabIndex={0} style={{ cursor: 'pointer' }} onClick={(e) => navigateTo(e as any, path)}>
+                    <div className="service-top">
+                      <div className="line-icon"><Icon size={24}/></div>
+                      <span>{tag}</span>
+                    </div>
+                    <h3>{name}</h3>
+                    <p>{description}</p>
+                    <a href={path} aria-label={`Request a quote for ${name}`} onClick={(e) => { e.preventDefault(); e.stopPropagation(); navigateTo(e as any, path); }}>Request a quote <ArrowRight size={16}/></a>
+                  </article>
+                )
+              })}
+            </div>
+          </div>
+        )}
       </section>
 
       <section className="process-section section-shell" id="solutions"><div className="center-intro"><span className="eyebrow"><span /> How it works</span><h2>Complex logistics.<br /><em>Made clear.</em></h2><p>One experienced partner from the first request to final delivery.</p></div><div className="process-line">{process.map(([number, title, copy], i) => <article key={title}><span>{number}</span><i className={i === 0 ? 'active-dot' : ''}/><h3>{title}</h3><p>{copy}</p></article>)}</div></section>
@@ -347,6 +462,8 @@ function App() {
       <section className="technology section-shell"><div className="tech-copy"><span className="eyebrow"><span /> The Lara advantage</span><h2>Logistics, powered<br />by <em>intelligence.</em></h2><p>We combine global operations with digital clarity, giving you a more informed and responsive way to move cargo.</p><Button variant="dark" onClick={e => navigateTo(e, '/technology-customer-solution')}>Explore digital tools <ArrowRight size={17}/></Button></div><div className="dashboard"><div className="dash-top"><span>LIVE SHIPMENT OVERVIEW</span><i>● Online</i></div><div className="dash-route"><div><span>Origin</span><strong>SHANGHAI</strong></div><MoveRight/><div><span>Destination</span><strong>ROTTERDAM</strong></div></div><div className="dash-progress"><div><span>Voyage progress</span><b>68%</b></div><i><em/></i><small>Day 18 of 26 · ETA 08 Sep</small></div><div className="dash-bottom"><div className="chart"><span/><span/><span/><span/><span/><span/><span/></div><div className="eta"><span>ESTIMATED ARRIVAL</span><strong>08 <small>SEP</small></strong><p>On schedule <Check size={13}/></p></div></div></div></section>
 
       <section className="featured"><div className="feature-ship"><div className="small-wake"/><div className="feature-stack"/><div className="feature-hull"/></div><div className="feature-content"><span className="eyebrow light"><span /> Ocean freight</span><h2>From port<br />to <em>port.</em></h2><p>Your cargo moves with precision across the world’s major trade routes.</p><Button onClick={e => navigateTo(e, '/ocean-freight-fcl')}>Discover our capabilities <ArrowRight size={17}/></Button></div></section>
+
+      <CbmCalculator onNavigate={navigateTo} onOpenChat={() => setIsChatOpen(true)} />
 
       <section className="reliability section-shell" id="about"><div><span className="eyebrow"><span /> Why Lara Shipping</span><h2>Built around<br /><em>reliability.</em></h2></div><div className="benefits">{benefits.map(({icon: Icon, title, copy}) => <article key={title}><div className="line-icon"><Icon size={21}/></div><div><h3>{title}</h3><p>{copy}</p></div></article>)}</div></section>
 
@@ -375,6 +492,10 @@ function FloatingSidebar({ onNavigate, onOpenChat }: { onNavigate: (event: React
         <MessageCircle size={20} strokeWidth={2.5} />
         <span>Chat<br/>With Us</span>
       </button>
+      <a href="/cbm-calculator" className="fs-item" onClick={e => onNavigate(e, '/cbm-calculator')} title="CBM Calculator">
+        <Calculator size={20} strokeWidth={2.5} />
+        <span>CBM<br/>Calc</span>
+      </a>
       <a href="/our-offer" className="fs-item" onClick={e => onNavigate(e, '/our-offer')}>
         <Link size={20} strokeWidth={2.5} />
         <span>Our Offer</span>
@@ -407,7 +528,7 @@ const getFooterLinkPath = (name: string) => {
   if (name === 'Ocean Freight(LCL)' || name === 'Ocean Freight (LCL)') return '/ocean-freight-lcl'
   if (name === 'Rail Freight') return '/rail-freight'
   if (name === 'Road Freight') return '/road-freight'
-  if (name === 'Multi Modal') return '/#services'
+  if (name === 'Multi Modal') return '/multi-modal'
   if (name === 'Social, Weighting and Filling' || name === 'Social & Weighting & Filling' || name === 'Warehousing') return '/social-weighting'
   if (name === 'Contract Logistics') return '/contract-logistics'
   if (name === 'Cross Border E-Commerce') return '/cross-border'
@@ -791,6 +912,141 @@ function CargoInsurancePage({ onNavigate }: { onNavigate: (event: ReactMouseEven
         <span>© 2026 All Rights Reserved by Lara Shipping Line Pvt Ltd</span>
       </div>
     </footer>
+    </div>
+  )
+}
+
+function MultiModalPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HTMLAnchorElement>, path: string) => void }) {
+  return (
+    <div className="mm-page">
+      <header className="about-header">
+        <div className="about-header-inner">
+          <Logo href="/" />
+          <nav aria-label="Primary navigation">
+            <a href="/" onClick={event => onNavigate(event, '/')}>Home</a>
+            <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
+            <a href="/#services" className="active" onClick={event => onNavigate(event, '/#services')}>Services</a>
+            <a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a>
+            <a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a>
+          </nav>
+          <a className="industries-quote" href="/#quote">Get a Quote <ArrowUpRight size={15} /></a>
+        </div>
+      </header>
+
+      <main>
+        {/* Top Hero Banner with the airplane taking off at sunset */}
+        <section className="mm-hero-banner" aria-label="Multi Modal Freight Hero">
+          <img
+            src="/multimodal-hero.jpg"
+            alt="Cargo airplane flying over clouds at sunset"
+            className="mm-hero-img"
+          />
+          <div className="mm-hero-overlay" />
+        </section>
+
+        {/* Section 1: Multi Modal Intro with Photo Card & Blue Offset Frame */}
+        <section className="mm-intro-section section-shell">
+          <div className="mm-intro-title-center">
+            <span className="eyebrow light"><span /> Freight Forwarding Services</span>
+            <h1>Multi Modal</h1>
+            <p>Integrated multimodal transport synchronizing ocean, air, rail, and road to deliver superior speed, cost efficiency, and reliable scheduling.</p>
+          </div>
+
+          <div className="mm-intro-grid">
+            {/* Left: Port image with blue offset shadow card */}
+            <div className="mm-photo-frame">
+              <div className="mm-photo-backdrop" />
+              <div className="mm-photo-container">
+                <img
+                  src="/multimodal-port.jpg"
+                  alt="Multimodal container port with cargo ships and airplane"
+                />
+              </div>
+            </div>
+
+            {/* Right: Text Content */}
+            <div className="mm-intro-copy">
+              <h2 className="mm-quote-text">
+                Whether shipping by sea, air, road, or rail, our team members are trained to help you find the combination that fits your needs.
+              </h2>
+              <p className="mm-secondary-text">
+                LARA SHIPPING LINE combines global maritime volume with scheduled rail corridors, road networks, and express air freight. By integrating multimodal logistics under one unified contract, we remove operational friction, cut transit times, and deliver transparent end-to-end tracking for time-critical and high-volume cargo.
+              </p>
+              <div className="mm-signals-row">
+                <div className="mm-signal-item">
+                  <b>100%</b>
+                  <span>Single Contract</span>
+                </div>
+                <div className="mm-signal-item">
+                  <b>120+</b>
+                  <span>Connected Corridors</span>
+                </div>
+                <div className="mm-signal-item">
+                  <b>24/7</b>
+                  <span>Live Tracking</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 2: What We Do */}
+        <section className="mm-what-we-do-section section-shell">
+          <div className="mm-what-header">
+            <span className="eyebrow light"><span /> What We do</span>
+            <h2>Your one-stop shop for global shipping.</h2>
+            <p>We handle everything from complex logistics to seamless delivery.</p>
+          </div>
+
+          <div className="mm-pillars-grid">
+            <article className="mm-pillar-card">
+              <div className="mm-pillar-icon"><Truck size={26} /></div>
+              <h3>Fast Delivery</h3>
+              <p>We offer swift transportation of goods via air, ensuring your cargo reaches its destination promptly.</p>
+            </article>
+
+            <article className="mm-pillar-card">
+              <div className="mm-pillar-icon"><Globe2 size={26} /></div>
+              <h3>Global Reach</h3>
+              <p>Our Air Freight service connects you to a vast network of destinations worldwide.</p>
+            </article>
+
+            <article className="mm-pillar-card">
+              <div className="mm-pillar-icon"><ShieldCheck size={26} /></div>
+              <h3>Secure Handling</h3>
+              <p>Your cargo is handled with utmost care and attention to ensure it arrives safely.</p>
+            </article>
+
+            <article className="mm-pillar-card">
+              <div className="mm-pillar-icon"><Sparkles size={26} /></div>
+              <h3>Tailored Solutions</h3>
+              <p>We provide customized air freight solutions to meet your specific needs.</p>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer className="industries-footer">
+        <div className="industries-footer-inner section-shell">
+          <div className="industries-footer-brand">
+            <Logo />
+            <p>LARA SHIPPING LINE PVT LTD</p>
+            <span>Connect With Us</span>
+            <div>
+              <a href="https://www.facebook.com/people/Lara-shipping-line-pvt-ltd/61559639342106/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a>
+              <a href="https://www.instagram.com/larashippingline?igsh=bDRicTA2M3lpbXR" target="_blank" rel="noopener noreferrer" aria-label="Instagram">◎</a>
+              <a href="https://www.linkedin.com/company/lara-shipping-line-llc/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
+              <a href="#x" aria-label="X">𝕏</a>
+            </div>
+          </div>
+          <FooterColumn title="Useful Links" items={['Home', 'About Us', 'Services', 'Industries', 'Contact Us']} />
+          <FooterColumn title="Services" items={['Air Freight', 'Cargo Insurance', 'Ocean Freight (FCL)', 'Multi Modal', 'Ocean Freight (LCL)', 'Rail Freight', 'Road Freight', 'Social, Weighting and Filling']} />
+          <FooterColumn title="Customer Solutions" items={['Contract Logistics', 'Cross Border E-Commerce', 'Customs Brokerage', 'Green Solution', 'Technology & Customer Services']} />
+        </div>
+        <div className="footer-bottom section-shell">
+          <span>© 2026 All Rights Reserved by Lara Shipping Line Pvt Ltd</span>
+        </div>
+      </footer>
     </div>
   )
 }
@@ -2308,7 +2564,12 @@ function GetQuotePage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HTML
                 <div style={{position:'relative'}}>
                   <select name="service" required defaultValue="" style={{width:'100%', height:'46px', padding:'0 16px', border:'1px solid #527586', background:'rgba(255,255,255,.96)', borderRadius:'2px', color:'#000', outline:'none', appearance:'none', fontSize:'13px', boxShadow:'inset 0 1px rgba(3,25,36,.08)'}}>
                     <option value="" disabled>Select Service</option>
-                    {services.map(s => <option key={s.name} value={s.name}>{s.name}</option>)}
+                    <optgroup label="Freight Forwarding Services">
+                      {services.filter(s => s.sector === 'Freight Forwarding Services').map(s => <option key={s.name} value={s.name}>{s.name}</option>)}
+                    </optgroup>
+                    <optgroup label="Customer Solution">
+                      {services.filter(s => s.sector === 'Customer Solution').map(s => <option key={s.name} value={s.name}>{s.name}</option>)}
+                    </optgroup>
                   </select>
                   <ChevronDown size={14} style={{position:'absolute', right:'16px', top:'16px', color:'#527586', pointerEvents:'none'}} />
                 </div>

@@ -36,6 +36,7 @@ const INITIAL_MESSAGES: ChatMessage[] = [
     time: 'Just now',
     options: [
       { label: '📦 Track a Shipment', action: 'track' },
+      { label: '📐 CBM Calculator', action: 'cbm' },
       { label: '💰 Request Freight Quote', action: 'quote' },
       { label: '🚢 Explore Shipping Services', action: 'services' },
       { label: '💬 Chat on WhatsApp', action: 'whatsapp', url: WHATSAPP_URL },
@@ -137,6 +138,27 @@ export default function ChatWidget({ isOpen, setIsOpen, onNavigate }: ChatWidget
           setTimeout(() => {
             document.getElementById('tracking')?.scrollIntoView({ behavior: 'smooth' })
           }, 150)
+          return
+
+        case 'cbm':
+          botResponse = {
+            id: `bot-${Date.now()}`,
+            sender: 'bot',
+            text: '📐 **LARA CBM & Cargo Volume Calculator**\n\nCalculate your exact CBM, CFT, volumetric weight (Air / Sea), and container load capacity (20ft, 40ft, 40ft HC) on our home page interactive tool.',
+            time: getCurrentTime(),
+            options: [
+              { label: '🚀 Open CBM Calculator', action: 'open_cbm', path: '/cbm-calculator' },
+              { label: '💰 Request a Freight Quote', action: 'quote' }
+            ]
+          }
+          break
+
+        case 'open_cbm':
+          setIsOpen(false)
+          if (path) {
+            const e = { preventDefault: () => {} } as ReactMouseEvent<HTMLAnchorElement>
+            onNavigate(e, path)
+          }
           return
 
         case 'quote':
@@ -267,6 +289,17 @@ export default function ChatWidget({ isOpen, setIsOpen, onNavigate }: ChatWidget
               { label: '🌐 Go to Live Tracker', action: 'open_tracker', path: '/#tracking' }
             ]
           }
+        }
+      } else if (lower.includes('cbm') || lower.includes('volume') || lower.includes('dimension') || lower.includes('cubic') || lower.includes('calculator')) {
+        botResponse = {
+          id: `bot-${Date.now()}`,
+          sender: 'bot',
+          text: '📐 **Interactive CBM (Cubic Meter) Calculator**\n\nCalculate volume (m³, ft³), air freight volumetric weight (1:6000), sea LCL billing weight, and see exact container capacity utilization (20\', 40\', 40\' HC) with our interactive calculator!',
+          time: getCurrentTime(),
+          options: [
+            { label: '🚀 Open CBM Calculator', action: 'open_cbm', path: '/cbm-calculator' },
+            { label: '📝 Request a Quote', action: 'open_quote_form', path: '/quote' }
+          ]
         }
       } else if (lower.includes('quote') || lower.includes('rate') || lower.includes('price') || lower.includes('cost') || lower.includes('how much') || lower.includes('freight')) {
         botResponse = {
