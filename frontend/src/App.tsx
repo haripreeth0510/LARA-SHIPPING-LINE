@@ -1,7 +1,6 @@
 import { useEffect, useState, type ElementType, type FormEvent, type MouseEvent as ReactMouseEvent } from 'react'
 import MapComponent from './MapComponent'
 import ChatWidget from './ChatWidget'
-import CbmCalculator from './CbmCalculator'
 import { ConverterPage } from './ConverterPage'
 import {
   ArrowDown, ArrowRight, ArrowUpRight, Box, ChevronDown, ChevronRight, ClipboardCheck, Globe2, Menu, MoveRight,
@@ -463,7 +462,6 @@ function App() {
 
       <section className="featured"><div className="feature-ship"><div className="small-wake"/><div className="feature-stack"/><div className="feature-hull"/></div><div className="feature-content"><span className="eyebrow light"><span /> Ocean freight</span><h2>From port<br />to <em>port.</em></h2><p>Your cargo moves with precision across the world’s major trade routes.</p><Button onClick={e => navigateTo(e, '/ocean-freight-fcl')}>Discover our capabilities <ArrowRight size={17}/></Button></div></section>
 
-      <CbmCalculator onNavigate={navigateTo} onOpenChat={() => setIsChatOpen(true)} />
 
       <section className="reliability section-shell" id="about"><div><span className="eyebrow"><span /> Why Lara Shipping</span><h2>Built around<br /><em>reliability.</em></h2></div><div className="benefits">{benefits.map(({icon: Icon, title, copy}) => <article key={title}><div className="line-icon"><Icon size={21}/></div><div><h3>{title}</h3><p>{copy}</p></div></article>)}</div></section>
 
@@ -715,69 +713,79 @@ function AirFreightPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HT
       </header>
 
       <main>
-        {/* Hero masthead — same stripe pattern as Industries */}
-        <section className="af-masthead">
-          <div className="af-company-card">
-            <span className="eyebrow light"><span /> LARA SHIPPING LINE</span>
-            <h1>Air freight,<br /><em>delivered fast.</em></h1>
-            <p>Global air cargo solutions built around speed, reliability, and compliance — from first flight to final delivery.</p>
-          </div>
+        {/* Top Hero Banner */}
+        <section className="af-hero-banner" aria-label="Air Freight Logistics Hero">
+          <img
+            src="/air-freight-hero.jpg"
+            alt="Global logistics terminal and cargo transit port at twilight"
+            className="af-hero-img"
+          />
+          <div className="af-hero-overlay" />
         </section>
 
-        {/* Intro section — two-column like industries-journey */}
-        <section className="af-journey section-shell">
-          <div className="af-journey-copy">
-            <span className="eyebrow light"><span /> Our air freight service</span>
-            <h2>Fast, secure &amp;<br /><em>global coverage.</em></h2>
-            <p>LARA SHIPPING offers airfreight services through its global network of offices. By partnering with leading carriers, LARA SHIPPING ensures that customer's cargo needs are met through a variety of solutions including fixed schedules on our daily flights, consolidation services in our own facilities and the creation of specialized solutions based on customer's unique requirements. Throughout the entire process, global compliance and security requirements are met at all times.</p>
-            <p>LARA SHIPPING has successfully implemented strategic alliances with carriers that uphold the standards of quality and value that are passed on to our valued customers. As part of this expectation, we require air carriers to report their performance during formal business reviews. The result is that our carrier strategy leverages 70% of the global volume to core and preferred carriers; ensuring market competitive rates while protecting capacity during shoulder and peak times.</p>
+        {/* Intro Section: AIR FREIGHT + Two Columns with photo and text */}
+        <section className="af-intro-section section-shell">
+          <div className="af-intro-header">
+            <span className="eyebrow light"><span /> Freight Forwarding Services</span>
+            <h1>AIR FREIGHT</h1>
           </div>
 
-          {/* CSS plane art panel — styled like industry-network-art */}
-          <div className="af-plane-panel" aria-hidden="true">
-            <div className="af-plane-body" />
-            <div className="af-plane-wing" />
-            <div className="af-plane-tail" />
-            <div className="af-plane-engine" />
-            <div className="af-plane-window" />
-            <div className="af-runway" />
-            <div className="af-cargo-box cb1" />
-            <div className="af-cargo-box cb2" />
-            <div className="af-cargo-box cb3" />
-            <div className="af-plane-core">
-              <Plane size={54} />
-              <b>70%</b>
-              <small>Core carrier volume</small>
+          <div className="af-intro-grid">
+            {/* Left: Photo Frame with Blue Offset Backdrop and White Border */}
+            <div className="af-photo-frame">
+              <div className="af-photo-backdrop" />
+              <div className="af-photo-container">
+                <img
+                  src="/air-freight-tarmac.jpg"
+                  alt="Commercial cargo aircraft turbine and freight pallet loading on tarmac"
+                />
+              </div>
+            </div>
+
+            {/* Right: Text Content */}
+            <div className="af-intro-copy">
+              <p>
+                LARA SHIPPING offers airfreight services through its global network of offices. By partnering with leading carriers, LARA SHIPPING ensures that customer's cargo needs are met through a variety of solutions including fixed schedules on our daily flights, consolidation services in our own facilities and the creation of specialized solutions based on customer's unique requirements. Throughout the entire process, global compliance and security requirements are met at all times.
+              </p>
+              <p>
+                LARA SHIPPING has successfully implemented strategic alliances with carriers that uphold the standards of quality and value that are passed on to our valued customers. As part of this expectation, we require air carriers to report their performance during formal business reviews. The result is that our carrier strategy leverages 70% of the global volume to core and preferred carriers; ensuring market competitive rates while protecting capacity during shoulder and peak times.
+              </p>
             </div>
           </div>
         </section>
 
-        {/* Features section — same dark panel grid as industry-scale */}
-        <section className="af-scale section-shell">
-          <div className="af-scale-header">
+        {/* Section 2: What We Do */}
+        <section className="af-what-we-do-section section-shell">
+          <div className="af-what-header">
             <span className="eyebrow light"><span /> What We Do</span>
-            <h2>One-stop shop for<br /><em>global air shipping.</em></h2>
-            <p>Your one-stop shop for global shipping. We handle everything from complex logistics to seamless delivery.</p>
-            <div className="industry-signals">
-              <span><b>24/7</b> Global support</span>
-              <span><b>120+</b> Countries served</span>
-              <span><b>98%</b> On-time operations</span>
-            </div>
-            <a className="about-read-more" href="/#quote">Get a Quote <ArrowRight size={16} /></a>
+            <h2>What We do</h2>
+            <p>Your one-stop shop for global shipping. We handle everything from complex logistics to seamless delivery</p>
           </div>
-          <div className="af-features-grid">
-            {[
-              { icon: Zap, title: 'Fast Delivery', copy: 'We offer swift transportation of goods via air, ensuring your cargo reaches its destination promptly.' },
-              { icon: Globe2, title: 'Global Reach', copy: 'Our Air Freight service connects you to a vast network of destinations worldwide.' },
-              { icon: ShieldCheck, title: 'Secure Handling', copy: 'Your cargo is handled with utmost care and attention to ensure it arrives safely.' },
-              { icon: Sparkles, title: 'Tailored Solutions', copy: 'We provide customized air freight solutions to meet your specific needs.' },
-            ].map(({ icon: Icon, title, copy }) => (
-              <article className="af-feature-card" key={title}>
-                <div className="af-feature-icon"><Icon size={26} /></div>
-                <h3>{title}</h3>
-                <p>{copy}</p>
-              </article>
-            ))}
+
+          <div className="af-pillars-grid">
+            <article className="af-pillar-card">
+              <div className="af-pillar-icon"><Zap size={26} /></div>
+              <h3>Fast Delivery</h3>
+              <p>We offer swift transportation of goods via air, ensuring your cargo reaches its destination promptly.</p>
+            </article>
+
+            <article className="af-pillar-card">
+              <div className="af-pillar-icon"><Globe2 size={26} /></div>
+              <h3>Global Reach</h3>
+              <p>Our Air Freight service connects you to a vast network of destinations worldwide.</p>
+            </article>
+
+            <article className="af-pillar-card">
+              <div className="af-pillar-icon"><ShieldCheck size={26} /></div>
+              <h3>Secure Handling</h3>
+              <p>Your cargo is handled with utmost care and attention to ensure it arrives safely.</p>
+            </article>
+
+            <article className="af-pillar-card">
+              <div className="af-pillar-icon"><Sparkles size={26} /></div>
+              <h3>Tailored Solutions</h3>
+              <p>We provide customized air freight solutions to meet your specific needs.</p>
+            </article>
           </div>
         </section>
       </main>
@@ -825,68 +833,74 @@ function CargoInsurancePage({ onNavigate }: { onNavigate: (event: ReactMouseEven
       </header>
 
       <main>
-        {/* Masthead — same stripe pattern as Industries */}
-        <section className="ci-masthead">
-          <div className="ci-company-card">
-            <span className="eyebrow light"><span /> LARA SHIPPING LINE</span>
-            <h1>Cargo Insurance,<br /><em>protected end-to-end.</em></h1>
-            <p>Comprehensive cargo protection from origin through to final delivery — covering what carriers legally cannot.</p>
+        {/* Top Hero Banner */}
+        <section className="ci-hero-banner" aria-label="Cargo Insurance Logistics Hero">
+          <img
+            src="/air-freight-hero.jpg"
+            alt="Global logistics terminal and cargo transit port at twilight"
+            className="ci-hero-img"
+          />
+          <div className="ci-hero-overlay" />
+        </section>
+
+        {/* Intro Section: Cargo Insurance + Two Columns with photo and text */}
+        <section className="ci-intro-section section-shell">
+          <div className="ci-intro-header">
+            <h1>Cargo Insurance</h1>
+          </div>
+
+          <div className="ci-intro-grid">
+            {/* Left: Photo Frame with Blue Offset Backdrop and White Border */}
+            <div className="ci-photo-frame">
+              <div className="ci-photo-backdrop" />
+              <div className="ci-photo-container">
+                <img
+                  src="/cargo-insurance-port.jpg"
+                  alt="Container port terminal with towering gantry crane and container freight truck"
+                />
+              </div>
+            </div>
+
+            {/* Right: Text Content */}
+            <div className="ci-intro-copy">
+              <p>
+                Transportation carriers are often responsible only for their legal liability for damage caused to your cargo, which may not be equal to the full value of your cargo, and in many cases, such as acts of god, may not be liable for the damage for the loss or damage at all. Even in the case your cargo was not damaged and discharged successfully at your destination, you may still need to pay for the loss of others under the "General Average" concept.
+              </p>
+            </div>
           </div>
         </section>
 
-        {/* Intro — two-column like industries-journey */}
-        <section className="ci-journey section-shell">
-          <div className="ci-journey-copy">
-            <span className="eyebrow light"><span /> Why cargo insurance matters</span>
-            <h2>Beyond carrier<br /><em>liability limits.</em></h2>
-            <p>Transportation carriers are often responsible only for their legal liability for damage caused to your cargo, which may not be equal to the full value of your cargo, and in many cases, such as acts of god, may not be liable for the damage for the loss or damage at all. Even in the case your cargo was not damaged and discharged successfully at your destination, you may still need to pay for the loss of others under the "General Average" concept.</p>
-            <p>LARA SHIPPING provides practical cargo insurance solutions that cover your shipment from point of origin to final destination, giving you genuine peace of mind regardless of the mode of transport, route, or circumstances encountered along the way.</p>
+        {/* Section 2: What We Do */}
+        <section className="ci-what-we-do-section section-shell">
+          <div className="ci-what-header">
+            <h2>What We do</h2>
+            <p>Your one-stop shop for global shipping. We handle everything from complex logistics to seamless delivery</p>
           </div>
 
-          {/* CSS art panel — mirrors industry-network-art */}
-          <div className="ci-shield-panel" aria-hidden="true">
-            <div className="ci-cargo-row">
-              <i /><i /><i /><i /><i /><i />
-            </div>
-            <div className="ci-crane" />
-            <div className="ci-crane-arm" />
-            <div className="ci-panel-core">
-              <ShieldCheck size={52} />
-              <b>100%</b>
-              <small>Cargo value covered</small>
-            </div>
-            <span className="ci-node n1" />
-            <span className="ci-node n2" />
-            <span className="ci-node n3" />
-          </div>
-        </section>
+          <div className="ci-pillars-grid">
+            <article className="ci-pillar-card">
+              <div className="ci-pillar-icon"><Truck size={26} /></div>
+              <h3>Fast Delivery</h3>
+              <p>We offer swift transportation of goods via air, ensuring your cargo reaches its destination promptly.</p>
+            </article>
 
-        {/* What We Do — mirrors industry-scale */}
-        <section className="ci-scale section-shell">
-          <div className="ci-scale-header">
-            <span className="eyebrow light"><span /> What We Do</span>
-            <h2>One-stop shop for<br /><em>cargo protection.</em></h2>
-            <p>Your one-stop shop for global shipping. We handle everything from complex logistics to seamless delivery.</p>
-            <div className="industry-signals">
-              <span><b>120+</b> Countries covered</span>
-              <span><b>24/7</b> Claims support</span>
-              <span><b>100%</b> Cargo value insured</span>
-            </div>
-            <a className="about-read-more" href="/#quote">Get a Quote <ArrowRight size={16} /></a>
-          </div>
-          <div className="ci-features-grid">
-            {[
-              { icon: ShieldCheck, title: 'Full Value Coverage', copy: 'We insure your cargo to its full declared value, not just carrier liability limits.' },
-              { icon: Globe2, title: 'Global Coverage', copy: 'Our cargo insurance covers shipments across all modes — ocean, air, road, and rail.' },
-              { icon: Zap, title: 'Fast Claims', copy: 'Our dedicated claims team ensures swift, transparent resolution for any covered loss.' },
-              { icon: FileText, title: 'General Average', copy: 'Protection against shared maritime losses under the General Average principle.' },
-            ].map(({ icon: Icon, title, copy }) => (
-              <article className="ci-feature-card" key={title}>
-                <div className="ci-feature-icon"><Icon size={26} /></div>
-                <h3>{title}</h3>
-                <p>{copy}</p>
-              </article>
-            ))}
+            <article className="ci-pillar-card">
+              <div className="ci-pillar-icon"><Globe2 size={26} /></div>
+              <h3>Global Reach</h3>
+              <p>Our Air Freight service connects you to a vast network of destinations worldwide.</p>
+            </article>
+
+            <article className="ci-pillar-card">
+              <div className="ci-pillar-icon"><ShieldCheck size={26} /></div>
+              <h3>Secure Handling</h3>
+              <p>Your cargo is handled with utmost care and attention to ensure it arrives safely.</p>
+            </article>
+
+            <article className="ci-pillar-card">
+              <div className="ci-pillar-icon"><Sparkles size={26} /></div>
+              <h3>Tailored Solutions</h3>
+              <p>We provide customized air freight solutions to meet your specific needs.</p>
+            </article>
           </div>
         </section>
       </main>

@@ -93,174 +93,435 @@ footer{background:#061725;color:#e3edf2}.footer-top{padding:67px 0 53px;display:
 .contact-form-wrap { position:relative;overflow:hidden;border-color:#2b6074;background:linear-gradient(145deg,#0b2431,#071722 68%);box-shadow:0 28px 55px rgba(0,0,0,.32),inset 0 1px rgba(195,241,250,.08); }.contact-form-wrap:before { content:'';position:absolute;z-index:0;width:310px;height:310px;right:-135px;top:-175px;border:1px solid rgba(92,199,223,.27);border-radius:50%;box-shadow:0 0 0 35px rgba(53,142,169,.06),0 0 0 70px rgba(53,142,169,.04); }.contact-form-wrap>* { position:relative;z-index:1; }.contact-form-heading { padding-bottom:21px;border-bottom:1px solid rgba(145,202,218,.2); }.contact-form-heading h2 { font-size:34px;letter-spacing:-1.5px; }.contact-form-heading p { max-width:430px;color:#b3c7cf; }.contact-response-note { display:flex;justify-content:space-between;gap:15px;margin-top:20px;color:#87a9b6;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.25px; }.contact-response-note span:first-child { display:flex;align-items:center;gap:7px;color:#c1d8df; }.contact-response-note i { display:block;width:6px;height:6px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 4px rgba(198,242,93,.12); }.contact-form { gap:17px;margin-top:23px; }.contact-form-row { display:grid;grid-template-columns:1fr 1fr;gap:14px; }.contact-form label { display:block;color:#dce9ed;font-size:11px;letter-spacing:.1px; }.contact-form input,.contact-form textarea { border:1px solid #527586;background:rgba(255,255,255,.96);border-radius:2px;box-shadow:inset 0 1px rgba(3,25,36,.08); }.contact-form input { height:46px; }.contact-form textarea { min-height:132px; }.contact-form input::placeholder,.contact-form textarea::placeholder { color:#81929b; }.contact-form input:focus,.contact-form textarea:focus { border-color:#71d0e4;box-shadow:0 0 0 4px rgba(97,199,223,.18),inset 0 1px rgba(3,25,36,.08); }.contact-form-footer { display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:3px; }.contact-form-footer small { max-width:230px;color:#8faab5;font-size:9px;line-height:1.55; }.contact-submit { margin:0;padding:14px 18px;background:linear-gradient(135deg,#1683bd,#1f9cce);box-shadow:0 8px 16px rgba(11,109,162,.25); }.contact-submit:hover { background:linear-gradient(135deg,#259dce,#3ab1dd); }.contact-form-wrap:focus-within { border-color:#5fc4dc;box-shadow:0 28px 55px rgba(0,0,0,.32),0 0 0 1px rgba(95,196,220,.18),inset 0 1px rgba(195,241,250,.08); }
 @media(max-width:620px){.contact-form-heading h2{font-size:29px}.contact-response-note{display:grid;gap:6px;margin-top:16px;font-size:8px}.contact-form-row{grid-template-columns:1fr;gap:16px}.contact-form-footer{align-items:stretch;flex-direction:column}.contact-form-footer small{max-width:none}.contact-submit{justify-content:center;width:100%}}
 
-/* ─── Air Freight page — mirrors Industries page visual language ─────────── */
-.air-freight-page { min-height:100vh;background:#03090e;color:#f5f7f8; }
-
-/* Masthead: same cargo-container stripe pattern as industries-masthead */
-.af-masthead { position:relative;min-height:326px;padding:72px 40px 0;overflow:hidden;background:linear-gradient(90deg,rgba(4,21,30,.9),rgba(6,20,28,.43)),repeating-linear-gradient(90deg,#1a3946 0 11%,#b44820 11% 14%,#213e49 14% 24%,#be7b29 24% 27%);background-size:auto,210px 100%; }
-.af-masthead:after { content:'';position:absolute;inset:0;background:linear-gradient(transparent 0 68%,#03090e); }
-/* Company card: same as industries-company-card */
-.af-company-card { position:relative;z-index:1;width:min(875px,100%);margin:auto;padding:29px 39px 33px;background:rgba(2,8,13,.94);border-top:2px solid #db5429;box-shadow:0 15px 25px rgba(0,0,0,.45); }
-.af-company-card h1 { margin:15px 0 8px;font-size:clamp(32px,3.7vw,51px);line-height:1.03;letter-spacing:-2px; }
-.af-company-card h1 em { font-family:'Playfair Display',serif;font-weight:600; }
-.af-company-card p { max-width:535px;margin:0;color:#b9c9d2;font-size:13px;line-height:1.7; }
-
-/* Journey section: mirrors industries-journey */
-.af-journey { display:grid;grid-template-columns:1.15fr .85fr;gap:80px;align-items:center;padding:103px 0 88px; }
-.af-journey-copy h2 { margin:16px 0 20px;font-size:clamp(39px,4vw,58px);line-height:1.08;letter-spacing:-2.3px; }
-.af-journey-copy h2 em { font-family:'Playfair Display',serif;font-weight:600; }
-.af-journey-copy p { max-width:550px;margin:0 0 20px;color:#b5c3cb;font-size:13px;line-height:1.8; }
-.af-journey-copy p:last-child { margin:0; }
-
-/* Plane art panel: mirrors industry-network-art */
-.af-plane-panel { position:relative;min-height:385px;isolation:isolate;display:grid;place-items:center;overflow:hidden;border:1px solid #254756;background:radial-gradient(circle at 50% 48%,rgba(30,115,149,.25),transparent 35%),linear-gradient(145deg,#071721,#0b2b3b); }
-.af-plane-panel:before { content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(134,210,230,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(134,210,230,.09) 1px,transparent 1px);background-size:37px 37px;mask-image:radial-gradient(circle,black,transparent 74%); }
-/* Core badge (mirrors network-core) */
-.af-plane-core { position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;width:175px;height:175px;border:1px solid #69b8cc;border-radius:50%;background:rgba(7,30,42,.87);box-shadow:0 0 0 18px rgba(67,158,187,.1),0 0 60px rgba(42,156,192,.22);color:#d7f4fa;text-align:center; }
-.af-plane-core svg { color:#72c6da;opacity:.85;margin-bottom:6px; }
-.af-plane-core b { color:var(--lime);font-size:26px;letter-spacing:-1px;line-height:1; }
-.af-plane-core small { color:#9dbcc7;font-size:9px;margin-top:2px; }
-/* Floating cargo boxes inside panel */
-.af-plane-panel .af-cargo-box { position:absolute;border-radius:2px; }
-.af-plane-panel .cb1 { width:52px;height:38px;left:9%;bottom:18%;background:linear-gradient(145deg,#d1350e,#9c2a0c);opacity:.9; }
-.af-plane-panel .cb2 { width:42px;height:38px;left:22%;bottom:18%;background:linear-gradient(145deg,#1976d2,#104f8f);opacity:.9; }
-.af-plane-panel .cb3 { width:47px;height:28px;left:34%;bottom:18%;background:linear-gradient(145deg,#e8c43a,#b09224);opacity:.9; }
-/* Small nodes like network nodes */
-.af-plane-panel:after { content:'';position:absolute;z-index:2;width:11px;height:11px;top:22%;right:18%;border-radius:50%;background:var(--lime);box-shadow:0 0 0 6px rgba(198,242,93,.12),0 0 17px var(--lime); }
-/* Runway line */
-.af-runway { position:absolute;z-index:0;left:5%;right:5%;bottom:14%;height:3px;background:repeating-linear-gradient(90deg,rgba(198,242,93,.6) 0 12px,transparent 12px 20px); }
-/* Plane silhouette pieces (hidden behind panel card — decorative only) */
-.af-plane-panel .af-plane-body,.af-plane-panel .af-plane-wing,.af-plane-panel .af-plane-tail,.af-plane-panel .af-plane-engine,.af-plane-panel .af-plane-window { display:none; }
-
-/* Scale section (What We Do): mirrors industry-scale layout */
-.af-scale { display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:start;padding:85px 0 118px;border-top:1px solid rgba(168,205,218,.18); }
-.af-scale-header h2 { margin:16px 0 20px;font-size:clamp(39px,4vw,58px);line-height:1.08;letter-spacing:-2.3px; }
-.af-scale-header h2 em { font-family:'Playfair Display',serif;font-weight:600; }
-.af-scale-header p { max-width:480px;margin:0 0 0;color:#b5c3cb;font-size:13px;line-height:1.8; }
-.af-scale .industry-signals { justify-content:flex-start;margin:27px 0 29px;color:#a5bac4; }
-.af-scale .industry-signals span { padding:0 17px;font-size:10px;border-color:#274756; }
-.af-scale .industry-signals span:first-child { padding-left:0; }
-.af-scale .industry-signals b { color:var(--lime);font-size:17px; }
-
-/* Feature cards grid */
-.af-features-grid { display:grid;grid-template-columns:1fr 1fr;gap:9px; }
-.af-feature-card { background:#0b1b25;border:1px solid #274d5d;padding:32px 26px 30px;transition:background .25s,transform .25s; }
-.af-feature-card:hover { background:#102b38;transform:translateY(-3px); }
-.af-feature-icon { width:50px;height:50px;display:grid;place-items:center;border:1px solid #274d5d;color:#63b9da;margin-bottom:19px;background:rgba(25,118,210,.07); }
-.af-feature-card h3 { margin:0 0 10px;font-size:15px;letter-spacing:-.4px;color:#e8f2f6; }
-.af-feature-card p { margin:0;font-size:12px;color:#8aaabb;line-height:1.75; }
-
-/* Responsive */
-@media(max-width:850px) {
-  .af-masthead { padding-left:20px;padding-right:20px; }
-  .af-company-card { padding:27px; }
-  .af-journey { grid-template-columns:1fr;gap:52px; }
-  .af-plane-panel { width:min(100%,520px);min-height:335px;justify-self:center; }
-  .af-scale { grid-template-columns:1fr;gap:50px; }
-}
-@media(max-width:620px) {
-  .af-masthead { min-height:284px;padding-top:51px; }
-  .af-company-card { padding:23px 20px; }
-  .af-company-card h1 { font-size:37px; }
-  .af-journey { padding:65px 0;gap:38px; }
-  .af-journey-copy h2 { font-size:39px; }
-  .af-plane-panel { min-height:290px; }
-  .af-scale { padding:65px 0 80px; }
-  .af-scale-header h2 { font-size:39px; }
-  .af-features-grid { grid-template-columns:1fr; }
-  .af-feature-card { padding:26px 18px; }
-  .af-scale .industry-signals { flex-wrap:wrap;gap:13px;margin:20px 0 24px; }
-  .af-scale .industry-signals span { padding:0 12px 0 0;border:0;font-size:10px; }
-  .af-scale .industry-signals b { display:block;margin:0; }
+/* ─── Air Freight page ─────────────────────────────────────────────────────── */
+.air-freight-page {
+  min-height: 100vh;
+  background: #000000;
+  color: #f5f7f8;
 }
 
-/* ─── Cargo Insurance page — mirrors Industries page visual language ──────── */
-.cargo-ins-page { min-height:100vh;background:#03090e;color:#f5f7f8; }
-
-/* Masthead: same cargo-container stripe as Industries (warm amber/teal tones) */
-.ci-masthead { position:relative;min-height:326px;padding:72px 40px 0;overflow:hidden;background:linear-gradient(90deg,rgba(4,21,30,.9),rgba(6,20,28,.43)),repeating-linear-gradient(90deg,#1a3946 0 11%,#b44820 11% 14%,#213e49 14% 24%,#be7b29 24% 27%);background-size:auto,210px 100%; }
-.ci-masthead:after { content:'';position:absolute;inset:0;background:linear-gradient(transparent 0 68%,#03090e); }
-
-/* Company card: identical to industries-company-card */
-.ci-company-card { position:relative;z-index:1;width:min(875px,100%);margin:auto;padding:29px 39px 33px;background:rgba(2,8,13,.94);border-top:2px solid #db5429;box-shadow:0 15px 25px rgba(0,0,0,.45); }
-.ci-company-card h1 { margin:15px 0 8px;font-size:clamp(32px,3.7vw,51px);line-height:1.03;letter-spacing:-2px; }
-.ci-company-card h1 em { font-family:'Playfair Display',serif;font-weight:600; }
-.ci-company-card p { max-width:535px;margin:0;color:#b9c9d2;font-size:13px;line-height:1.7; }
-
-/* Journey section: mirrors industries-journey */
-.ci-journey { display:grid;grid-template-columns:1.15fr .85fr;gap:80px;align-items:center;padding:103px 0 88px; }
-.ci-journey-copy h2 { margin:16px 0 20px;font-size:clamp(39px,4vw,58px);line-height:1.08;letter-spacing:-2.3px; }
-.ci-journey-copy h2 em { font-family:'Playfair Display',serif;font-weight:600; }
-.ci-journey-copy p { max-width:550px;margin:0 0 20px;color:#b5c3cb;font-size:13px;line-height:1.8; }
-.ci-journey-copy p:last-child { margin:0; }
-
-/* Shield art panel: mirrors industry-network-art */
-.ci-shield-panel { position:relative;min-height:385px;isolation:isolate;display:grid;place-items:center;overflow:hidden;border:1px solid #254756;background:radial-gradient(circle at 50% 48%,rgba(30,115,149,.25),transparent 35%),linear-gradient(145deg,#071721,#0b2b3b); }
-.ci-shield-panel:before { content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(134,210,230,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(134,210,230,.09) 1px,transparent 1px);background-size:37px 37px;mask-image:radial-gradient(circle,black,transparent 74%); }
-
-/* Circular badge — mirrors network-core */
-.ci-panel-core { position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;width:175px;height:175px;border:1px solid #69b8cc;border-radius:50%;background:rgba(7,30,42,.87);box-shadow:0 0 0 18px rgba(67,158,187,.1),0 0 60px rgba(42,156,192,.22);color:#d7f4fa;text-align:center; }
-.ci-panel-core svg { color:#72c6da;opacity:.85;margin-bottom:6px; }
-.ci-panel-core b { color:var(--lime);font-size:26px;letter-spacing:-1px;line-height:1; }
-.ci-panel-core small { color:#9dbcc7;font-size:9px;margin-top:2px; }
-
-/* Cargo container row art */
-.ci-cargo-row { position:absolute;left:8%;right:8%;bottom:14%;height:54px;display:grid;grid-template-columns:repeat(6,1fr);gap:4px;padding:4px;background:#0f2535; }
-.ci-cargo-row i { background:linear-gradient(#ce4233 0 46%,#e0bd5d 48%); }
-.ci-cargo-row i:nth-child(3n) { background:linear-gradient(#1d5980 0 46%,#e7dfca 48%); }
-.ci-cargo-row i:nth-child(2n) { background:linear-gradient(#3a7a4a 0 46%,#d9c75f 48%); }
-
-/* Crane art */
-.ci-crane { position:absolute;right:16%;bottom:25%;width:8px;height:85px;background:#1e4160; }
-.ci-crane-arm { position:absolute;right:11%;bottom:67%;width:40%;height:6px;background:#1e4160; }
-.ci-crane-arm:after { content:'';position:absolute;right:0;top:5px;width:2px;height:40px;background:#1e4160; }
-
-/* Lime network nodes */
-.ci-node { position:absolute;z-index:2;width:11px;height:11px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 6px rgba(198,242,93,.12),0 0 17px var(--lime); }
-.n1 { left:18%;top:26%; }
-.n2 { right:17%;top:37%; }
-.n3 { left:41%;bottom:22%; }
-
-/* Scale / What We Do: mirrors industry-scale */
-.ci-scale { display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:start;padding:85px 0 118px;border-top:1px solid rgba(168,205,218,.18); }
-.ci-scale-header h2 { margin:16px 0 20px;font-size:clamp(39px,4vw,58px);line-height:1.08;letter-spacing:-2.3px; }
-.ci-scale-header h2 em { font-family:'Playfair Display',serif;font-weight:600; }
-.ci-scale-header p { max-width:480px;margin:0;color:#b5c3cb;font-size:13px;line-height:1.8; }
-.ci-scale .industry-signals { justify-content:flex-start;margin:27px 0 29px;color:#a5bac4; }
-.ci-scale .industry-signals span { padding:0 17px;font-size:10px;border-color:#274756; }
-.ci-scale .industry-signals span:first-child { padding-left:0; }
-.ci-scale .industry-signals b { color:var(--lime);font-size:17px; }
-
-/* Feature cards */
-.ci-features-grid { display:grid;grid-template-columns:1fr 1fr;gap:9px; }
-.ci-feature-card { background:#0b1b25;border:1px solid #274d5d;padding:32px 26px 30px;transition:background .25s,transform .25s; }
-.ci-feature-card:hover { background:#102b38;transform:translateY(-3px); }
-.ci-feature-icon { width:50px;height:50px;display:grid;place-items:center;border:1px solid #274d5d;color:#63b9da;margin-bottom:19px;background:rgba(25,118,210,.07); }
-.ci-feature-card h3 { margin:0 0 10px;font-size:15px;letter-spacing:-.4px;color:#e8f2f6; }
-.ci-feature-card p { margin:0;font-size:12px;color:#8aaabb;line-height:1.75; }
-
-/* Responsive */
-@media(max-width:850px) {
-  .ci-masthead { padding-left:20px;padding-right:20px; }
-  .ci-company-card { padding:27px; }
-  .ci-journey { grid-template-columns:1fr;gap:52px; }
-  .ci-shield-panel { width:min(100%,520px);min-height:335px;justify-self:center; }
-  .ci-scale { grid-template-columns:1fr;gap:50px; }
+/* Hero Panoramic Banner */
+.af-hero-banner {
+  position: relative;
+  width: 100%;
+  height: clamp(260px, 28vw, 380px);
+  overflow: hidden;
+  background: #000000;
 }
-@media(max-width:620px) {
-  .ci-masthead { min-height:284px;padding-top:51px; }
-  .ci-company-card { padding:23px 20px; }
-  .ci-company-card h1 { font-size:37px; }
-  .ci-journey { padding:65px 0;gap:38px; }
-  .ci-journey-copy h2 { font-size:39px; }
-  .ci-shield-panel { min-height:290px; }
-  .ci-scale { padding:65px 0 80px; }
-  .ci-scale-header h2 { font-size:39px; }
-  .ci-features-grid { grid-template-columns:1fr; }
-  .ci-feature-card { padding:26px 18px; }
-  .ci-scale .industry-signals { flex-wrap:wrap;gap:13px;margin:20px 0 24px; }
-  .ci-scale .industry-signals span { padding:0 12px 0 0;border:0;font-size:10px; }
-  .ci-scale .industry-signals b { display:block;margin:0; }
+
+.af-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.92) contrast(1.05);
+}
+
+.af-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 60%, #000000 100%);
+  pointer-events: none;
+}
+
+/* Section 1: Intro Grid */
+.af-intro-section {
+  padding: 50px 0 90px;
+}
+
+.af-intro-header {
+  margin-bottom: 36px;
+}
+
+.af-intro-header h1 {
+  font-size: clamp(34px, 3.8vw, 48px);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+  margin: 10px 0 0;
+  text-transform: uppercase;
+}
+
+.af-intro-grid {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* Image Card with Solid Blue Offset Backdrop and White Border */
+.af-photo-frame {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+}
+
+.af-photo-backdrop {
+  position: absolute;
+  top: -18px;
+  left: -20px;
+  width: 55%;
+  height: 110%;
+  background: #3b5278;
+  border-radius: 2px;
+  z-index: 1;
+}
+
+.af-photo-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 0;
+  border: 4px solid #ffffff;
+  overflow: hidden;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+  background: #111;
+}
+
+.af-photo-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.af-photo-container:hover img {
+  transform: scale(1.03);
+}
+
+.af-intro-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.af-intro-copy p {
+  color: #d1dde5;
+  font-size: 14.5px;
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* Section 2: What We Do */
+.af-what-we-do-section {
+  padding: 70px 0 110px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.af-what-header {
+  margin-bottom: 50px;
+}
+
+.af-what-header h2 {
+  font-size: clamp(32px, 3.4vw, 44px);
+  font-weight: 700;
+  letter-spacing: -1.2px;
+  color: #ffffff;
+  margin: 10px 0 12px;
+}
+
+.af-what-header p {
+  font-size: 14.5px;
+  color: #9db5c4;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.af-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.af-pillar-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 34px 22px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.af-pillar-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(69, 168, 204, 0.35);
+  transform: translateY(-4px);
+}
+
+.af-pillar-icon {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(25, 118, 210, 0.1);
+  border: 1px solid rgba(69, 168, 204, 0.25);
+  color: #63b9da;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.af-pillar-card:hover .af-pillar-icon {
+  background: rgba(25, 118, 210, 0.2);
+  color: #ffffff;
+  border-color: #63b9da;
+}
+
+.af-pillar-card h3 {
+  font-size: 16px;
+  color: #ffffff;
+  margin: 0 0 12px;
+  font-weight: 600;
+}
+
+.af-pillar-card p {
+  font-size: 13px;
+  color: #8da6b6;
+  line-height: 1.7;
+  margin: 0;
+}
+
+@media (max-width: 960px) {
+  .af-intro-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .af-photo-frame {
+    margin: 0 auto;
+  }
+  .af-pillars-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 560px) {
+  .af-pillars-grid {
+    grid-template-columns: 1fr;
+  }
+  .af-hero-banner {
+    height: 220px;
+  }
+}
+
+/* ─── Cargo Insurance page ────────────────────────────────────────────────── */
+.cargo-ins-page {
+  min-height: 100vh;
+  background: #000000;
+  color: #f5f7f8;
+}
+
+/* Hero Panoramic Banner */
+.ci-hero-banner {
+  position: relative;
+  width: 100%;
+  height: clamp(260px, 28vw, 380px);
+  overflow: hidden;
+  background: #000000;
+}
+
+.ci-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.92) contrast(1.05);
+}
+
+.ci-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 60%, #000000 100%);
+  pointer-events: none;
+}
+
+/* Section 1: Intro Grid */
+.ci-intro-section {
+  padding: 50px 0 90px;
+}
+
+.ci-intro-header {
+  margin-bottom: 36px;
+}
+
+.ci-intro-header h1 {
+  font-size: clamp(34px, 3.8vw, 48px);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+  margin: 10px 0 0;
+}
+
+.ci-intro-grid {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* Image Card with Solid Blue Offset Backdrop and White Border */
+.ci-photo-frame {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+}
+
+.ci-photo-backdrop {
+  position: absolute;
+  top: -18px;
+  left: -20px;
+  width: 55%;
+  height: 110%;
+  background: #3b5278;
+  border-radius: 2px;
+  z-index: 1;
+}
+
+.ci-photo-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 0;
+  border: 4px solid #ffffff;
+  overflow: hidden;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+  background: #111;
+}
+
+.ci-photo-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.ci-photo-container:hover img {
+  transform: scale(1.03);
+}
+
+.ci-intro-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.ci-intro-copy p {
+  color: #d1dde5;
+  font-size: 14.5px;
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* Section 2: What We Do */
+.ci-what-we-do-section {
+  padding: 70px 0 110px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ci-what-header {
+  margin-bottom: 50px;
+}
+
+.ci-what-header h2 {
+  font-size: clamp(32px, 3.4vw, 44px);
+  font-weight: 700;
+  letter-spacing: -1.2px;
+  color: #ffffff;
+  margin: 10px 0 12px;
+}
+
+.ci-what-header p {
+  font-size: 14.5px;
+  color: #9db5c4;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.ci-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.ci-pillar-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 34px 22px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.ci-pillar-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(69, 168, 204, 0.35);
+  transform: translateY(-4px);
+}
+
+.ci-pillar-icon {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(25, 118, 210, 0.1);
+  border: 1px solid rgba(69, 168, 204, 0.25);
+  color: #63b9da;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.ci-pillar-card:hover .ci-pillar-icon {
+  background: rgba(25, 118, 210, 0.2);
+  color: #ffffff;
+  border-color: #63b9da;
+}
+
+.ci-pillar-card h3 {
+  font-size: 16px;
+  color: #ffffff;
+  margin: 0 0 12px;
+  font-weight: 600;
+}
+
+.ci-pillar-card p {
+  font-size: 13px;
+  color: #8da6b6;
+  line-height: 1.7;
+  margin: 0;
+}
+
+@media (max-width: 960px) {
+  .ci-intro-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .ci-photo-frame {
+    margin: 0 auto;
+  }
+  .ci-pillars-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 560px) {
+  .ci-pillars-grid {
+    grid-template-columns: 1fr;
+  }
+  .ci-hero-banner {
+    height: 220px;
+  }
 }
 
 /* ─── Ocean Freight (LCL) page — mirrors Industries page visual language ──────── */
