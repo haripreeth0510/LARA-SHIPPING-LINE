@@ -83,7 +83,9 @@ const benefits: { icon: ElementType; title: string; copy: string }[] = [
   { icon: CircleHelp, title: 'Dedicated support', copy: 'Real people, ready to help whenever your shipment needs attention.' },
 ]
 
-function Logo({ href = '#home' }: { href?: string }) { return <a className="logo" href={href} aria-label="Lara Shipping home"><img src="/logo.png" alt="LARA Shipping Logo" style={{ height: '45px', width: 'auto', display: 'block' }} /></a> }
+function Logo({ href = '#home', onClick }: { href?: string; onClick?: (e: ReactMouseEvent<HTMLAnchorElement>) => void }) { 
+  return <a className="logo" href={href} onClick={onClick} aria-label="Lara Shipping home"><img src="/logo.png" alt="LARA Shipping Logo" style={{ height: '45px', width: 'auto', display: 'block' }} /></a> 
+}
 
 function Button({
   children,
@@ -1516,87 +1518,97 @@ function RailFreightPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<H
     <div className="rail-freight-page">
       <header className="about-header">
         <div className="about-header-inner">
-          <Logo href="/" />
+          <Logo href="/" onClick={e => onNavigate(e, '/')} />
           <nav aria-label="Primary navigation">
             <a href="/" onClick={event => onNavigate(event, '/')}>Home</a>
+            <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
             <a href="/#services" className="active" onClick={event => onNavigate(event, '/#services')}>Services</a>
             <a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a>
             <a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a>
-            <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
           </nav>
-          <a className="industries-quote" href="/#quote">Get a Quote <ArrowUpRight size={15} /></a>
+          <a className="industries-quote" href="/quote" onClick={e => onNavigate(e, '/quote')}>
+            Get a Quote <ArrowUpRight size={15} />
+          </a>
         </div>
       </header>
 
       <main>
-        {/* Masthead — same stripe pattern as Industries */}
-        <section className="rf-masthead">
-          <div className="rf-company-card">
-            <span className="eyebrow light"><span /> LARA SHIPPING LINE</span>
-            <h1>Rail Freight,<br /><em>fast &amp; reliable.</em></h1>
-            <p>Dependable rail-based solutions across Europe and Asia with GPS tracking, low CO₂ emissions, and competitive transit times.</p>
-          </div>
+        {/* Top Hero Banner */}
+        <section className="of-hero-banner" aria-label="Rail Freight Logistics Hero">
+          <img
+            src="/air-freight-hero.jpg"
+            alt="Global logistics terminal and freight transit port at dusk"
+            className="of-hero-img"
+          />
+          <div className="of-hero-overlay" />
         </section>
 
-        {/* Intro — two-column like industries-journey */}
-        <section className="rf-journey section-shell">
-          <div className="rf-journey-copy">
-            <span className="eyebrow light"><span /> Our Rail Freight service</span>
-            <h2>Greener shipping,<br /><em>fewer delays.</em></h2>
-            <p>Compared to ocean freight and road transport, rail-based solutions are highly dependable and help eliminate long transit times with its high speeds over long distances. Furthermore, as a result of its comparatively low CO2 emissions, rail-based solutions can be an environmentally friendly and budget-friendly option when shipping by sea is not an option.</p>
-            <p>Our powerful IT support enables clear communication throughout the shipping process, as team members track your shipment from start to finish. This same GPS tracking system provides an extra layer of security helping prevent transit losses and theft. With a green and reliable rail-based services across Europe and Asia, extensive knowledge of the market, and an entirely independent position, our team members are equipped to find the perfect rail freight solution to fit your needs.</p>
-          </div>
-
-          {/* CSS rail art panel — mirrors industry-network-art */}
-          <div className="rf-rail-panel" aria-hidden="true">
-            <div className="rf-track" />
-            <div className="rf-track rf-track2" />
-            <div className="rf-sleeper s1" />
-            <div className="rf-sleeper s2" />
-            <div className="rf-sleeper s3" />
-            <div className="rf-sleeper s4" />
-            <div className="rf-sleeper s5" />
-            <div className="rf-container rc1" />
-            <div className="rf-container rc2" />
-            <div className="rf-container rc3" />
-            <div className="rf-panel-core">
-              <Train size={52} />
-              <b>CO₂</b>
-              <small>Low emission rail freight</small>
+        {/* Content Container holding Title, Intro Grid, and What We Do */}
+        <div className="of-content-container">
+          {/* Intro Section: Rail Freight + Two Columns with photo and text */}
+          <section className="of-intro-section">
+            <div className="of-intro-header">
+              <h1>Rail Freight</h1>
             </div>
-          </div>
-        </section>
 
-        {/* What We Do — mirrors industry-scale */}
-        <section className="rf-scale section-shell">
-          <div className="rf-scale-header">
-            <span className="eyebrow light"><span /> What We Do</span>
-            <h2>One-stop shop for<br /><em>rail logistics.</em></h2>
-            <p>Your one-stop shop for global shipping. We handle everything from complex logistics to seamless delivery.</p>
-            <div className="industry-signals">
-              <span><b>120+</b> Countries served</span>
-              <span><b>GPS</b> Real-time tracking</span>
-              <span><b>Low</b> CO₂ emissions</span>
+            <div className="of-intro-grid">
+              {/* Left: Photo Frame with Blue Offset Backdrop and White Border */}
+              <div className="of-photo-frame">
+                <div className="of-photo-backdrop" />
+                <div className="of-photo-container">
+                  <img
+                    src="/rail-freight-train.jpg"
+                    alt="Rail freight train carrying cargo containers across tracks"
+                  />
+                </div>
+              </div>
+
+              {/* Right: Text Content */}
+              <div className="of-intro-copy">
+                <p>
+                  Compared to ocean freight and road transport, rail-based solutions are highly dependable and help eliminate long transit times with its high speeds over long distances. Furthermore, as a result of its comparatively low CO2 emissions, rail-based solutions can be an environmentally friendly and budget-friendly option when shipping by sea is not an option. Our powerful IT support enables clear communication throughout the shipping process, as team members track your shipment from start to finish. This same GPS tracking system provides an extra layer of security helping prevent transit losses and theft. With a green and reliable rail-based services across Europe and Asia, extensive knowledge of the market, and an entirely independent position, our team members are equipped to find the perfect rail freight solution to fit your needs.
+                </p>
+              </div>
             </div>
-            <a className="about-read-more" href="/#quote">Get a Quote <ArrowRight size={16} /></a>
-          </div>
-          <div className="rf-features-grid">
-            {[
-              { icon: Zap, title: 'Fast Transit', copy: 'Rail freight eliminates long transit times with high-speed routes across Europe and Asia.' },
-              { icon: Globe2, title: 'Global Reach', copy: 'Our extensive rail network connects you to major destinations worldwide.' },
-              { icon: ShieldCheck, title: 'GPS Tracking', copy: 'End-to-end GPS tracking ensures visibility and prevents transit losses and theft.' },
-              { icon: Leaf, title: 'Eco-Friendly', copy: 'Rail is one of the most carbon-efficient freight modes, reducing your CO₂ footprint.' },
-            ].map(({ icon: Icon, title, copy }) => (
-              <article className="rf-feature-card" key={title}>
-                <div className="rf-feature-icon"><Icon size={26} /></div>
-                <h3>{title}</h3>
-                <p>{copy}</p>
-              </article>
-            ))}
-          </div>
-        </section>
+          </section>
+
+          {/* Section 2: What We Do */}
+          <section className="of-what-we-do-section">
+            <div className="of-what-header">
+              <h2>What We do</h2>
+              <p>Your one-stop shop for global shipping. We handle everything from complex logistics to seamless delivery</p>
+            </div>
+
+            <div className="of-pillars-grid">
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><Truck size={32} strokeWidth={1.8} /></div>
+                <h3>Fast Delivery</h3>
+                <p>We offer swift transportation of goods etc. ensuring your cargo reaches its destination promptly.</p>
+              </div>
+
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><Search size={32} strokeWidth={1.8} /></div>
+                <h3>Global Reach</h3>
+                <p>Our Air Freight service connects you to a vast network of destinations worldwide</p>
+              </div>
+
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><ClipboardCheck size={32} strokeWidth={1.8} /></div>
+                <h3>Secure Handling</h3>
+                <p>Your cargo is handled with utmost care and attention to ensure it arrives safely.</p>
+              </div>
+
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><Megaphone size={32} strokeWidth={1.8} /></div>
+                <h3>Tailored Solutions</h3>
+                <p>We provide customized air freight solutions to meet your specific needs.</p>
+              </div>
+            </div>
+          </section>
+        </div>
       </main>
 
+      {/* Footer */}
       <footer className="industries-footer">
         <div className="industries-footer-inner section-shell">
           <div className="industries-footer-brand">
@@ -1613,11 +1625,11 @@ function RailFreightPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<H
           <FooterColumn title="Useful Links" items={['Home', 'About Us', 'Services', 'Industries', 'Contact Us']} />
           <FooterColumn title="Services" items={['Air Freight', 'Cargo Insurance', 'Ocean Freight (FCL)', 'Multi Modal', 'Ocean Freight (LCL)', 'Rail Freight', 'Road Freight', 'Social, Weighting and Filling']} />
           <FooterColumn title="Customer Solutions" items={['Contract Logistics', 'Cross Border E-Commerce', 'Customs Brokerage', 'Green Solution', 'Technology & Customer Services']} />
-      </div>
-      <div className="footer-bottom section-shell">
-        <span>© 2026 All Rights Reserved by Lara Shipping Line Pvt Ltd</span>
-      </div>
-    </footer>
+        </div>
+        <div className="footer-bottom section-shell">
+          <span>© 2026 All Rights Reserved by Lara Shipping Line Pvt Ltd</span>
+        </div>
+      </footer>
     </div>
   )
 }
@@ -1627,84 +1639,97 @@ function RoadFreightPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<H
     <div className="road-freight-page">
       <header className="about-header">
         <div className="about-header-inner">
-          <Logo href="/" />
+          <Logo href="/" onClick={e => onNavigate(e, '/')} />
           <nav aria-label="Primary navigation">
             <a href="/" onClick={event => onNavigate(event, '/')}>Home</a>
+            <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
             <a href="/#services" className="active" onClick={event => onNavigate(event, '/#services')}>Services</a>
             <a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a>
             <a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a>
-            <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
           </nav>
-          <a className="industries-quote" href="/#quote">Get a Quote <ArrowUpRight size={15} /></a>
+          <a className="industries-quote" href="/quote" onClick={e => onNavigate(e, '/quote')}>
+            Get a Quote <ArrowUpRight size={15} />
+          </a>
         </div>
       </header>
 
       <main>
-        {/* Masthead — same stripe pattern as Industries */}
-        <section className="rdf-masthead">
-          <div className="rdf-company-card">
-            <span className="eyebrow light"><span /> LARA SHIPPING LINE</span>
-            <h1>Road Freight,<br /><em>everywhere you need.</em></h1>
-            <p>Flexible road transport solutions serving Europe, Asia, and the Middle East — reaching the most remote places across the globe.</p>
-          </div>
+        {/* Top Hero Banner */}
+        <section className="of-hero-banner" aria-label="Road Freight Logistics Hero">
+          <img
+            src="/air-freight-hero.jpg"
+            alt="Global logistics terminal and freight transit port at dusk"
+            className="of-hero-img"
+          />
+          <div className="of-hero-overlay" />
         </section>
 
-        {/* Intro — two-column like industries-journey */}
-        <section className="rdf-journey section-shell">
-          <div className="rdf-journey-copy">
-            <span className="eyebrow light"><span /> Our Road Freight service</span>
-            <h2>Flexible, fast &amp;<br /><em>truly global.</em></h2>
-            <p>More than 3 billion people worldwide live in rural areas. Road freight is the only mode of transport that can reach the most remote places across the globe. You never have to compromise flexibility and efficiency when shipping goods over long or short distances.</p>
-            <p>Our road transport solutions serve Europe, Asia, and the Middle East. We leverage our extensive knowledge of the market and our independent positioning to create the perfect road freight solution for your needs — whether it is a full truckload, partial load, or a specialized service.</p>
-          </div>
-
-          {/* CSS truck art panel — mirrors industry-network-art */}
-          <div className="rdf-truck-panel" aria-hidden="true">
-            <div className="rdf-road" />
-            <div className="rdf-road-line" />
-            <div className="rdf-truck-body" />
-            <div className="rdf-truck-cab" />
-            <div className="rdf-truck-wheel w1" />
-            <div className="rdf-truck-wheel w2" />
-            <div className="rdf-truck-wheel w3" />
-            <div className="rdf-panel-core">
-              <Truck size={52} />
-              <b>3B+</b>
-              <small>People reached via road</small>
+        {/* Content Container holding Title, Intro Grid, and What We Do */}
+        <div className="of-content-container">
+          {/* Intro Section: Road Freight + Two Columns with photo and text */}
+          <section className="of-intro-section">
+            <div className="of-intro-header">
+              <h1>Road Freight</h1>
             </div>
-          </div>
-        </section>
 
-        {/* What We Do — mirrors industry-scale */}
-        <section className="rdf-scale section-shell">
-          <div className="rdf-scale-header">
-            <span className="eyebrow light"><span /> What We Do</span>
-            <h2>One-stop shop for<br /><em>road logistics.</em></h2>
-            <p>Your one-stop shop for global shipping. We handle everything from complex logistics to seamless delivery.</p>
-            <div className="industry-signals">
-              <span><b>3B+</b> People reachable</span>
-              <span><b>3</b> Continents served</span>
-              <span><b>24/7</b> Dedicated support</span>
+            <div className="of-intro-grid">
+              {/* Left: Photo Frame with Blue Offset Backdrop and White Border */}
+              <div className="of-photo-frame">
+                <div className="of-photo-backdrop" />
+                <div className="of-photo-container">
+                  <img
+                    src="/road-freight-truck.jpg"
+                    alt="Road freight cargo truck at loading dock"
+                  />
+                </div>
+              </div>
+
+              {/* Right: Text Content */}
+              <div className="of-intro-copy">
+                <p>
+                  More than 3 billion people worldwide live in rural areas. Road freight is the only mode of transport that can reach the most remote places across the globe. You never have to compromise flexibility and efficiency when shipping goods over long or short distance. Our road transport solutions serve Europe, Asia, and the Middle East. We leverage our extensive knowledge of the market and our independent positioning to create the perfect road freight solution.
+                </p>
+              </div>
             </div>
-            <a className="about-read-more" href="/#quote">Get a Quote <ArrowRight size={16} /></a>
-          </div>
-          <div className="rdf-features-grid">
-            {[
-              { icon: Zap, title: 'Fast Delivery', copy: 'Road freight offers flexible scheduling for swift delivery across short and long distances.' },
-              { icon: Globe2, title: 'Remote Reach', copy: 'The only mode of transport able to reach rural and remote areas across the globe.' },
-              { icon: ShieldCheck, title: 'Secure Handling', copy: 'Your cargo is handled with care throughout every leg of the road freight journey.' },
-              { icon: Sparkles, title: 'Tailored Solutions', copy: 'FTL, LTL, or specialist services — customized to your exact shipping requirements.' },
-            ].map(({ icon: Icon, title, copy }) => (
-              <article className="rdf-feature-card" key={title}>
-                <div className="rdf-feature-icon"><Icon size={26} /></div>
-                <h3>{title}</h3>
-                <p>{copy}</p>
-              </article>
-            ))}
-          </div>
-        </section>
+          </section>
+
+          {/* Section 2: What We Do */}
+          <section className="of-what-we-do-section">
+            <div className="of-what-header">
+              <h2>What We do</h2>
+              <p>Your one-stop shop for global shipping. We handle everything from complex logistics to seamless delivery</p>
+            </div>
+
+            <div className="of-pillars-grid">
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><Truck size={32} strokeWidth={1.8} /></div>
+                <h3>Fast Delivery</h3>
+                <p>We offer swift transportation of goods etc. ensuring your cargo reaches its destination promptly.</p>
+              </div>
+
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><Search size={32} strokeWidth={1.8} /></div>
+                <h3>Global Reach</h3>
+                <p>Our Air Freight service connects you to a vast network of destinations worldwide</p>
+              </div>
+
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><ClipboardCheck size={32} strokeWidth={1.8} /></div>
+                <h3>Secure Handling</h3>
+                <p>Your cargo is handled with utmost care and attention to ensure it arrives safely.</p>
+              </div>
+
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><Megaphone size={32} strokeWidth={1.8} /></div>
+                <h3>Tailored Solutions</h3>
+                <p>We provide customized air freight solutions to meet your specific needs.</p>
+              </div>
+            </div>
+          </section>
+        </div>
       </main>
 
+      {/* Footer */}
       <footer className="industries-footer">
         <div className="industries-footer-inner section-shell">
           <div className="industries-footer-brand">
@@ -1721,11 +1746,11 @@ function RoadFreightPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<H
           <FooterColumn title="Useful Links" items={['Home', 'About Us', 'Services', 'Industries', 'Contact Us']} />
           <FooterColumn title="Services" items={['Air Freight', 'Cargo Insurance', 'Ocean Freight (FCL)', 'Multi Modal', 'Ocean Freight (LCL)', 'Rail Freight', 'Road Freight', 'Social, Weighting and Filling']} />
           <FooterColumn title="Customer Solutions" items={['Contract Logistics', 'Cross Border E-Commerce', 'Customs Brokerage', 'Green Solution', 'Technology & Customer Services']} />
-      </div>
-      <div className="footer-bottom section-shell">
-        <span>© 2026 All Rights Reserved by Lara Shipping Line Pvt Ltd</span>
-      </div>
-    </footer>
+        </div>
+        <div className="footer-bottom section-shell">
+          <span>© 2026 All Rights Reserved by Lara Shipping Line Pvt Ltd</span>
+        </div>
+      </footer>
     </div>
   )
 }
@@ -1735,90 +1760,97 @@ function SocialWeightingPage({ onNavigate }: { onNavigate: (event: ReactMouseEve
     <div className="social-weighting-page">
       <header className="about-header">
         <div className="about-header-inner">
-          <Logo href="/" />
+          <Logo href="/" onClick={e => onNavigate(e, '/')} />
           <nav aria-label="Primary navigation">
             <a href="/" onClick={event => onNavigate(event, '/')}>Home</a>
+            <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
             <a href="/#services" className="active" onClick={event => onNavigate(event, '/#services')}>Services</a>
             <a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a>
             <a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a>
-            <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
           </nav>
-          <a className="industries-quote" href="/#quote">Get a Quote <ArrowUpRight size={15} /></a>
+          <a className="industries-quote" href="/quote" onClick={e => onNavigate(e, '/quote')}>
+            Get a Quote <ArrowUpRight size={15} />
+          </a>
         </div>
       </header>
 
       <main>
-        {/* Masthead — same stripe pattern as Industries */}
-        <section className="swf-masthead">
-          <div className="swf-company-card">
-            <span className="eyebrow light"><span /> LARA SHIPPING LINE</span>
-            <h1>Social, Weighting<br /><em>&amp; Filling.</em></h1>
-            <p>Specialized solutions for precise weighting, automated filling, and integrated social compliance throughout your supply chain.</p>
-          </div>
+        {/* Top Hero Banner */}
+        <section className="of-hero-banner" aria-label="Social, Weighting & Filling Logistics Hero">
+          <img
+            src="/air-freight-hero.jpg"
+            alt="Global logistics terminal and container transit port at dusk"
+            className="of-hero-img"
+          />
+          <div className="of-hero-overlay" />
         </section>
 
-        {/* Intro — two-column like industries-journey */}
-        <section className="swf-journey section-shell">
-          <div className="swf-journey-copy">
-            <span className="eyebrow light"><span /> Value-added services</span>
-            <h2>Precision at<br /><em>every step.</em></h2>
-            <p>LARA SHIPPING offers comprehensive weighting, filling, and social compliance services through its global network of offices. By partnering with leading facilities, we ensure that your specialized cargo handling needs are met with absolute precision and adherence to strict compliance standards.</p>
-            <p>We provide a variety of solutions including fixed schedules, consolidation services in our own facilities, and the creation of specialized packaging and filling operations based on our customers' unique requirements. Throughout the entire process, global compliance, precise calibration, and security requirements are met at all times.</p>
-          </div>
+        {/* Content Container holding Title, Intro Grid, and What We Do */}
+        <div className="of-content-container">
+          {/* Intro Section: Title + Two Columns with photo and text */}
+          <section className="of-intro-section">
+            <div className="of-intro-header">
+              <h1>Social &amp; Weighting &amp; Filling</h1>
+            </div>
 
-          {/* CSS Phone / Social Art Panel */}
-          <div className="swf-social-panel" aria-hidden="true">
-            <div className="swf-phone-body">
-              <div className="swf-phone-notch" />
-              <div className="swf-phone-screen">
-                <div className="swf-feed-card" style={{ top: '15%' }} />
-                <div className="swf-feed-card" style={{ top: '45%' }} />
-                <div className="swf-feed-card" style={{ top: '75%' }} />
+            <div className="of-intro-grid">
+              {/* Left: Photo Frame with Blue Offset Backdrop and White Border */}
+              <div className="of-photo-frame">
+                <div className="of-photo-backdrop" />
+                <div className="of-photo-container">
+                  <img
+                    src="/social-weighting-phone.jpg"
+                    alt="Smartphone with social connectivity and cargo tracking icons"
+                  />
+                </div>
+              </div>
+
+              {/* Right: Text Content */}
+              <div className="of-intro-copy">
+                <p>
+                  LARA SHIPPING offers airfreight services through its global network of offices. By partnering with leading carriers, LARA SHIPPING ensures that customer's cargo needs are met through a variety of solutions including fixed schedules on our daily flights, consolidation services in our own facilities and the creation of specialized solutions based on customer's unique requirements. Throughout the entire process, global compliance and security requirements are met at all times.
+                </p>
               </div>
             </div>
-            {/* Orbiting nodes (representing social/connectivity) */}
-            <div className="swf-orbit swf-orb1"><span /></div>
-            <div className="swf-orbit swf-orb2"><span /></div>
-            <div className="swf-orbit swf-orb3"><span /></div>
-            
-            <div className="swf-panel-core">
-              <MonitorSmartphone size={52} />
-              <b>100%</b>
-              <small>Compliance &amp; Accuracy</small>
-            </div>
-          </div>
-        </section>
+          </section>
 
-        {/* What We Do — mirrors industry-scale */}
-        <section className="swf-scale section-shell">
-          <div className="swf-scale-header">
-            <span className="eyebrow light"><span /> What We Do</span>
-            <h2>One-stop shop for<br /><em>global shipping.</em></h2>
-            <p>Your one-stop shop for global shipping. We handle everything from complex logistics to seamless delivery.</p>
-            <div className="industry-signals">
-              <span><b>100%</b> Compliance rate</span>
-              <span><b>24/7</b> Monitoring</span>
-              <span><b>ISO</b> Certified facilities</span>
+          {/* Section 2: What We Do */}
+          <section className="of-what-we-do-section">
+            <div className="of-what-header">
+              <h2>What We do</h2>
+              <p>Your one-stop shop for global shipping. We handle everything from complex logistics to seamless delivery</p>
             </div>
-            <a className="about-read-more" href="/#quote">Get a Quote <ArrowRight size={16} /></a>
-          </div>
-          <div className="swf-features-grid">
-            {[
-              { icon: Zap, title: 'Fast Delivery', copy: 'Integrated filling and weighting processes minimize delays and accelerate your time-to-market.' },
-              { icon: Globe2, title: 'Global Reach', copy: 'Our specialized facilities network connects you to standardized quality worldwide.' },
-              { icon: ShieldCheck, title: 'Secure Handling', copy: 'Your cargo is handled with utmost care, ensuring compliance and perfect calibration.' },
-              { icon: Sparkles, title: 'Tailored Solutions', copy: 'We provide customized filling and weighting solutions to meet your specific industry needs.' },
-            ].map(({ icon: Icon, title, copy }) => (
-              <article className="swf-feature-card" key={title}>
-                <div className="swf-feature-icon"><Icon size={26} /></div>
-                <h3>{title}</h3>
-                <p>{copy}</p>
-              </article>
-            ))}
-          </div>
-        </section>
+
+            <div className="of-pillars-grid">
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><Truck size={32} strokeWidth={1.8} /></div>
+                <h3>Fast Delivery</h3>
+                <p>We offer swift transportation of goods etc. ensuring your cargo reaches its destination promptly.</p>
+              </div>
+
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><Search size={32} strokeWidth={1.8} /></div>
+                <h3>Global Reach</h3>
+                <p>Our Air Freight service connects you to a vast network of destinations worldwide</p>
+              </div>
+
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><ClipboardCheck size={32} strokeWidth={1.8} /></div>
+                <h3>Secure Handling</h3>
+                <p>Your cargo is handled with utmost care and attention to ensure it arrives safely.</p>
+              </div>
+
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><Megaphone size={32} strokeWidth={1.8} /></div>
+                <h3>Tailored Solutions</h3>
+                <p>We provide customized air freight solutions to meet your specific needs.</p>
+              </div>
+            </div>
+          </section>
+        </div>
       </main>
 
+      {/* Footer */}
       <footer className="industries-footer">
         <div className="industries-footer-inner section-shell">
           <div className="industries-footer-brand">
@@ -1835,11 +1867,11 @@ function SocialWeightingPage({ onNavigate }: { onNavigate: (event: ReactMouseEve
           <FooterColumn title="Useful Links" items={['Home', 'About Us', 'Services', 'Industries', 'Contact Us']} />
           <FooterColumn title="Services" items={['Air Freight', 'Cargo Insurance', 'Ocean Freight (FCL)', 'Multi Modal', 'Ocean Freight (LCL)', 'Rail Freight', 'Road Freight', 'Social, Weighting and Filling']} />
           <FooterColumn title="Customer Solutions" items={['Contract Logistics', 'Cross Border E-Commerce', 'Customs Brokerage', 'Green Solution', 'Technology & Customer Services']} />
-      </div>
-      <div className="footer-bottom section-shell">
-        <span>© 2026 All Rights Reserved by Lara Shipping Line Pvt Ltd</span>
-      </div>
-    </footer>
+        </div>
+        <div className="footer-bottom section-shell">
+          <span>© 2026 All Rights Reserved by Lara Shipping Line Pvt Ltd</span>
+        </div>
+      </footer>
     </div>
   )
 }
