@@ -524,164 +524,492 @@ footer{background:#061725;color:#e3edf2}.footer-top{padding:67px 0 53px;display:
   }
 }
 
-/* ─── Ocean Freight (LCL) page — mirrors Industries page visual language ──────── */
-.ocean-lcl-page { min-height:100vh;background:#03090e;color:#f5f7f8; }
-
-/* Masthead */
-.ol-masthead { position:relative;min-height:326px;padding:72px 40px 0;overflow:hidden;background:linear-gradient(90deg,rgba(4,21,30,.9),rgba(6,20,28,.43)),repeating-linear-gradient(90deg,#1a3946 0 11%,#b44820 11% 14%,#213e49 14% 24%,#be7b29 24% 27%);background-size:auto,210px 100%; }
-.ol-masthead:after { content:'';position:absolute;inset:0;background:linear-gradient(transparent 0 68%,#03090e); }
-
-/* Company card */
-.ol-company-card { position:relative;z-index:1;width:min(875px,100%);margin:auto;padding:29px 39px 33px;background:rgba(2,8,13,.94);border-top:2px solid #db5429;box-shadow:0 15px 25px rgba(0,0,0,.45); }
-.ol-company-card h1 { margin:15px 0 8px;font-size:clamp(32px,3.7vw,51px);line-height:1.03;letter-spacing:-2px; }
-.ol-company-card h1 em { font-family:'Playfair Display',serif;font-weight:600; }
-.ol-company-card p { max-width:535px;margin:0;color:#b9c9d2;font-size:13px;line-height:1.7; }
-
-/* Journey section */
-.ol-journey { display:grid;grid-template-columns:1.15fr .85fr;gap:80px;align-items:center;padding:103px 0 88px; }
-.ol-journey-copy h2 { margin:16px 0 20px;font-size:clamp(39px,4vw,58px);line-height:1.08;letter-spacing:-2.3px; }
-.ol-journey-copy h2 em { font-family:'Playfair Display',serif;font-weight:600; }
-.ol-journey-copy p { max-width:550px;margin:0 0 20px;color:#b5c3cb;font-size:13px;line-height:1.8; }
-.ol-journey-copy p:last-child { margin:0; }
-
-/* CSS Art Panel */
-.ol-ship-panel { position:relative;min-height:385px;isolation:isolate;display:grid;place-items:center;overflow:hidden;border:1px solid #254756;background:radial-gradient(circle at 50% 48%,rgba(30,115,149,.25),transparent 35%),linear-gradient(145deg,#071721,#0b2b3b); }
-.ol-ship-panel:before { content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(134,210,230,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(134,210,230,.09) 1px,transparent 1px);background-size:37px 37px;mask-image:radial-gradient(circle,black,transparent 74%); }
-
-/* Circular badge */
-.ol-panel-core { position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;width:175px;height:175px;border:1px solid #69b8cc;border-radius:50%;background:rgba(7,30,42,.87);box-shadow:0 0 0 18px rgba(67,158,187,.1),0 0 60px rgba(42,156,192,.22);color:#d7f4fa;text-align:center; }
-.ol-panel-core svg { color:#72c6da;opacity:.85;margin-bottom:6px; }
-.ol-panel-core b { color:var(--lime);font-size:26px;letter-spacing:-1px;line-height:1; }
-.ol-panel-core small { color:#9dbcc7;font-size:9px;margin-top:2px; }
-
-/* Ship Art */
-.ol-water-back { position:absolute;bottom:15%;left:0;right:0;height:40px;background:rgba(30,115,149,.15);z-index:0; }
-.ol-ship-hull { position:absolute;bottom:22%;left:15%;right:15%;height:45px;background:linear-gradient(to right,#b44820,#1a3946);border-radius:5px 5px 40px 40px;z-index:1; }
-.ol-ship-cargo-stack { position:absolute;bottom:28%;left:22%;right:35%;height:55px;background:repeating-linear-gradient(90deg,#be7b29 0 20%,#b44820 20% 40%,#1a3946 40% 60%,#213e49 60% 80%);z-index:1; }
-.ol-ship-bridge { position:absolute;bottom:28%;right:18%;width:15%;height:65px;background:#1a3946;border-radius:10px 10px 0 0;z-index:1; }
-.ol-ship-bridge:after { content:'';position:absolute;top:10px;left:5px;right:5px;height:15px;background:#03090e;border-radius:5px; }
-.ol-water-front { position:absolute;bottom:12%;left:0;right:0;height:30px;background:linear-gradient(transparent,rgba(30,115,149,.3));z-index:2; }
-
-/* Scale / What We Do */
-.ol-scale { display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:start;padding:85px 0 118px;border-top:1px solid rgba(168,205,218,.18); }
-.ol-scale-header h2 { margin:16px 0 20px;font-size:clamp(39px,4vw,58px);line-height:1.08;letter-spacing:-2.3px; }
-.ol-scale-header h2 em { font-family:'Playfair Display',serif;font-weight:600; }
-.ol-scale-header p { max-width:480px;margin:0;color:#b5c3cb;font-size:13px;line-height:1.8; }
-.ol-scale .industry-signals { justify-content:flex-start;margin:27px 0 29px;color:#a5bac4; }
-.ol-scale .industry-signals span { padding:0 17px;font-size:10px;border-color:#274756; }
-.ol-scale .industry-signals span:first-child { padding-left:0; }
-.ol-scale .industry-signals b { color:var(--lime);font-size:17px; }
-
-/* Feature cards */
-.ol-features-grid { display:grid;grid-template-columns:1fr 1fr;gap:9px; }
-.ol-feature-card { background:#0b1b25;border:1px solid #274d5d;padding:32px 26px 30px;transition:background .25s,transform .25s; }
-.ol-feature-card:hover { background:#102b38;transform:translateY(-3px); }
-.ol-feature-icon { width:50px;height:50px;display:grid;place-items:center;border:1px solid #274d5d;color:#63b9da;margin-bottom:19px;background:rgba(25,118,210,.07); }
-.ol-feature-card h3 { margin:0 0 10px;font-size:15px;letter-spacing:-.4px;color:#e8f2f6; }
-.ol-feature-card p { margin:0;font-size:12px;color:#8aaabb;line-height:1.75; }
-
-/* Responsive */
-@media(max-width:850px) {
-  .ol-masthead { padding-left:20px;padding-right:20px; }
-  .ol-company-card { padding:27px; }
-  .ol-journey { grid-template-columns:1fr;gap:52px; }
-  .ol-ship-panel { width:min(100%,520px);min-height:335px;justify-self:center; }
-  .ol-scale { grid-template-columns:1fr;gap:50px; }
-}
-@media(max-width:620px) {
-  .ol-masthead { min-height:284px;padding-top:51px; }
-  .ol-company-card { padding:23px 20px; }
-  .ol-company-card h1 { font-size:37px; }
-  .ol-journey { padding:65px 0;gap:38px; }
-  .ol-journey-copy h2 { font-size:39px; }
-  .ol-ship-panel { min-height:290px; }
-  .ol-scale { padding:65px 0 80px; }
-  .ol-scale-header h2 { font-size:39px; }
-  .ol-features-grid { grid-template-columns:1fr; }
-  .ol-feature-card { padding:26px 18px; }
-  .ol-scale .industry-signals { flex-wrap:wrap;gap:13px;margin:20px 0 24px; }
-  .ol-scale .industry-signals span { padding:0 12px 0 0;border:0;font-size:10px; }
-  .ol-scale .industry-signals b { display:block;margin:0; }
+/* ─── Ocean Freight Pages (FCL & LCL) ─────────────────────────────────────── */
+.ocean-fcl-page,
+.ocean-lcl-page {
+  min-height: 100vh;
+  background: #000000;
+  color: #f5f7f8;
+  position: relative;
 }
 
-/* ─── Ocean Freight (FCL) page — mirrors Industries page visual language ──────── */
-.ocean-fcl-page { min-height:100vh;background:#03090e;color:#f5f7f8; }
-
-/* Masthead */
-.of-masthead { position:relative;min-height:326px;padding:72px 40px 0;overflow:hidden;background:linear-gradient(90deg,rgba(4,21,30,.9),rgba(6,20,28,.43)),repeating-linear-gradient(90deg,#1a3946 0 11%,#b44820 11% 14%,#213e49 14% 24%,#be7b29 24% 27%);background-size:auto,210px 100%; }
-.of-masthead:after { content:'';position:absolute;inset:0;background:linear-gradient(transparent 0 68%,#03090e); }
-
-/* Company card */
-.of-company-card { position:relative;z-index:1;width:min(875px,100%);margin:auto;padding:29px 39px 33px;background:rgba(2,8,13,.94);border-top:2px solid #db5429;box-shadow:0 15px 25px rgba(0,0,0,.45); }
-.of-company-card h1 { margin:15px 0 8px;font-size:clamp(32px,3.7vw,51px);line-height:1.03;letter-spacing:-2px; }
-.of-company-card h1 em { font-family:'Playfair Display',serif;font-weight:600; }
-.of-company-card p { max-width:535px;margin:0;color:#b9c9d2;font-size:13px;line-height:1.7; }
-
-/* Journey section */
-.of-journey { display:grid;grid-template-columns:1.15fr .85fr;gap:80px;align-items:center;padding:103px 0 88px; }
-.of-journey-copy h2 { margin:16px 0 20px;font-size:clamp(39px,4vw,58px);line-height:1.08;letter-spacing:-2.3px; }
-.of-journey-copy h2 em { font-family:'Playfair Display',serif;font-weight:600; }
-.of-journey-copy p { max-width:550px;margin:0 0 20px;color:#b5c3cb;font-size:13px;line-height:1.8; }
-.of-journey-copy p:last-child { margin:0; }
-
-/* CSS Art Panel */
-.of-ship-panel { position:relative;min-height:385px;isolation:isolate;display:grid;place-items:center;overflow:hidden;border:1px solid #254756;background:radial-gradient(circle at 50% 48%,rgba(30,115,149,.25),transparent 35%),linear-gradient(145deg,#071721,#0b2b3b); }
-.of-ship-panel:before { content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(134,210,230,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(134,210,230,.09) 1px,transparent 1px);background-size:37px 37px;mask-image:radial-gradient(circle,black,transparent 74%); }
-
-/* Circular badge */
-.of-panel-core { position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;width:175px;height:175px;border:1px solid #69b8cc;border-radius:50%;background:rgba(7,30,42,.87);box-shadow:0 0 0 18px rgba(67,158,187,.1),0 0 60px rgba(42,156,192,.22);color:#d7f4fa;text-align:center; }
-.of-panel-core svg { color:#72c6da;opacity:.85;margin-bottom:6px; }
-.of-panel-core b { color:var(--lime);font-size:26px;letter-spacing:-1px;line-height:1; }
-.of-panel-core small { color:#9dbcc7;font-size:9px;margin-top:2px; }
-
-/* Ship Art */
-.of-water-back { position:absolute;bottom:15%;left:0;right:0;height:40px;background:rgba(30,115,149,.15);z-index:0; }
-.of-ship-hull { position:absolute;bottom:22%;left:15%;right:15%;height:45px;background:linear-gradient(to right,#b44820,#1a3946);border-radius:5px 5px 40px 40px;z-index:1; }
-.of-ship-cargo-stack { position:absolute;bottom:28%;left:22%;right:35%;height:55px;background:repeating-linear-gradient(90deg,#be7b29 0 20%,#b44820 20% 40%,#1a3946 40% 60%,#213e49 60% 80%);z-index:1; }
-.of-ship-bridge { position:absolute;bottom:28%;right:18%;width:15%;height:65px;background:#1a3946;border-radius:10px 10px 0 0;z-index:1; }
-.of-ship-bridge:after { content:'';position:absolute;top:10px;left:5px;right:5px;height:15px;background:#03090e;border-radius:5px; }
-.of-water-front { position:absolute;bottom:12%;left:0;right:0;height:30px;background:linear-gradient(transparent,rgba(30,115,149,.3));z-index:2; }
-
-/* Scale / What We Do */
-.of-scale { display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:start;padding:85px 0 118px;border-top:1px solid rgba(168,205,218,.18); }
-.of-scale-header h2 { margin:16px 0 20px;font-size:clamp(39px,4vw,58px);line-height:1.08;letter-spacing:-2.3px; }
-.of-scale-header h2 em { font-family:'Playfair Display',serif;font-weight:600; }
-.of-scale-header p { max-width:480px;margin:0;color:#b5c3cb;font-size:13px;line-height:1.8; }
-.of-scale .industry-signals { justify-content:flex-start;margin:27px 0 29px;color:#a5bac4; }
-.of-scale .industry-signals span { padding:0 17px;font-size:10px;border-color:#274756; }
-.of-scale .industry-signals span:first-child { padding-left:0; }
-.of-scale .industry-signals b { color:var(--lime);font-size:17px; }
-
-/* Feature cards */
-.of-features-grid { display:grid;grid-template-columns:1fr 1fr;gap:9px; }
-.of-feature-card { background:#0b1b25;border:1px solid #274d5d;padding:32px 26px 30px;transition:background .25s,transform .25s; }
-.of-feature-card:hover { background:#102b38;transform:translateY(-3px); }
-.of-feature-icon { width:50px;height:50px;display:grid;place-items:center;border:1px solid #274d5d;color:#63b9da;margin-bottom:19px;background:rgba(25,118,210,.07); }
-.of-feature-card h3 { margin:0 0 10px;font-size:15px;letter-spacing:-.4px;color:#e8f2f6; }
-.of-feature-card p { margin:0;font-size:12px;color:#8aaabb;line-height:1.75; }
-
-/* Responsive */
-@media(max-width:850px) {
-  .of-masthead { padding-left:20px;padding-right:20px; }
-  .of-company-card { padding:27px; }
-  .of-journey { grid-template-columns:1fr;gap:52px; }
-  .of-ship-panel { width:min(100%,520px);min-height:335px;justify-self:center; }
-  .of-scale { grid-template-columns:1fr;gap:50px; }
+/* Header overlaid transparently on top of Hero Banner */
+.of-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  height: 84px;
+  background: transparent;
+  display: flex;
+  align-items: center;
 }
-@media(max-width:620px) {
-  .of-masthead { min-height:284px;padding-top:51px; }
-  .of-company-card { padding:23px 20px; }
-  .of-company-card h1 { font-size:37px; }
-  .of-journey { padding:65px 0;gap:38px; }
-  .of-journey-copy h2 { font-size:39px; }
-  .of-ship-panel { min-height:290px; }
-  .of-scale { padding:65px 0 80px; }
-  .of-scale-header h2 { font-size:39px; }
-  .of-features-grid { grid-template-columns:1fr; }
-  .of-feature-card { padding:26px 18px; }
-  .of-scale .industry-signals { flex-wrap:wrap;gap:13px;margin:20px 0 24px; }
-  .of-scale .industry-signals span { padding:0 12px 0 0;border:0;font-size:10px; }
-  .of-scale .industry-signals b { display:block;margin:0; }
+
+.of-header-inner {
+  width: min(1200px, calc(100% - 64px));
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.of-header .logo {
+  color: #ffffff;
+}
+
+.of-nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.of-nav a {
+  color: #d6e3ea;
+  font-size: 13px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.of-nav a:hover {
+  color: #ffffff;
+}
+
+/* Services active teal/cyan pill button */
+.of-services-pill {
+  position: relative;
+}
+
+.of-services-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #26a69a;
+  color: #ffffff;
+  border: none;
+  padding: 5px 14px;
+  border-radius: 4px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+  transition: background 0.2s ease;
+}
+
+.of-services-pill-btn:hover {
+  background: #1fa093;
+}
+
+.of-services-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 270px;
+  max-height: 400px;
+  overflow-y: auto;
+  background: #081724;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+  border-radius: 6px;
+  padding: 10px 0;
+  z-index: 60;
+}
+
+.of-dropdown-sector {
+  padding: 8px 16px 4px;
+  font-size: 10px;
+  font-weight: 800;
+  color: #72a2bc;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.of-services-dropdown a {
+  display: block;
+  padding: 7px 18px;
+  color: #d1dde5;
+  font-size: 12.5px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.of-services-dropdown a:hover,
+.of-services-dropdown a.active {
+  background: #102e46;
+  color: #4dd0e1;
+}
+
+.of-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Login button on top right */
+.of-login-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #4a90e2;
+  color: #ffffff;
+  border: none;
+  padding: 6px 18px;
+  border-radius: 4px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(74, 144, 226, 0.35);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.of-login-btn:hover {
+  background: #357ebd;
+  transform: translateY(-1px);
+}
+
+.of-mobile-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 6px;
+}
+
+.of-mobile-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(5, 17, 28, 0.98);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 50;
+}
+
+.of-mobile-menu a {
+  color: #d1dde5;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 0;
+}
+
+.of-mobile-login {
+  background: #4a90e2;
+  color: #ffffff;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 13px;
+  text-align: center;
+  margin-top: 6px;
+}
+
+/* Hero Panoramic Banner */
+.of-hero-banner {
+  position: relative;
+  width: 100%;
+  height: clamp(250px, 26vw, 360px);
+  overflow: hidden;
+  background: #000000;
+}
+
+.of-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  display: block;
+  filter: brightness(0.95) contrast(1.05);
+}
+
+.of-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.35) 60%, #000000 100%);
+  pointer-events: none;
+}
+
+/* Main Content Container (Title, Photo + Text, What We Do) */
+.of-content-container {
+  width: min(820px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+/* Section 1: Intro Section */
+.of-intro-section {
+  padding: 42px 0 65px;
+}
+
+.of-intro-header {
+  margin-bottom: 28px;
+}
+
+.of-intro-header h1 {
+  font-size: clamp(28px, 3.2vw, 38px);
+  font-weight: 700;
+  letter-spacing: -0.6px;
+  color: #ffffff;
+  margin: 0;
+}
+
+.of-intro-grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+/* Photo Frame with offset blue backdrop and white border */
+.of-photo-frame {
+  position: relative;
+  width: 100%;
+  max-width: 280px;
+}
+
+.of-photo-backdrop {
+  position: absolute;
+  top: -16px;
+  left: -18px;
+  width: 52%;
+  height: 110%;
+  background: #365176;
+  border-radius: 2px;
+  z-index: 1;
+}
+
+.of-photo-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border: 4px solid #ffffff;
+  overflow: hidden;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75);
+  background: #111;
+}
+
+.of-photo-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.of-photo-container:hover img {
+  transform: scale(1.03);
+}
+
+.of-intro-copy p {
+  color: #cbd8e1;
+  font-size: 13.5px;
+  line-height: 1.82;
+  margin: 0;
+}
+
+/* Section 2: What We Do */
+.of-what-we-do-section {
+  padding: 10px 0 110px;
+}
+
+.of-what-header {
+  margin-bottom: 38px;
+}
+
+.of-what-header h2 {
+  font-size: clamp(26px, 2.8vw, 34px);
+  font-weight: 700;
+  letter-spacing: -0.8px;
+  color: #ffffff;
+  margin: 0 0 10px;
+}
+
+.of-what-header p {
+  font-size: 13.5px;
+  color: #9cb2c0;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* 4 Feature Columns */
+.of-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.of-pillar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px 4px;
+}
+
+.of-pillar-icon {
+  color: #ffffff;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  transition: transform 0.25s ease;
+}
+
+.of-pillar-item:hover .of-pillar-icon {
+  transform: translateY(-2px) scale(1.06);
+}
+
+.of-pillar-item h3 {
+  font-size: 14px;
+  color: #ffffff;
+  margin: 0 0 8px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+.of-pillar-item p {
+  font-size: 12px;
+  color: #8fa6b6;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* Login Modal */
+.login-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.login-modal-card {
+  position: relative;
+  width: min(420px, 100%);
+  background: #091a29;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 32px 28px;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.7);
+  color: #ffffff;
+}
+
+.login-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  color: #9cb2c0;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  padding: 4px;
+}
+
+.login-modal-close:hover {
+  color: #ffffff;
+}
+
+.login-modal-header h3 {
+  font-size: 20px;
+  margin: 16px 0 6px;
+}
+
+.login-modal-header p {
+  color: #9cb2c0;
+  font-size: 12.5px;
+  line-height: 1.5;
+  margin: 0 0 20px;
+}
+
+.login-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.login-modal-form label span {
+  display: block;
+  font-size: 11.5px;
+  color: #cbd8e1;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.login-modal-form input {
+  width: 100%;
+  padding: 10px 12px;
+  background: #040e17;
+  border: 1px solid #1f3b50;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 13px;
+  outline: none;
+}
+
+.login-modal-form input:focus {
+  border-color: #26a69a;
+}
+
+.login-modal-btn {
+  margin-top: 8px;
+  background: #26a69a;
+  color: #ffffff;
+  border: none;
+  padding: 11px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.login-modal-btn:hover {
+  background: #1fa093;
+}
+
+/* Responsive adjustments */
+@media (max-width: 860px) {
+  .of-nav {
+    display: none;
+  }
+  .of-mobile-toggle {
+    display: block;
+  }
+  .of-intro-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .of-photo-frame {
+    margin: 0 auto;
+  }
+  .of-pillars-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px 20px;
+  }
+}
+
+@media (max-width: 540px) {
+  .of-hero-banner {
+    height: 210px;
+  }
+  .of-pillars-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
 }
 
 /* ─── Rail Freight page — mirrors Industries page visual language ──────── */
