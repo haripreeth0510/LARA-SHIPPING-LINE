@@ -698,6 +698,9 @@ function IndustriesPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HT
 }
 
 function AirFreightPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HTMLAnchorElement>, path: string) => void }) {
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   return (
     <div className="air-freight-page">
       <header className="about-header">
@@ -813,11 +816,42 @@ function AirFreightPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HT
         <span>© 2026 All Rights Reserved by Lara Shipping Line Pvt Ltd</span>
       </div>
     </footer>
+
+      {/* Login Portal Modal */}
+      {isLoginOpen && (
+        <div className="login-modal-overlay" onClick={() => setIsLoginOpen(false)}>
+          <div className="login-modal-card" onClick={e => e.stopPropagation()}>
+            <button className="login-modal-close" onClick={() => setIsLoginOpen(false)} aria-label="Close dialog">
+              <X size={18} />
+            </button>
+            <div className="login-modal-header">
+              <Logo />
+              <h3>Client Portal Login</h3>
+              <p>Sign in to track your shipments, download Bills of Lading, and manage bookings.</p>
+            </div>
+            <form className="login-modal-form" onSubmit={e => { e.preventDefault(); alert('Customer portal login'); setIsLoginOpen(false); }}>
+              <label>
+                <span>Email Address or Client ID</span>
+                <input type="text" placeholder="name@company.com" required autoFocus />
+              </label>
+              <label>
+                <span>Password</span>
+                <input type="password" placeholder="••••••••" required />
+              </label>
+              <button type="submit" className="login-modal-btn">Sign In to Dashboard</button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
 
 function CargoInsurancePage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HTMLAnchorElement>, path: string) => void }) {
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   return (
     <div className="cargo-ins-page">
       <header className="about-header">
@@ -928,11 +962,42 @@ function CargoInsurancePage({ onNavigate }: { onNavigate: (event: ReactMouseEven
         <span>© 2026 All Rights Reserved by Lara Shipping Line Pvt Ltd</span>
       </div>
     </footer>
+
+      {/* Login Portal Modal */}
+      {isLoginOpen && (
+        <div className="login-modal-overlay" onClick={() => setIsLoginOpen(false)}>
+          <div className="login-modal-card" onClick={e => e.stopPropagation()}>
+            <button className="login-modal-close" onClick={() => setIsLoginOpen(false)} aria-label="Close dialog">
+              <X size={18} />
+            </button>
+            <div className="login-modal-header">
+              <Logo />
+              <h3>Client Portal Login</h3>
+              <p>Sign in to track your shipments, download Bills of Lading, and manage bookings.</p>
+            </div>
+            <form className="login-modal-form" onSubmit={e => { e.preventDefault(); alert('Customer portal login'); setIsLoginOpen(false); }}>
+              <label>
+                <span>Email Address or Client ID</span>
+                <input type="text" placeholder="name@company.com" required autoFocus />
+              </label>
+              <label>
+                <span>Password</span>
+                <input type="password" placeholder="••••••••" required />
+              </label>
+              <button type="submit" className="login-modal-btn">Sign In to Dashboard</button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
 
 function MultiModalPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HTMLAnchorElement>, path: string) => void }) {
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   return (
     <div className="mm-page">
       <header className="about-header">
@@ -1063,6 +1128,33 @@ function MultiModalPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HT
           <span>© 2026 All Rights Reserved by Lara Shipping Line Pvt Ltd</span>
         </div>
       </footer>
+
+      {/* Login Portal Modal */}
+      {isLoginOpen && (
+        <div className="login-modal-overlay" onClick={() => setIsLoginOpen(false)}>
+          <div className="login-modal-card" onClick={e => e.stopPropagation()}>
+            <button className="login-modal-close" onClick={() => setIsLoginOpen(false)} aria-label="Close dialog">
+              <X size={18} />
+            </button>
+            <div className="login-modal-header">
+              <Logo />
+              <h3>Client Portal Login</h3>
+              <p>Sign in to track your shipments, download Bills of Lading, and manage bookings.</p>
+            </div>
+            <form className="login-modal-form" onSubmit={e => { e.preventDefault(); alert('Customer portal login'); setIsLoginOpen(false); }}>
+              <label>
+                <span>Email Address or Client ID</span>
+                <input type="text" placeholder="name@company.com" required autoFocus />
+              </label>
+              <label>
+                <span>Password</span>
+                <input type="password" placeholder="••••••••" required />
+              </label>
+              <button type="submit" className="login-modal-btn">Sign In to Dashboard</button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
@@ -1212,7 +1304,7 @@ function OceanFreightLCLPage({ onNavigate }: { onNavigate: (event: ReactMouseEve
               <div className="of-pillar-item">
                 <div className="of-pillar-icon"><Truck size={32} strokeWidth={1.8} /></div>
                 <h3>Fast Delivery</h3>
-                <p>We offer swift transportation of goods etc. ensuring your cargo reaches its destination promptly.</p>
+                <p>We offer swift transportation of goods via air, ensuring your cargo reaches its destination promptly.</p>
               </div>
 
               <div className="of-pillar-item">
@@ -1435,7 +1527,7 @@ function OceanFreightFCLPage({ onNavigate }: { onNavigate: (event: ReactMouseEve
               <div className="of-pillar-item">
                 <div className="of-pillar-icon"><Truck size={32} strokeWidth={1.8} /></div>
                 <h3>Fast Delivery</h3>
-                <p>We offer swift transportation of goods etc. ensuring your cargo reaches its destination promptly.</p>
+                <p>We offer swift transportation of goods via air, ensuring your cargo reaches its destination promptly.</p>
               </div>
 
               <div className="of-pillar-item">
@@ -1514,22 +1606,97 @@ function OceanFreightFCLPage({ onNavigate }: { onNavigate: (event: ReactMouseEve
 }
 
 function RailFreightPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HTMLAnchorElement>, path: string) => void }) {
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   return (
     <div className="rail-freight-page">
-      <header className="about-header">
-        <div className="about-header-inner">
+      <header className="of-header">
+        <div className="of-header-inner">
           <Logo href="/" onClick={e => onNavigate(e, '/')} />
-          <nav aria-label="Primary navigation">
+
+          <nav className="of-nav" aria-label="Primary navigation">
             <a href="/" onClick={event => onNavigate(event, '/')}>Home</a>
             <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
-            <a href="/#services" className="active" onClick={event => onNavigate(event, '/#services')}>Services</a>
+
+            <div
+              className="of-services-pill"
+              onMouseEnter={() => setServicesOpen(true)}
+              onMouseLeave={() => setServicesOpen(false)}
+            >
+              <button
+                type="button"
+                className="of-services-pill-btn"
+                onClick={() => setServicesOpen(open => !open)}
+                aria-expanded={servicesOpen}
+              >
+                Services <ChevronDown size={14} />
+              </button>
+              {servicesOpen && (
+                <div className="of-services-dropdown" role="menu">
+                  <div className="of-dropdown-sector">Freight Forwarding Services</div>
+                  {services.filter(s => s.sector === 'Freight Forwarding Services').map(({ name }) => (
+                    <a
+                      key={name}
+                      href={getServicePath(name)}
+                      className={name === 'Rail Freight' ? 'active' : ''}
+                      onClick={e => { onNavigate(e, getServicePath(name)); setServicesOpen(false); }}
+                    >
+                      {name}
+                    </a>
+                  ))}
+                  <div className="of-dropdown-sector">Customer Solution</div>
+                  {services.filter(s => s.sector === 'Customer Solution').map(({ name }) => (
+                    <a
+                      key={name}
+                      href={getServicePath(name)}
+                      className={name === 'Rail Freight' ? 'active' : ''}
+                      onClick={e => { onNavigate(e, getServicePath(name)); setServicesOpen(false); }}
+                    >
+                      {name}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a>
             <a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a>
           </nav>
-          <a className="industries-quote" href="/quote" onClick={e => onNavigate(e, '/quote')}>
-            Get a Quote <ArrowUpRight size={15} />
-          </a>
+
+          <div className="of-header-actions">
+            <button
+              className="of-login-btn"
+              type="button"
+              onClick={() => setIsLoginOpen(true)}
+            >
+              Login
+            </button>
+            <button
+              className="of-mobile-toggle"
+              type="button"
+              onClick={() => setMobileOpen(m => !m)}
+              aria-label="Toggle navigation menu"
+            >
+              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile menu dropdown */}
+        {mobileOpen && (
+          <div className="of-mobile-menu">
+            <a href="/" onClick={e => { onNavigate(e, '/'); setMobileOpen(false); }}>Home</a>
+            <a href="/about" onClick={e => { onNavigate(e, '/about'); setMobileOpen(false); }}>About Us</a>
+            <a href="/#services" onClick={e => { onNavigate(e, '/#services'); setMobileOpen(false); }}>Services</a>
+            <a href="/industries" onClick={e => { onNavigate(e, '/industries'); setMobileOpen(false); }}>Industries</a>
+            <a href="/contact" onClick={e => { onNavigate(e, '/contact'); setMobileOpen(false); }}>Contact Us</a>
+            <button className="of-mobile-login" type="button" onClick={() => { setIsLoginOpen(true); setMobileOpen(false); }}>
+              Login
+            </button>
+          </div>
+        )}
       </header>
 
       <main>
@@ -1583,7 +1750,7 @@ function RailFreightPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<H
               <div className="of-pillar-item">
                 <div className="of-pillar-icon"><Truck size={32} strokeWidth={1.8} /></div>
                 <h3>Fast Delivery</h3>
-                <p>We offer swift transportation of goods etc. ensuring your cargo reaches its destination promptly.</p>
+                <p>We offer swift transportation of goods via air, ensuring your cargo reaches its destination promptly.</p>
               </div>
 
               <div className="of-pillar-item">
@@ -1630,27 +1797,129 @@ function RailFreightPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<H
           <span>© 2026 All Rights Reserved by Lara Shipping Line Pvt Ltd</span>
         </div>
       </footer>
+
+      {/* Login Portal Modal */}
+      {isLoginOpen && (
+        <div className="login-modal-overlay" onClick={() => setIsLoginOpen(false)}>
+          <div className="login-modal-card" onClick={e => e.stopPropagation()}>
+            <button className="login-modal-close" onClick={() => setIsLoginOpen(false)} aria-label="Close dialog">
+              <X size={18} />
+            </button>
+            <div className="login-modal-header">
+              <Logo />
+              <h3>Client Portal Login</h3>
+              <p>Sign in to track your shipments, download Bills of Lading, and manage bookings.</p>
+            </div>
+            <form className="login-modal-form" onSubmit={e => { e.preventDefault(); alert('Customer portal login'); setIsLoginOpen(false); }}>
+              <label>
+                <span>Email Address or Client ID</span>
+                <input type="text" placeholder="name@company.com" required autoFocus />
+              </label>
+              <label>
+                <span>Password</span>
+                <input type="password" placeholder="••••••••" required />
+              </label>
+              <button type="submit" className="login-modal-btn">Sign In to Dashboard</button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
 
 function RoadFreightPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HTMLAnchorElement>, path: string) => void }) {
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   return (
     <div className="road-freight-page">
-      <header className="about-header">
-        <div className="about-header-inner">
+      <header className="of-header">
+        <div className="of-header-inner">
           <Logo href="/" onClick={e => onNavigate(e, '/')} />
-          <nav aria-label="Primary navigation">
+
+          <nav className="of-nav" aria-label="Primary navigation">
             <a href="/" onClick={event => onNavigate(event, '/')}>Home</a>
             <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
-            <a href="/#services" className="active" onClick={event => onNavigate(event, '/#services')}>Services</a>
+
+            <div
+              className="of-services-pill"
+              onMouseEnter={() => setServicesOpen(true)}
+              onMouseLeave={() => setServicesOpen(false)}
+            >
+              <button
+                type="button"
+                className="of-services-pill-btn"
+                onClick={() => setServicesOpen(open => !open)}
+                aria-expanded={servicesOpen}
+              >
+                Services <ChevronDown size={14} />
+              </button>
+              {servicesOpen && (
+                <div className="of-services-dropdown" role="menu">
+                  <div className="of-dropdown-sector">Freight Forwarding Services</div>
+                  {services.filter(s => s.sector === 'Freight Forwarding Services').map(({ name }) => (
+                    <a
+                      key={name}
+                      href={getServicePath(name)}
+                      className={name === 'Road Freight' ? 'active' : ''}
+                      onClick={e => { onNavigate(e, getServicePath(name)); setServicesOpen(false); }}
+                    >
+                      {name}
+                    </a>
+                  ))}
+                  <div className="of-dropdown-sector">Customer Solution</div>
+                  {services.filter(s => s.sector === 'Customer Solution').map(({ name }) => (
+                    <a
+                      key={name}
+                      href={getServicePath(name)}
+                      className={name === 'Road Freight' ? 'active' : ''}
+                      onClick={e => { onNavigate(e, getServicePath(name)); setServicesOpen(false); }}
+                    >
+                      {name}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a>
             <a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a>
           </nav>
-          <a className="industries-quote" href="/quote" onClick={e => onNavigate(e, '/quote')}>
-            Get a Quote <ArrowUpRight size={15} />
-          </a>
+
+          <div className="of-header-actions">
+            <button
+              className="of-login-btn"
+              type="button"
+              onClick={() => setIsLoginOpen(true)}
+            >
+              Login
+            </button>
+            <button
+              className="of-mobile-toggle"
+              type="button"
+              onClick={() => setMobileOpen(m => !m)}
+              aria-label="Toggle navigation menu"
+            >
+              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile menu dropdown */}
+        {mobileOpen && (
+          <div className="of-mobile-menu">
+            <a href="/" onClick={e => { onNavigate(e, '/'); setMobileOpen(false); }}>Home</a>
+            <a href="/about" onClick={e => { onNavigate(e, '/about'); setMobileOpen(false); }}>About Us</a>
+            <a href="/#services" onClick={e => { onNavigate(e, '/#services'); setMobileOpen(false); }}>Services</a>
+            <a href="/industries" onClick={e => { onNavigate(e, '/industries'); setMobileOpen(false); }}>Industries</a>
+            <a href="/contact" onClick={e => { onNavigate(e, '/contact'); setMobileOpen(false); }}>Contact Us</a>
+            <button className="of-mobile-login" type="button" onClick={() => { setIsLoginOpen(true); setMobileOpen(false); }}>
+              Login
+            </button>
+          </div>
+        )}
       </header>
 
       <main>
@@ -1704,7 +1973,7 @@ function RoadFreightPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<H
               <div className="of-pillar-item">
                 <div className="of-pillar-icon"><Truck size={32} strokeWidth={1.8} /></div>
                 <h3>Fast Delivery</h3>
-                <p>We offer swift transportation of goods etc. ensuring your cargo reaches its destination promptly.</p>
+                <p>We offer swift transportation of goods via air, ensuring your cargo reaches its destination promptly.</p>
               </div>
 
               <div className="of-pillar-item">
@@ -1751,27 +2020,129 @@ function RoadFreightPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<H
           <span>© 2026 All Rights Reserved by Lara Shipping Line Pvt Ltd</span>
         </div>
       </footer>
+
+      {/* Login Portal Modal */}
+      {isLoginOpen && (
+        <div className="login-modal-overlay" onClick={() => setIsLoginOpen(false)}>
+          <div className="login-modal-card" onClick={e => e.stopPropagation()}>
+            <button className="login-modal-close" onClick={() => setIsLoginOpen(false)} aria-label="Close dialog">
+              <X size={18} />
+            </button>
+            <div className="login-modal-header">
+              <Logo />
+              <h3>Client Portal Login</h3>
+              <p>Sign in to track your shipments, download Bills of Lading, and manage bookings.</p>
+            </div>
+            <form className="login-modal-form" onSubmit={e => { e.preventDefault(); alert('Customer portal login'); setIsLoginOpen(false); }}>
+              <label>
+                <span>Email Address or Client ID</span>
+                <input type="text" placeholder="name@company.com" required autoFocus />
+              </label>
+              <label>
+                <span>Password</span>
+                <input type="password" placeholder="••••••••" required />
+              </label>
+              <button type="submit" className="login-modal-btn">Sign In to Dashboard</button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
 
 function SocialWeightingPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HTMLAnchorElement>, path: string) => void }) {
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   return (
     <div className="social-weighting-page">
-      <header className="about-header">
-        <div className="about-header-inner">
+      <header className="of-header">
+        <div className="of-header-inner">
           <Logo href="/" onClick={e => onNavigate(e, '/')} />
-          <nav aria-label="Primary navigation">
+
+          <nav className="of-nav" aria-label="Primary navigation">
             <a href="/" onClick={event => onNavigate(event, '/')}>Home</a>
             <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
-            <a href="/#services" className="active" onClick={event => onNavigate(event, '/#services')}>Services</a>
+
+            <div
+              className="of-services-pill"
+              onMouseEnter={() => setServicesOpen(true)}
+              onMouseLeave={() => setServicesOpen(false)}
+            >
+              <button
+                type="button"
+                className="of-services-pill-btn"
+                onClick={() => setServicesOpen(open => !open)}
+                aria-expanded={servicesOpen}
+              >
+                Services <ChevronDown size={14} />
+              </button>
+              {servicesOpen && (
+                <div className="of-services-dropdown" role="menu">
+                  <div className="of-dropdown-sector">Freight Forwarding Services</div>
+                  {services.filter(s => s.sector === 'Freight Forwarding Services').map(({ name }) => (
+                    <a
+                      key={name}
+                      href={getServicePath(name)}
+                      className={name === 'Social, Weighting and Filling' ? 'active' : ''}
+                      onClick={e => { onNavigate(e, getServicePath(name)); setServicesOpen(false); }}
+                    >
+                      {name}
+                    </a>
+                  ))}
+                  <div className="of-dropdown-sector">Customer Solution</div>
+                  {services.filter(s => s.sector === 'Customer Solution').map(({ name }) => (
+                    <a
+                      key={name}
+                      href={getServicePath(name)}
+                      className={name === 'Social, Weighting and Filling' ? 'active' : ''}
+                      onClick={e => { onNavigate(e, getServicePath(name)); setServicesOpen(false); }}
+                    >
+                      {name}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a>
             <a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a>
           </nav>
-          <a className="industries-quote" href="/quote" onClick={e => onNavigate(e, '/quote')}>
-            Get a Quote <ArrowUpRight size={15} />
-          </a>
+
+          <div className="of-header-actions">
+            <button
+              className="of-login-btn"
+              type="button"
+              onClick={() => setIsLoginOpen(true)}
+            >
+              Login
+            </button>
+            <button
+              className="of-mobile-toggle"
+              type="button"
+              onClick={() => setMobileOpen(m => !m)}
+              aria-label="Toggle navigation menu"
+            >
+              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile menu dropdown */}
+        {mobileOpen && (
+          <div className="of-mobile-menu">
+            <a href="/" onClick={e => { onNavigate(e, '/'); setMobileOpen(false); }}>Home</a>
+            <a href="/about" onClick={e => { onNavigate(e, '/about'); setMobileOpen(false); }}>About Us</a>
+            <a href="/#services" onClick={e => { onNavigate(e, '/#services'); setMobileOpen(false); }}>Services</a>
+            <a href="/industries" onClick={e => { onNavigate(e, '/industries'); setMobileOpen(false); }}>Industries</a>
+            <a href="/contact" onClick={e => { onNavigate(e, '/contact'); setMobileOpen(false); }}>Contact Us</a>
+            <button className="of-mobile-login" type="button" onClick={() => { setIsLoginOpen(true); setMobileOpen(false); }}>
+              Login
+            </button>
+          </div>
+        )}
       </header>
 
       <main>
@@ -1825,7 +2196,7 @@ function SocialWeightingPage({ onNavigate }: { onNavigate: (event: ReactMouseEve
               <div className="of-pillar-item">
                 <div className="of-pillar-icon"><Truck size={32} strokeWidth={1.8} /></div>
                 <h3>Fast Delivery</h3>
-                <p>We offer swift transportation of goods etc. ensuring your cargo reaches its destination promptly.</p>
+                <p>We offer swift transportation of goods via air, ensuring your cargo reaches its destination promptly.</p>
               </div>
 
               <div className="of-pillar-item">
@@ -1872,94 +2243,209 @@ function SocialWeightingPage({ onNavigate }: { onNavigate: (event: ReactMouseEve
           <span>© 2026 All Rights Reserved by Lara Shipping Line Pvt Ltd</span>
         </div>
       </footer>
+
+      {/* Login Portal Modal */}
+      {isLoginOpen && (
+        <div className="login-modal-overlay" onClick={() => setIsLoginOpen(false)}>
+          <div className="login-modal-card" onClick={e => e.stopPropagation()}>
+            <button className="login-modal-close" onClick={() => setIsLoginOpen(false)} aria-label="Close dialog">
+              <X size={18} />
+            </button>
+            <div className="login-modal-header">
+              <Logo />
+              <h3>Client Portal Login</h3>
+              <p>Sign in to track your shipments, download Bills of Lading, and manage bookings.</p>
+            </div>
+            <form className="login-modal-form" onSubmit={e => { e.preventDefault(); alert('Customer portal login'); setIsLoginOpen(false); }}>
+              <label>
+                <span>Email Address or Client ID</span>
+                <input type="text" placeholder="name@company.com" required autoFocus />
+              </label>
+              <label>
+                <span>Password</span>
+                <input type="password" placeholder="••••••••" required />
+              </label>
+              <button type="submit" className="login-modal-btn">Sign In to Dashboard</button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
 
 function ContractLogisticsPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HTMLAnchorElement>, path: string) => void }) {
+  const [servicesOpen, setServicesOpen] = useState(false)
+  const [isLoginOpen, setIsLoginOpen] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+
   return (
     <div className="contract-logistics-page">
-      <header className="about-header">
-        <div className="about-header-inner">
-          <Logo href="/" />
-          <nav aria-label="Primary navigation">
+      {/* Top Floating Transparent Header directly over Hero Banner */}
+      <header className="of-header">
+        <div className="of-header-inner">
+          <Logo href="/" onClick={e => onNavigate(e, '/')} />
+
+          <nav className="of-nav" aria-label="Primary navigation">
             <a href="/" onClick={event => onNavigate(event, '/')}>Home</a>
-            <a href="/#services" className="active" onClick={event => onNavigate(event, '/#services')}>Services</a>
+            <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
+
+            <div
+              className="of-services-pill"
+              onMouseEnter={() => setServicesOpen(true)}
+              onMouseLeave={() => setServicesOpen(false)}
+            >
+              <button
+                type="button"
+                className="of-services-pill-btn"
+                onClick={() => setServicesOpen(open => !open)}
+                aria-expanded={servicesOpen}
+              >
+                Services <ChevronDown size={14} />
+              </button>
+              {servicesOpen && (
+                <div className="of-services-dropdown" role="menu">
+                  <div className="of-dropdown-sector">Freight Forwarding Services</div>
+                  {services.filter(s => s.sector === 'Freight Forwarding Services').map(({ name }) => (
+                    <a
+                      key={name}
+                      href={getServicePath(name)}
+                      className={name === 'Contract Logistics' ? 'active' : ''}
+                      onClick={e => { onNavigate(e, getServicePath(name)); setServicesOpen(false); }}
+                    >
+                      {name}
+                    </a>
+                  ))}
+                  <div className="of-dropdown-sector">Customer Solution</div>
+                  {services.filter(s => s.sector === 'Customer Solution').map(({ name }) => (
+                    <a
+                      key={name}
+                      href={getServicePath(name)}
+                      className={name === 'Contract Logistics' ? 'active' : ''}
+                      onClick={e => { onNavigate(e, getServicePath(name)); setServicesOpen(false); }}
+                    >
+                      {name}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a>
             <a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a>
-            <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
           </nav>
-          <a className="industries-quote" href="/#quote">Get a Quote <ArrowUpRight size={15} /></a>
+
+          <div className="of-header-actions">
+            <button
+              className="of-login-btn"
+              type="button"
+              onClick={() => setIsLoginOpen(true)}
+            >
+              Login
+            </button>
+            <button
+              className="of-mobile-toggle"
+              type="button"
+              onClick={() => setMobileOpen(m => !m)}
+              aria-label="Toggle navigation menu"
+            >
+              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile menu dropdown */}
+        {mobileOpen && (
+          <div className="of-mobile-menu">
+            <a href="/" onClick={e => { onNavigate(e, '/'); setMobileOpen(false); }}>Home</a>
+            <a href="/about" onClick={e => { onNavigate(e, '/about'); setMobileOpen(false); }}>About Us</a>
+            <a href="/#services" onClick={e => { onNavigate(e, '/#services'); setMobileOpen(false); }}>Services</a>
+            <a href="/industries" onClick={e => { onNavigate(e, '/industries'); setMobileOpen(false); }}>Industries</a>
+            <a href="/contact" onClick={e => { onNavigate(e, '/contact'); setMobileOpen(false); }}>Contact Us</a>
+            <button className="of-mobile-login" type="button" onClick={() => { setIsLoginOpen(true); setMobileOpen(false); }}>
+              Login
+            </button>
+          </div>
+        )}
       </header>
 
       <main>
-        {/* Masthead — same stripe pattern as Industries */}
-        <section className="cl-masthead">
-          <div className="cl-company-card">
-            <span className="eyebrow light"><span /> LARA SHIPPING LINE</span>
-            <h1>Contract Logistics,<br /><em>scalable &amp; rapid.</em></h1>
-            <p>Integrated warehousing, distribution, and supply chain management designed around your ongoing business needs.</p>
-          </div>
+        {/* Top Hero Banner */}
+        <section className="of-hero-banner" aria-label="Contract Logistics Hero">
+          <img
+            src="/air-freight-hero.jpg"
+            alt="Global logistics terminal and container transit port at dusk"
+            className="of-hero-img"
+          />
+          <div className="of-hero-overlay" />
         </section>
 
-        {/* Intro — two-column like industries-journey */}
-        <section className="cl-journey section-shell">
-          <div className="cl-journey-copy">
-            <span className="eyebrow light"><span /> Operations &amp; Strategy</span>
-            <h2>Peace of mind<br /><em>for your supply chain.</em></h2>
-            <p>REPLICABLE, SCALABLE, RAPID DEPLOYMENT. Give your supply chain the peace of mind it needs. Tap into our global infrastructure and local expertise and never worry about demand spikes or last-minute regulatory changes.</p>
-            <p>Our contract logistics services go beyond simply storing and moving goods. We act as an extension of your business, managing complex operations, optimizing inventory flows, and implementing technology-driven solutions that reduce overhead while increasing end-customer satisfaction.</p>
-          </div>
-
-          {/* CSS Art Panel — Clipboard & Handshake */}
-          <div className="cl-art-panel" aria-hidden="true">
-            {/* Abstract facility structures */}
-            <div className="cl-facility f1" />
-            <div className="cl-facility f2" />
-            <div className="cl-facility f3" />
-            <div className="cl-shelf s1" />
-            <div className="cl-shelf s2" />
-            <div className="cl-shelf s3" />
-            
-            <div className="cl-panel-core">
-              <Handshake size={52} />
-              <b>Partnership</b>
-              <small>Long-term operational scale</small>
+        {/* Content Container holding Title, Intro Grid, and What We Do */}
+        <div className="of-content-container">
+          {/* Intro Section: Contract Logistics + Two Columns with photo and text */}
+          <section className="of-intro-section">
+            <div className="of-intro-header">
+              <h1>Contract Logistics</h1>
             </div>
-          </div>
-        </section>
 
-        {/* What We Do — mirrors industry-scale */}
-        <section className="cl-scale section-shell">
-          <div className="cl-scale-header">
-            <span className="eyebrow light"><span /> What We Do</span>
-            <h2>One-stop shop for<br /><em>global shipping.</em></h2>
-            <p>Your one-stop shop for global shipping. We handle everything from complex logistics to seamless delivery.</p>
-            <div className="industry-signals">
-              <span><b>100%</b> Scalable operations</span>
-              <span><b>24/7</b> Inventory visibility</span>
-              <span><b>Global</b> Infrastructure access</span>
+            <div className="of-intro-grid">
+              {/* Left: Photo Frame with Blue Offset Backdrop and White Border */}
+              <div className="of-photo-frame">
+                <div className="of-photo-backdrop" />
+                <div className="of-photo-container">
+                  <img
+                    src="/contract-logistics-team.jpg"
+                    alt="Logistics staff with packages and handshake"
+                  />
+                </div>
+              </div>
+
+              {/* Right: Text Content */}
+              <div className="of-intro-copy">
+                <p>
+                  REPLICABLE, SCALABLE, RAPID DEPLOYMENT Give your supply chain the peace of mind it needs. Tap into our global infrastructure and local expertise and never worry about demand spikes or last-minute regulatory changes.
+                </p>
+              </div>
             </div>
-            <a className="about-read-more" href="/#quote">Get a Quote <ArrowRight size={16} /></a>
-          </div>
-          <div className="cl-features-grid">
-            {[
-              { icon: Zap, title: 'Rapid Deployment', copy: 'Quickly scale operations up or down to respond perfectly to seasonal demand spikes.' },
-              { icon: Globe2, title: 'Global Reach', copy: 'Tap into our established infrastructure and localized expertise in markets worldwide.' },
-              { icon: ShieldCheck, title: 'Secure Handling', copy: 'Your inventory is managed with absolute care, backed by robust security and compliance.' },
-              { icon: Sparkles, title: 'Tailored Solutions', copy: 'Custom workflows and integrations designed specifically around your operational goals.' },
-            ].map(({ icon: Icon, title, copy }) => (
-              <article className="cl-feature-card" key={title}>
-                <div className="cl-feature-icon"><Icon size={26} /></div>
-                <h3>{title}</h3>
-                <p>{copy}</p>
-              </article>
-            ))}
-          </div>
-        </section>
+          </section>
+
+          {/* Section 2: What We Do */}
+          <section className="of-what-we-do-section">
+            <div className="of-what-header">
+              <h2>What We do</h2>
+              <p>Your one-stop shop for global shipping. We handle everything from complex logistics to seamless delivery</p>
+            </div>
+
+            <div className="of-pillars-grid">
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><Truck size={32} strokeWidth={1.8} /></div>
+                <h3>Fast Delivery</h3>
+                <p>We offer swift transportation of goods via air, ensuring your cargo reaches its destination promptly.</p>
+              </div>
+
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><Search size={32} strokeWidth={1.8} /></div>
+                <h3>Global Reach</h3>
+                <p>Our Air Freight service connects you to a vast network of destinations worldwide</p>
+              </div>
+
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><ClipboardCheck size={32} strokeWidth={1.8} /></div>
+                <h3>Secure Handling</h3>
+                <p>Your cargo is handled with utmost care and attention to ensure it arrives safely.</p>
+              </div>
+
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><Megaphone size={32} strokeWidth={1.8} /></div>
+                <h3>Tailored Solutions</h3>
+                <p>We provide customized air freight solutions to meet your specific needs.</p>
+              </div>
+            </div>
+          </section>
+        </div>
       </main>
 
+      {/* Footer */}
       <footer className="industries-footer">
         <div className="industries-footer-inner section-shell">
           <div className="industries-footer-brand">
@@ -1976,97 +2462,215 @@ function ContractLogisticsPage({ onNavigate }: { onNavigate: (event: ReactMouseE
           <FooterColumn title="Useful Links" items={['Home', 'About Us', 'Services', 'Industries', 'Contact Us']} />
           <FooterColumn title="Services" items={['Air Freight', 'Cargo Insurance', 'Ocean Freight (FCL)', 'Multi Modal', 'Ocean Freight (LCL)', 'Rail Freight', 'Road Freight', 'Social, Weighting and Filling']} />
           <FooterColumn title="Customer Solutions" items={['Contract Logistics', 'Cross Border E-Commerce', 'Customs Brokerage', 'Green Solution', 'Technology & Customer Services']} />
-      </div>
-      <div className="footer-bottom section-shell">
-        <span>© 2026 All Rights Reserved by Lara Shipping Line Pvt Ltd</span>
-      </div>
-    </footer>
+        </div>
+        <div className="footer-bottom section-shell">
+          <span>© 2026 All Rights Reserved by Lara Shipping Line Pvt Ltd</span>
+        </div>
+      </footer>
+
+      {/* Login Portal Modal */}
+      {isLoginOpen && (
+        <div className="login-modal-overlay" onClick={() => setIsLoginOpen(false)}>
+          <div className="login-modal-card" onClick={e => e.stopPropagation()}>
+            <button className="login-modal-close" onClick={() => setIsLoginOpen(false)} aria-label="Close dialog">
+              <X size={18} />
+            </button>
+            <div className="login-modal-header">
+              <Logo />
+              <h3>Client Portal Login</h3>
+              <p>Sign in to track your shipments, download Bills of Lading, and manage bookings.</p>
+            </div>
+            <form className="login-modal-form" onSubmit={e => { e.preventDefault(); alert('Customer portal login'); setIsLoginOpen(false); }}>
+              <label>
+                <span>Email Address or Client ID</span>
+                <input type="text" placeholder="name@company.com" required autoFocus />
+              </label>
+              <label>
+                <span>Password</span>
+                <input type="password" placeholder="••••••••" required />
+              </label>
+              <button type="submit" className="login-modal-btn">Sign In to Dashboard</button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
 
+
 function CrossBorderEcommercePage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HTMLAnchorElement>, path: string) => void }) {
+  const [servicesOpen, setServicesOpen] = useState(false)
+  const [isLoginOpen, setIsLoginOpen] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+
   return (
     <div className="cross-border-page">
-      <header className="about-header">
-        <div className="about-header-inner">
-          <Logo href="/" />
-          <nav aria-label="Primary navigation">
+      {/* Top Floating Transparent Header directly over Hero Banner */}
+      <header className="of-header">
+        <div className="of-header-inner">
+          <Logo href="/" onClick={e => onNavigate(e, '/')} />
+
+          <nav className="of-nav" aria-label="Primary navigation">
             <a href="/" onClick={event => onNavigate(event, '/')}>Home</a>
-            <a href="/#services" className="active" onClick={event => onNavigate(event, '/#services')}>Services</a>
+            <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
+
+            <div
+              className="of-services-pill"
+              onMouseEnter={() => setServicesOpen(true)}
+              onMouseLeave={() => setServicesOpen(false)}
+            >
+              <button
+                type="button"
+                className="of-services-pill-btn"
+                onClick={() => setServicesOpen(open => !open)}
+                aria-expanded={servicesOpen}
+              >
+                Services <ChevronDown size={14} />
+              </button>
+              {servicesOpen && (
+                <div className="of-services-dropdown" role="menu">
+                  <div className="of-dropdown-sector">Freight Forwarding Services</div>
+                  {services.filter(s => s.sector === 'Freight Forwarding Services').map(({ name }) => (
+                    <a
+                      key={name}
+                      href={getServicePath(name)}
+                      className={name === 'Cross Border E-Commerce' ? 'active' : ''}
+                      onClick={e => { onNavigate(e, getServicePath(name)); setServicesOpen(false); }}
+                    >
+                      {name}
+                    </a>
+                  ))}
+                  <div className="of-dropdown-sector">Customer Solution</div>
+                  {services.filter(s => s.sector === 'Customer Solution').map(({ name }) => (
+                    <a
+                      key={name}
+                      href={getServicePath(name)}
+                      className={name === 'Cross Border E-Commerce' ? 'active' : ''}
+                      onClick={e => { onNavigate(e, getServicePath(name)); setServicesOpen(false); }}
+                    >
+                      {name}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a>
             <a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a>
-            <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
           </nav>
-          <a className="industries-quote" href="/#quote">Get a Quote <ArrowUpRight size={15} /></a>
+
+          <div className="of-header-actions">
+            <button
+              className="of-login-btn"
+              type="button"
+              onClick={() => setIsLoginOpen(true)}
+            >
+              Login
+            </button>
+            <button
+              className="of-mobile-toggle"
+              type="button"
+              onClick={() => setMobileOpen(m => !m)}
+              aria-label="Toggle navigation menu"
+            >
+              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile menu dropdown */}
+        {mobileOpen && (
+          <div className="of-mobile-menu">
+            <a href="/" onClick={e => { onNavigate(e, '/'); setMobileOpen(false); }}>Home</a>
+            <a href="/about" onClick={e => { onNavigate(e, '/about'); setMobileOpen(false); }}>About Us</a>
+            <a href="/#services" onClick={e => { onNavigate(e, '/#services'); setMobileOpen(false); }}>Services</a>
+            <a href="/industries" onClick={e => { onNavigate(e, '/industries'); setMobileOpen(false); }}>Industries</a>
+            <a href="/contact" onClick={e => { onNavigate(e, '/contact'); setMobileOpen(false); }}>Contact Us</a>
+            <button className="of-mobile-login" type="button" onClick={() => { setIsLoginOpen(true); setMobileOpen(false); }}>
+              Login
+            </button>
+          </div>
+        )}
       </header>
 
       <main>
-        {/* Masthead — same stripe pattern as Industries */}
-        <section className="cbe-masthead">
-          <div className="cbe-company-card">
-            <span className="eyebrow light"><span /> LARA SHIPPING LINE</span>
-            <h1>Cross Border E-Commerce,<br /><em>scalable &amp; rapid.</em></h1>
-            <p>Streamlined international fulfilment, customs clearance, and global supply chain solutions designed for digital commerce.</p>
-          </div>
+        {/* Top Hero Banner */}
+        <section className="of-hero-banner" aria-label="Cross Border E-Commerce Hero">
+          <img
+            src="/air-freight-hero.jpg"
+            alt="Global logistics terminal and container transit port at dusk"
+            className="of-hero-img"
+          />
+          <div className="of-hero-overlay" />
         </section>
 
-        {/* Intro — two-column like industries-journey */}
-        <section className="cbe-journey section-shell">
-          <div className="cbe-journey-copy">
-            <span className="eyebrow light"><span /> Operations &amp; Strategy</span>
-            <h2>Peace of mind<br /><em>for global commerce.</em></h2>
-            <p>LARA SHIPPING brokerage services provide clients with expertise around the globe. LARA SHIPPING brokers are professionals with experience in brokerage services and consultancy to ensure that our clients have the best possible outcomes when clearing their goods for consumption around the globe. For more information, contact us.</p>
-            <p>Our cross-border e-commerce operations simplify global digital commerce. From customs compliance and automated duty calculations to rapid air freight connections and last-mile parcel distribution, we empower merchants to scale worldwide with confidence.</p>
-          </div>
-
-          {/* CSS Art Panel — styled like industries-network-art */}
-          <div className="cbe-art-panel" aria-hidden="true">
-            <span className="cbe-orbit orbit-one" />
-            <span className="cbe-orbit orbit-two" />
-            <span className="cbe-node node-one" />
-            <span className="cbe-node node-two" />
-            <span className="cbe-node node-three" />
-            
-            <div className="cbe-panel-core">
-              <ShoppingCart size={52} />
-              <b>E-Commerce</b>
-              <small>Cross-border fulfillment</small>
+        {/* Content Container holding Title, Intro Grid, and What We Do */}
+        <div className="of-content-container">
+          {/* Intro Section: Cross Border E-Commerce + Two Columns with photo and text */}
+          <section className="of-intro-section">
+            <div className="of-intro-header">
+              <h1>Cross Border E-<br />Commerce</h1>
             </div>
-          </div>
-        </section>
 
-        {/* What We Do — mirrors industry-scale */}
-        <section className="cbe-scale section-shell">
-          <div className="cbe-scale-header">
-            <span className="eyebrow light"><span /> What We Do</span>
-            <h2>One-stop shop for<br /><em>global shipping.</em></h2>
-            <p>Your one-stop shop for global shipping. We handle everything from complex logistics to seamless delivery.</p>
-            <div className="industry-signals">
-              <span><b>100%</b> Scalable operations</span>
-              <span><b>24/7</b> Inventory visibility</span>
-              <span><b>Global</b> Infrastructure access</span>
+            <div className="of-intro-grid">
+              {/* Left: Photo Frame with Blue Offset Backdrop and White Border */}
+              <div className="of-photo-frame">
+                <div className="of-photo-backdrop" />
+                <div className="of-photo-container">
+                  <img
+                    src="/cross-border-ecommerce.jpg"
+                    alt="Laptop with e-commerce cart illustration on desk"
+                  />
+                </div>
+              </div>
+
+              {/* Right: Text Content */}
+              <div className="of-intro-copy">
+                <p>
+                  LARA SHIPPING brokerage services provide clients with expertise around the globe. LARA SHIPPING brokers are professionals with experience in brokerage services and consultancy to ensure that our clients have the best possible outcomes when clearing their goods for consumption around the globe. For more information, contact us.
+                </p>
+              </div>
             </div>
-            <a className="about-read-more" href="/#quote">Get a Quote <ArrowRight size={16} /></a>
-          </div>
-          <div className="cbe-features-grid">
-            {[
-              { icon: Zap, title: 'Fast Delivery', copy: 'We offer swift transportation of goods via air, ensuring your cargo reaches its destination promptly.' },
-              { icon: Globe2, title: 'Global Reach', copy: 'Our Air Freight service connects you to a vast network of destinations worldwide.' },
-              { icon: ShieldCheck, title: 'Secure Handling', copy: 'Your cargo is handled with utmost care and attention to ensure it arrives safely.' },
-              { icon: Sparkles, title: 'Tailored Solutions', copy: 'We provide customized air freight solutions to meet your specific needs.' },
-            ].map(({ icon: Icon, title, copy }) => (
-              <article className="cbe-feature-card" key={title}>
-                <div className="cbe-feature-icon"><Icon size={26} /></div>
-                <h3>{title}</h3>
-                <p>{copy}</p>
-              </article>
-            ))}
-          </div>
-        </section>
+          </section>
+
+          {/* Section 2: What We Do */}
+          <section className="of-what-we-do-section">
+            <div className="of-what-header">
+              <h2>What We do</h2>
+              <p>Your one-stop shop for global shipping. We handle everything from complex logistics to seamless delivery</p>
+            </div>
+
+            <div className="of-pillars-grid">
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><Truck size={32} strokeWidth={1.8} /></div>
+                <h3>Fast Delivery</h3>
+                <p>We offer swift transportation of goods via air, ensuring your cargo reaches its destination promptly.</p>
+              </div>
+
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><Search size={32} strokeWidth={1.8} /></div>
+                <h3>Global Reach</h3>
+                <p>Our Air Freight service connects you to a vast network of destinations worldwide</p>
+              </div>
+
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><ClipboardCheck size={32} strokeWidth={1.8} /></div>
+                <h3>Secure Handling</h3>
+                <p>Your cargo is handled with utmost care and attention to ensure it arrives safely.</p>
+              </div>
+
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><Megaphone size={32} strokeWidth={1.8} /></div>
+                <h3>Tailored Solutions</h3>
+                <p>We provide customized air freight solutions to meet your specific needs.</p>
+              </div>
+            </div>
+          </section>
+        </div>
       </main>
 
+      {/* Footer */}
       <footer className="industries-footer">
         <div className="industries-footer-inner section-shell">
           <div className="industries-footer-brand">
@@ -2083,97 +2687,214 @@ function CrossBorderEcommercePage({ onNavigate }: { onNavigate: (event: ReactMou
           <FooterColumn title="Useful Links" items={['Home', 'About Us', 'Services', 'Industries', 'Contact Us']} />
           <FooterColumn title="Services" items={['Air Freight', 'Cargo Insurance', 'Ocean Freight (FCL)', 'Multi Modal', 'Ocean Freight (LCL)', 'Rail Freight', 'Road Freight', 'Social, Weighting and Filling']} />
           <FooterColumn title="Customer Solutions" items={['Contract Logistics', 'Cross Border E-Commerce', 'Customs Brokerage', 'Green Solution', 'Technology & Customer Services']} />
-      </div>
-      <div className="footer-bottom section-shell">
-        <span>© 2026 All Rights Reserved by Lara Shipping Line Pvt Ltd</span>
-      </div>
-    </footer>
+        </div>
+        <div className="footer-bottom section-shell">
+          <span>© 2026 All Rights Reserved by Lara Shipping Line Pvt Ltd</span>
+        </div>
+      </footer>
+
+      {/* Login Portal Modal */}
+      {isLoginOpen && (
+        <div className="login-modal-overlay" onClick={() => setIsLoginOpen(false)}>
+          <div className="login-modal-card" onClick={e => e.stopPropagation()}>
+            <button className="login-modal-close" onClick={() => setIsLoginOpen(false)} aria-label="Close dialog">
+              <X size={18} />
+            </button>
+            <div className="login-modal-header">
+              <Logo />
+              <h3>Client Portal Login</h3>
+              <p>Sign in to track your shipments, download Bills of Lading, and manage bookings.</p>
+            </div>
+            <form className="login-modal-form" onSubmit={e => { e.preventDefault(); alert('Customer portal login'); setIsLoginOpen(false); }}>
+              <label>
+                <span>Email Address or Client ID</span>
+                <input type="text" placeholder="name@company.com" required autoFocus />
+              </label>
+              <label>
+                <span>Password</span>
+                <input type="password" placeholder="••••••••" required />
+              </label>
+              <button type="submit" className="login-modal-btn">Sign In to Dashboard</button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
 
 function CustomsBrokeragePage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HTMLAnchorElement>, path: string) => void }) {
+  const [servicesOpen, setServicesOpen] = useState(false)
+  const [isLoginOpen, setIsLoginOpen] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+
   return (
     <div className="customs-brokerage-page">
-      <header className="about-header">
-        <div className="about-header-inner">
-          <Logo href="/" />
-          <nav aria-label="Primary navigation">
+      {/* Top Floating Transparent Header directly over Hero Banner */}
+      <header className="of-header">
+        <div className="of-header-inner">
+          <Logo href="/" onClick={e => onNavigate(e, '/')} />
+
+          <nav className="of-nav" aria-label="Primary navigation">
             <a href="/" onClick={event => onNavigate(event, '/')}>Home</a>
-            <a href="/#services" className="active" onClick={event => onNavigate(event, '/#services')}>Services</a>
+            <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
+
+            <div
+              className="of-services-pill"
+              onMouseEnter={() => setServicesOpen(true)}
+              onMouseLeave={() => setServicesOpen(false)}
+            >
+              <button
+                type="button"
+                className="of-services-pill-btn"
+                onClick={() => setServicesOpen(open => !open)}
+                aria-expanded={servicesOpen}
+              >
+                Services <ChevronDown size={14} />
+              </button>
+              {servicesOpen && (
+                <div className="of-services-dropdown" role="menu">
+                  <div className="of-dropdown-sector">Freight Forwarding Services</div>
+                  {services.filter(s => s.sector === 'Freight Forwarding Services').map(({ name }) => (
+                    <a
+                      key={name}
+                      href={getServicePath(name)}
+                      className={name === 'Customs Brokerage' ? 'active' : ''}
+                      onClick={e => { onNavigate(e, getServicePath(name)); setServicesOpen(false); }}
+                    >
+                      {name}
+                    </a>
+                  ))}
+                  <div className="of-dropdown-sector">Customer Solution</div>
+                  {services.filter(s => s.sector === 'Customer Solution').map(({ name }) => (
+                    <a
+                      key={name}
+                      href={getServicePath(name)}
+                      className={name === 'Customs Brokerage' ? 'active' : ''}
+                      onClick={e => { onNavigate(e, getServicePath(name)); setServicesOpen(false); }}
+                    >
+                      {name}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a>
             <a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a>
-            <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
           </nav>
-          <a className="industries-quote" href="/#quote">Get a Quote <ArrowUpRight size={15} /></a>
+
+          <div className="of-header-actions">
+            <button
+              className="of-login-btn"
+              type="button"
+              onClick={() => setIsLoginOpen(true)}
+            >
+              Login
+            </button>
+            <button
+              className="of-mobile-toggle"
+              type="button"
+              onClick={() => setMobileOpen(m => !m)}
+              aria-label="Toggle navigation menu"
+            >
+              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile menu dropdown */}
+        {mobileOpen && (
+          <div className="of-mobile-menu">
+            <a href="/" onClick={e => { onNavigate(e, '/'); setMobileOpen(false); }}>Home</a>
+            <a href="/about" onClick={e => { onNavigate(e, '/about'); setMobileOpen(false); }}>About Us</a>
+            <a href="/#services" onClick={e => { onNavigate(e, '/#services'); setMobileOpen(false); }}>Services</a>
+            <a href="/industries" onClick={e => { onNavigate(e, '/industries'); setMobileOpen(false); }}>Industries</a>
+            <a href="/contact" onClick={e => { onNavigate(e, '/contact'); setMobileOpen(false); }}>Contact Us</a>
+            <button className="of-mobile-login" type="button" onClick={() => { setIsLoginOpen(true); setMobileOpen(false); }}>
+              Login
+            </button>
+          </div>
+        )}
       </header>
 
       <main>
-        {/* Masthead — same stripe pattern as Industries */}
-        <section className="cb-masthead">
-          <div className="cb-company-card">
-            <span className="eyebrow light"><span /> LARA SHIPPING LINE</span>
-            <h1>Customs Brokerage,<br /><em>expert clearance.</em></h1>
-            <p>Global customs compliance, documentation consultancy, and swift clearance across all international borders.</p>
-          </div>
+        {/* Top Hero Banner */}
+        <section className="of-hero-banner" aria-label="Customs Brokerage Hero">
+          <img
+            src="/air-freight-hero.jpg"
+            alt="Global logistics terminal and container transit port at dusk"
+            className="of-hero-img"
+          />
+          <div className="of-hero-overlay" />
         </section>
 
-        {/* Intro — two-column like industries-journey */}
-        <section className="cb-journey section-shell">
-          <div className="cb-journey-copy">
-            <span className="eyebrow light"><span /> Compliance &amp; Consulting</span>
-            <h2>Peace of mind<br /><em>for cross-border trade.</em></h2>
-            <p>LARA SHIPPING brokerage services provide clients with expertise around the globe. LARA SHIPPING brokers are professionals with experience in brokerage services and consultancy to ensure that our clients have the best possible outcomes when clearing their goods for consumption around the globe. For more information, contact us.</p>
-            <p>Navigating changing tariff codes, import-export regulations, and international trade laws requires seasoned local professionals. Our dedicated customs brokers ensure your shipments clear customs quickly, legally, and cost-effectively.</p>
-          </div>
-
-          {/* CSS Art Panel — styled like industries-network-art */}
-          <div className="cb-art-panel" aria-hidden="true">
-            <span className="cb-orbit orbit-one" />
-            <span className="cb-orbit orbit-two" />
-            <span className="cb-node node-one" />
-            <span className="cb-node node-two" />
-            <span className="cb-node node-three" />
-            
-            <div className="cb-panel-core">
-              <FileText size={52} />
-              <b>Customs</b>
-              <small>100% border compliance</small>
+        {/* Content Container holding Title, Intro Grid, and What We Do */}
+        <div className="of-content-container">
+          {/* Intro Section: Customs Brokerage + Two Columns with photo and text */}
+          <section className="of-intro-section">
+            <div className="of-intro-header">
+              <h1>Customs Brokerage</h1>
             </div>
-          </div>
-        </section>
 
-        {/* What We Do — mirrors industry-scale */}
-        <section className="cb-scale section-shell">
-          <div className="cb-scale-header">
-            <span className="eyebrow light"><span /> What We Do</span>
-            <h2>One-stop shop for<br /><em>global shipping.</em></h2>
-            <p>Your one-stop shop for global shipping. We handle everything from complex logistics to seamless delivery.</p>
-            <div className="industry-signals">
-              <span><b>100%</b> Compliant</span>
-              <span><b>24/7</b> Clearance support</span>
-              <span><b>Global</b> Tariff expertise</span>
+            <div className="of-intro-grid">
+              {/* Left: Photo Frame with Blue Offset Backdrop and White Border */}
+              <div className="of-photo-frame">
+                <div className="of-photo-backdrop" />
+                <div className="of-photo-container">
+                  <img
+                    src="/customs-brokerage.jpg"
+                    alt="Customs brokerage specialist pointing at global route map"
+                  />
+                </div>
+              </div>
+
+              {/* Right: Text Content */}
+              <div className="of-intro-copy">
+                <p>
+                  LARA SHIPPING brokerage services provide clients with expertise around the globe. LARA SHIPPING brokers are professionals with experience in brokerage services and consultancy to ensure that our clients have the best possible outcomes when clearing their goods for consumption around the globe. For more information, contact us.
+                </p>
+              </div>
             </div>
-            <a className="about-read-more" href="/#quote">Get a Quote <ArrowRight size={16} /></a>
-          </div>
-          <div className="cb-features-grid">
-            {[
-              { icon: Zap, title: 'Fast Delivery', copy: 'We offer swift transportation of goods via air, ensuring your cargo reaches its destination promptly.' },
-              { icon: Globe2, title: 'Global Reach', copy: 'Our Air Freight service connects you to a vast network of destinations worldwide.' },
-              { icon: ShieldCheck, title: 'Secure Handling', copy: 'Your cargo is handled with utmost care and attention to ensure it arrives safely.' },
-              { icon: Sparkles, title: 'Tailored Solutions', copy: 'We provide customized air freight solutions to meet your specific needs.' },
-            ].map(({ icon: Icon, title, copy }) => (
-              <article className="cb-feature-card" key={title}>
-                <div className="cb-feature-icon"><Icon size={26} /></div>
-                <h3>{title}</h3>
-                <p>{copy}</p>
-              </article>
-            ))}
-          </div>
-        </section>
+          </section>
+
+          {/* Section 2: What We Do */}
+          <section className="of-what-we-do-section">
+            <div className="of-what-header">
+              <h2>What We do</h2>
+              <p>Your one-stop shop for global shipping. We handle everything from complex logistics to seamless delivery</p>
+            </div>
+
+            <div className="of-pillars-grid">
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><Truck size={32} strokeWidth={1.8} /></div>
+                <h3>Fast Delivery</h3>
+                <p>We offer swift transportation of goods via air, ensuring your cargo reaches its destination promptly.</p>
+              </div>
+
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><Search size={32} strokeWidth={1.8} /></div>
+                <h3>Global Reach</h3>
+                <p>Our Air Freight service connects you to a vast network of destinations worldwide</p>
+              </div>
+
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><ClipboardCheck size={32} strokeWidth={1.8} /></div>
+                <h3>Secure Handling</h3>
+                <p>Your cargo is handled with utmost care and attention to ensure it arrives safely.</p>
+              </div>
+
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><Megaphone size={32} strokeWidth={1.8} /></div>
+                <h3>Tailored Solutions</h3>
+                <p>We provide customized air freight solutions to meet your specific needs.</p>
+              </div>
+            </div>
+          </section>
+        </div>
       </main>
 
+      {/* Footer */}
       <footer className="industries-footer">
         <div className="industries-footer-inner section-shell">
           <div className="industries-footer-brand">
@@ -2190,97 +2911,214 @@ function CustomsBrokeragePage({ onNavigate }: { onNavigate: (event: ReactMouseEv
           <FooterColumn title="Useful Links" items={['Home', 'About Us', 'Services', 'Industries', 'Contact Us']} />
           <FooterColumn title="Services" items={['Air Freight', 'Cargo Insurance', 'Ocean Freight (FCL)', 'Multi Modal', 'Ocean Freight (LCL)', 'Rail Freight', 'Road Freight', 'Social, Weighting and Filling']} />
           <FooterColumn title="Customer Solutions" items={['Contract Logistics', 'Cross Border E-Commerce', 'Customs Brokerage', 'Green Solution', 'Technology & Customer Services']} />
-      </div>
-      <div className="footer-bottom section-shell">
-        <span>© 2026 All Rights Reserved by Lara Shipping Line Pvt Ltd</span>
-      </div>
-    </footer>
+        </div>
+        <div className="footer-bottom section-shell">
+          <span>© 2026 All Rights Reserved by Lara Shipping Line Pvt Ltd</span>
+        </div>
+      </footer>
+
+      {/* Login Portal Modal */}
+      {isLoginOpen && (
+        <div className="login-modal-overlay" onClick={() => setIsLoginOpen(false)}>
+          <div className="login-modal-card" onClick={e => e.stopPropagation()}>
+            <button className="login-modal-close" onClick={() => setIsLoginOpen(false)} aria-label="Close dialog">
+              <X size={18} />
+            </button>
+            <div className="login-modal-header">
+              <Logo />
+              <h3>Client Portal Login</h3>
+              <p>Sign in to track your shipments, download Bills of Lading, and manage bookings.</p>
+            </div>
+            <form className="login-modal-form" onSubmit={e => { e.preventDefault(); alert('Customer portal login'); setIsLoginOpen(false); }}>
+              <label>
+                <span>Email Address or Client ID</span>
+                <input type="text" placeholder="name@company.com" required autoFocus />
+              </label>
+              <label>
+                <span>Password</span>
+                <input type="password" placeholder="••••••••" required />
+              </label>
+              <button type="submit" className="login-modal-btn">Sign In to Dashboard</button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
 
 function GreenSolutionPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HTMLAnchorElement>, path: string) => void }) {
+  const [servicesOpen, setServicesOpen] = useState(false)
+  const [isLoginOpen, setIsLoginOpen] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+
   return (
     <div className="green-solution-page">
-      <header className="about-header">
-        <div className="about-header-inner">
-          <Logo href="/" />
-          <nav aria-label="Primary navigation">
+      {/* Top Floating Transparent Header directly over Hero Banner */}
+      <header className="of-header">
+        <div className="of-header-inner">
+          <Logo href="/" onClick={e => onNavigate(e, '/')} />
+
+          <nav className="of-nav" aria-label="Primary navigation">
             <a href="/" onClick={event => onNavigate(event, '/')}>Home</a>
-            <a href="/#services" className="active" onClick={event => onNavigate(event, '/#services')}>Services</a>
+            <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
+
+            <div
+              className="of-services-pill"
+              onMouseEnter={() => setServicesOpen(true)}
+              onMouseLeave={() => setServicesOpen(false)}
+            >
+              <button
+                type="button"
+                className="of-services-pill-btn"
+                onClick={() => setServicesOpen(open => !open)}
+                aria-expanded={servicesOpen}
+              >
+                Services <ChevronDown size={14} />
+              </button>
+              {servicesOpen && (
+                <div className="of-services-dropdown" role="menu">
+                  <div className="of-dropdown-sector">Freight Forwarding Services</div>
+                  {services.filter(s => s.sector === 'Freight Forwarding Services').map(({ name }) => (
+                    <a
+                      key={name}
+                      href={getServicePath(name)}
+                      className={name === 'Green Solution' ? 'active' : ''}
+                      onClick={e => { onNavigate(e, getServicePath(name)); setServicesOpen(false); }}
+                    >
+                      {name}
+                    </a>
+                  ))}
+                  <div className="of-dropdown-sector">Customer Solution</div>
+                  {services.filter(s => s.sector === 'Customer Solution').map(({ name }) => (
+                    <a
+                      key={name}
+                      href={getServicePath(name)}
+                      className={name === 'Green Solution' ? 'active' : ''}
+                      onClick={e => { onNavigate(e, getServicePath(name)); setServicesOpen(false); }}
+                    >
+                      {name}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a>
             <a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a>
-            <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
           </nav>
-          <a className="industries-quote" href="/#quote">Get a Quote <ArrowUpRight size={15} /></a>
+
+          <div className="of-header-actions">
+            <button
+              className="of-login-btn"
+              type="button"
+              onClick={() => setIsLoginOpen(true)}
+            >
+              Login
+            </button>
+            <button
+              className="of-mobile-toggle"
+              type="button"
+              onClick={() => setMobileOpen(m => !m)}
+              aria-label="Toggle navigation menu"
+            >
+              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile menu dropdown */}
+        {mobileOpen && (
+          <div className="of-mobile-menu">
+            <a href="/" onClick={e => { onNavigate(e, '/'); setMobileOpen(false); }}>Home</a>
+            <a href="/about" onClick={e => { onNavigate(e, '/about'); setMobileOpen(false); }}>About Us</a>
+            <a href="/#services" onClick={e => { onNavigate(e, '/#services'); setMobileOpen(false); }}>Services</a>
+            <a href="/industries" onClick={e => { onNavigate(e, '/industries'); setMobileOpen(false); }}>Industries</a>
+            <a href="/contact" onClick={e => { onNavigate(e, '/contact'); setMobileOpen(false); }}>Contact Us</a>
+            <button className="of-mobile-login" type="button" onClick={() => { setIsLoginOpen(true); setMobileOpen(false); }}>
+              Login
+            </button>
+          </div>
+        )}
       </header>
 
       <main>
-        {/* Masthead — same stripe pattern as Industries */}
-        <section className="gs-masthead">
-          <div className="gs-company-card">
-            <span className="eyebrow light"><span /> LARA SHIPPING LINE</span>
-            <h1>Green Solution,<br /><em>sustainable logistics.</em></h1>
-            <p>Lower-impact transportation options, carbon-efficient routing, and eco-conscious supply chain strategies.</p>
-          </div>
+        {/* Top Hero Banner */}
+        <section className="of-hero-banner" aria-label="Green Solution Hero">
+          <img
+            src="/air-freight-hero.jpg"
+            alt="Global logistics terminal and container transit port at dusk"
+            className="of-hero-img"
+          />
+          <div className="of-hero-overlay" />
         </section>
 
-        {/* Intro — two-column like industries-journey */}
-        <section className="gs-journey section-shell">
-          <div className="gs-journey-copy">
-            <span className="eyebrow light"><span /> Eco-Friendly Logistics</span>
-            <h2>Sustainable choices<br /><em>for global trade.</em></h2>
-            <p>We strive to make sustainable choices easily available to our customers, and Green Solutions is our way of identifying and proposing the most sustainable method of transportation for you. Our team members are trained to help you select the most environmentally friendly shipping option while having constrains such as time and market availability in mind.</p>
-            <p>From route optimization that minimizes fuel consumption to consolidated eco-freight and carbon-offset partnerships, we help you reduce your environmental footprint without compromising operational efficiency.</p>
-          </div>
-
-          {/* CSS Art Panel — styled like industries-network-art */}
-          <div className="gs-art-panel" aria-hidden="true">
-            <span className="gs-orbit orbit-one" />
-            <span className="gs-orbit orbit-two" />
-            <span className="gs-node node-one" />
-            <span className="gs-node node-two" />
-            <span className="gs-node node-three" />
-            
-            <div className="gs-panel-core">
-              <Leaf size={52} />
-              <b>Green Freight</b>
-              <small>Sustainable supply chains</small>
+        {/* Content Container holding Title, Intro Grid, and What We Do */}
+        <div className="of-content-container">
+          {/* Intro Section: Green Solution + Two Columns with photo and text */}
+          <section className="of-intro-section">
+            <div className="of-intro-header">
+              <h1>Green Solution</h1>
             </div>
-          </div>
-        </section>
 
-        {/* What We Do — mirrors industry-scale */}
-        <section className="gs-scale section-shell">
-          <div className="gs-scale-header">
-            <span className="eyebrow light"><span /> What We Do</span>
-            <h2>One-stop shop for<br /><em>global shipping.</em></h2>
-            <p>Your one-stop shop for global shipping. We handle everything from complex logistics to seamless delivery.</p>
-            <div className="industry-signals">
-              <span><b>-35%</b> Carbon emissions</span>
-              <span><b>100%</b> Eco-compliant</span>
-              <span><b>Smart</b> Green routing</span>
+            <div className="of-intro-grid">
+              {/* Left: Photo Frame with Blue Offset Backdrop and White Border */}
+              <div className="of-photo-frame">
+                <div className="of-photo-backdrop" />
+                <div className="of-photo-container">
+                  <img
+                    src="/green-solution.jpg"
+                    alt="Eco-friendly concept with lightbulb plant and sustainability blocks"
+                  />
+                </div>
+              </div>
+
+              {/* Right: Text Content */}
+              <div className="of-intro-copy">
+                <p>
+                  We strive to make sustainable choices easily available to our customers, and Green Solutions is our way of identifying and proposing the most sustainable method of transportation for you. Our team members are trained to help you select the most environmentally friendly shipping option while having constrains such as time and market availability in mind.
+                </p>
+              </div>
             </div>
-            <a className="about-read-more" href="/#quote">Get a Quote <ArrowRight size={16} /></a>
-          </div>
-          <div className="gs-features-grid">
-            {[
-              { icon: Zap, title: 'Fast Delivery', copy: 'We offer swift transportation of goods via air, ensuring your cargo reaches its destination promptly.' },
-              { icon: Globe2, title: 'Global Reach', copy: 'Our Air Freight service connects you to a vast network of destinations worldwide.' },
-              { icon: ShieldCheck, title: 'Secure Handling', copy: 'Your cargo is handled with utmost care and attention to ensure it arrives safely.' },
-              { icon: Sparkles, title: 'Tailored Solutions', copy: 'We provide customized air freight solutions to meet your specific needs.' },
-            ].map(({ icon: Icon, title, copy }) => (
-              <article className="gs-feature-card" key={title}>
-                <div className="gs-feature-icon"><Icon size={26} /></div>
-                <h3>{title}</h3>
-                <p>{copy}</p>
-              </article>
-            ))}
-          </div>
-        </section>
+          </section>
+
+          {/* Section 2: What We Do */}
+          <section className="of-what-we-do-section">
+            <div className="of-what-header">
+              <h2>What We do</h2>
+              <p>Your one-stop shop for global shipping. We handle everything from complex logistics to seamless delivery</p>
+            </div>
+
+            <div className="of-pillars-grid">
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><Truck size={32} strokeWidth={1.8} /></div>
+                <h3>Fast Delivery</h3>
+                <p>We offer swift transportation of goods via air, ensuring your cargo reaches its destination promptly.</p>
+              </div>
+
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><Search size={32} strokeWidth={1.8} /></div>
+                <h3>Global Reach</h3>
+                <p>Our Air Freight service connects you to a vast network of destinations worldwide</p>
+              </div>
+
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><ClipboardCheck size={32} strokeWidth={1.8} /></div>
+                <h3>Secure Handling</h3>
+                <p>Your cargo is handled with utmost care and attention to ensure it arrives safely.</p>
+              </div>
+
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><Megaphone size={32} strokeWidth={1.8} /></div>
+                <h3>Tailored Solutions</h3>
+                <p>We provide customized air freight solutions to meet your specific needs.</p>
+              </div>
+            </div>
+          </section>
+        </div>
       </main>
 
+      {/* Footer */}
       <footer className="industries-footer">
         <div className="industries-footer-inner section-shell">
           <div className="industries-footer-brand">
@@ -2297,97 +3135,214 @@ function GreenSolutionPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent
           <FooterColumn title="Useful Links" items={['Home', 'About Us', 'Services', 'Industries', 'Contact Us']} />
           <FooterColumn title="Services" items={['Air Freight', 'Cargo Insurance', 'Ocean Freight (FCL)', 'Multi Modal', 'Ocean Freight (LCL)', 'Rail Freight', 'Road Freight', 'Social, Weighting and Filling']} />
           <FooterColumn title="Customer Solutions" items={['Contract Logistics', 'Cross Border E-Commerce', 'Customs Brokerage', 'Green Solution', 'Technology & Customer Services']} />
-      </div>
-      <div className="footer-bottom section-shell">
-        <span>© 2026 All Rights Reserved by Lara Shipping Line Pvt Ltd</span>
-      </div>
-    </footer>
+        </div>
+        <div className="footer-bottom section-shell">
+          <span>© 2026 All Rights Reserved by Lara Shipping Line Pvt Ltd</span>
+        </div>
+      </footer>
+
+      {/* Login Portal Modal */}
+      {isLoginOpen && (
+        <div className="login-modal-overlay" onClick={() => setIsLoginOpen(false)}>
+          <div className="login-modal-card" onClick={e => e.stopPropagation()}>
+            <button className="login-modal-close" onClick={() => setIsLoginOpen(false)} aria-label="Close dialog">
+              <X size={18} />
+            </button>
+            <div className="login-modal-header">
+              <Logo />
+              <h3>Client Portal Login</h3>
+              <p>Sign in to track your shipments, download Bills of Lading, and manage bookings.</p>
+            </div>
+            <form className="login-modal-form" onSubmit={e => { e.preventDefault(); alert('Customer portal login'); setIsLoginOpen(false); }}>
+              <label>
+                <span>Email Address or Client ID</span>
+                <input type="text" placeholder="name@company.com" required autoFocus />
+              </label>
+              <label>
+                <span>Password</span>
+                <input type="password" placeholder="••••••••" required />
+              </label>
+              <button type="submit" className="login-modal-btn">Sign In to Dashboard</button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
 
 function TechnologyCustomerSolutionPage({ onNavigate }: { onNavigate: (event: ReactMouseEvent<HTMLAnchorElement>, path: string) => void }) {
+  const [servicesOpen, setServicesOpen] = useState(false)
+  const [isLoginOpen, setIsLoginOpen] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+
   return (
     <div className="technology-customer-solution-page">
-      <header className="about-header">
-        <div className="about-header-inner">
-          <Logo href="/" />
-          <nav aria-label="Primary navigation">
+      {/* Top Floating Transparent Header directly over Hero Banner */}
+      <header className="of-header">
+        <div className="of-header-inner">
+          <Logo href="/" onClick={e => onNavigate(e, '/')} />
+
+          <nav className="of-nav" aria-label="Primary navigation">
             <a href="/" onClick={event => onNavigate(event, '/')}>Home</a>
-            <a href="/#services" className="active" onClick={event => onNavigate(event, '/#services')}>Services</a>
+            <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
+
+            <div
+              className="of-services-pill"
+              onMouseEnter={() => setServicesOpen(true)}
+              onMouseLeave={() => setServicesOpen(false)}
+            >
+              <button
+                type="button"
+                className="of-services-pill-btn"
+                onClick={() => setServicesOpen(open => !open)}
+                aria-expanded={servicesOpen}
+              >
+                Services <ChevronDown size={14} />
+              </button>
+              {servicesOpen && (
+                <div className="of-services-dropdown" role="menu">
+                  <div className="of-dropdown-sector">Freight Forwarding Services</div>
+                  {services.filter(s => s.sector === 'Freight Forwarding Services').map(({ name }) => (
+                    <a
+                      key={name}
+                      href={getServicePath(name)}
+                      className={name === 'Technology & Customer Services' ? 'active' : ''}
+                      onClick={e => { onNavigate(e, getServicePath(name)); setServicesOpen(false); }}
+                    >
+                      {name}
+                    </a>
+                  ))}
+                  <div className="of-dropdown-sector">Customer Solution</div>
+                  {services.filter(s => s.sector === 'Customer Solution').map(({ name }) => (
+                    <a
+                      key={name}
+                      href={getServicePath(name)}
+                      className={name === 'Technology & Customer Services' ? 'active' : ''}
+                      onClick={e => { onNavigate(e, getServicePath(name)); setServicesOpen(false); }}
+                    >
+                      {name}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <a href="/industries" onClick={event => onNavigate(event, '/industries')}>Industries</a>
             <a href="/contact" onClick={event => onNavigate(event, '/contact')}>Contact Us</a>
-            <a href="/about" onClick={event => onNavigate(event, '/about')}>About Us</a>
           </nav>
-          <a className="industries-quote" href="/#quote">Get a Quote <ArrowUpRight size={15} /></a>
+
+          <div className="of-header-actions">
+            <button
+              className="of-login-btn"
+              type="button"
+              onClick={() => setIsLoginOpen(true)}
+            >
+              Login
+            </button>
+            <button
+              className="of-mobile-toggle"
+              type="button"
+              onClick={() => setMobileOpen(m => !m)}
+              aria-label="Toggle navigation menu"
+            >
+              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile menu dropdown */}
+        {mobileOpen && (
+          <div className="of-mobile-menu">
+            <a href="/" onClick={e => { onNavigate(e, '/'); setMobileOpen(false); }}>Home</a>
+            <a href="/about" onClick={e => { onNavigate(e, '/about'); setMobileOpen(false); }}>About Us</a>
+            <a href="/#services" onClick={e => { onNavigate(e, '/#services'); setMobileOpen(false); }}>Services</a>
+            <a href="/industries" onClick={e => { onNavigate(e, '/industries'); setMobileOpen(false); }}>Industries</a>
+            <a href="/contact" onClick={e => { onNavigate(e, '/contact'); setMobileOpen(false); }}>Contact Us</a>
+            <button className="of-mobile-login" type="button" onClick={() => { setIsLoginOpen(true); setMobileOpen(false); }}>
+              Login
+            </button>
+          </div>
+        )}
       </header>
 
       <main>
-        {/* Masthead — same stripe pattern as Industries */}
-        <section className="tcs-masthead">
-          <div className="tcs-company-card">
-            <span className="eyebrow light"><span /> LARA SHIPPING LINE</span>
-            <h1>Technology &amp;<br /><em>Customer Solutions.</em></h1>
-            <p>Next-generation logistics technology, intelligent shipment tracking, and dedicated customer-first operations.</p>
-          </div>
+        {/* Top Hero Banner */}
+        <section className="of-hero-banner" aria-label="Technology & Customer Solution Hero">
+          <img
+            src="/airplane-sunset-hero.jpg"
+            alt="Airplane landing in sunset sky with clouds"
+            className="of-hero-img"
+          />
+          <div className="of-hero-overlay" />
         </section>
 
-        {/* Intro — two-column like industries-journey */}
-        <section className="tcs-journey section-shell">
-          <div className="tcs-journey-copy">
-            <span className="eyebrow light"><span /> Digital Logistics &amp; Support</span>
-            <h2>Intelligent systems,<br /><em>responsive service.</em></h2>
-            <p>LARA SHIPPING offers airfreight services through its global network of offices. By partnering with leading carriers, LARA SHIPPING ensures that customer's cargo needs are met through a variety of solutions including fixed schedules on our daily flights, consolidation services in our own facilities and the creation of specialized solutions based on customer's unique requirements. Throughout the entire process, global compliance and security requirements are met at all times.</p>
-            <p>Our proprietary platform and responsive support teams give you real-time visibility, predictive tracking, and seamless document management from origin to destination.</p>
-          </div>
-
-          {/* CSS Art Panel — styled like industries-network-art */}
-          <div className="tcs-art-panel" aria-hidden="true">
-            <span className="tcs-orbit orbit-one" />
-            <span className="tcs-orbit orbit-two" />
-            <span className="tcs-node node-one" />
-            <span className="tcs-node node-two" />
-            <span className="tcs-node node-three" />
-            
-            <div className="tcs-panel-core">
-              <MonitorSmartphone size={52} />
-              <b>Tech &amp; Support</b>
-              <small>24/7 intelligent visibility</small>
+        {/* Content Container holding Title, Intro Grid, and What We Do */}
+        <div className="of-content-container">
+          {/* Intro Section: Technology & Custommer Solution + Two Columns with photo and text */}
+          <section className="of-intro-section">
+            <div className="of-intro-header">
+              <h1>Technology &amp;<br />Custommer Solution</h1>
             </div>
-          </div>
-        </section>
 
-        {/* What We Do — mirrors industry-scale */}
-        <section className="tcs-scale section-shell">
-          <div className="tcs-scale-header">
-            <span className="eyebrow light"><span /> What We Do</span>
-            <h2>One-stop shop for<br /><em>global shipping.</em></h2>
-            <p>Your one-stop shop for global shipping. We handle everything from complex logistics to seamless delivery.</p>
-            <div className="industry-signals">
-              <span><b>24/7</b> Live support</span>
-              <span><b>100%</b> API integration</span>
-              <span><b>Real-Time</b> Telemetry</span>
+            <div className="of-intro-grid">
+              {/* Left: Photo Frame with Blue Offset Backdrop and White Border */}
+              <div className="of-photo-frame">
+                <div className="of-photo-backdrop" />
+                <div className="of-photo-container">
+                  <img
+                    src="/technology-customer-solution.jpg"
+                    alt="Laptop screen displaying logistics technology and security icons"
+                  />
+                </div>
+              </div>
+
+              {/* Right: Text Content */}
+              <div className="of-intro-copy">
+                <p>
+                  LARA SHIPPING offers airfreight services through its global network of offices. By partnering with leading carriers, LARA SHIPPING ensures that customer's cargo needs are met through a variety of solutions including fixed schedules on our daily flights, consolidation services in our own facilities and the creation of specialized solutions based on customer's unique requirements. Throughout the entire process, global compliance and security requirements are met at all times.
+                </p>
+              </div>
             </div>
-            <a className="about-read-more" href="/#quote">Get a Quote <ArrowRight size={16} /></a>
-          </div>
-          <div className="tcs-features-grid">
-            {[
-              { icon: Zap, title: 'Fast Delivery', copy: 'We offer swift transportation of goods via air, ensuring your cargo reaches its destination promptly.' },
-              { icon: Globe2, title: 'Global Reach', copy: 'Our Air Freight service connects you to a vast network of destinations worldwide.' },
-              { icon: ShieldCheck, title: 'Secure Handling', copy: 'Your cargo is handled with utmost care and attention to ensure it arrives safely.' },
-              { icon: Sparkles, title: 'Tailored Solutions', copy: 'We provide customized air freight solutions to meet your specific needs.' },
-            ].map(({ icon: Icon, title, copy }) => (
-              <article className="tcs-feature-card" key={title}>
-                <div className="tcs-feature-icon"><Icon size={26} /></div>
-                <h3>{title}</h3>
-                <p>{copy}</p>
-              </article>
-            ))}
-          </div>
-        </section>
+          </section>
+
+          {/* Section 2: What We Do */}
+          <section className="of-what-we-do-section">
+            <div className="of-what-header">
+              <h2>What We do</h2>
+              <p>Your one-stop shop for global shipping. We handle everything from complex logistics to seamless delivery</p>
+            </div>
+
+            <div className="of-pillars-grid">
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><Truck size={32} strokeWidth={1.8} /></div>
+                <h3>Fast Delivery</h3>
+                <p>We offer swift transportation of goods via air, ensuring your cargo reaches its destination promptly.</p>
+              </div>
+
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><Search size={32} strokeWidth={1.8} /></div>
+                <h3>Global Reach</h3>
+                <p>Our Air Freight service connects you to a vast network of destinations worldwide</p>
+              </div>
+
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><ClipboardCheck size={32} strokeWidth={1.8} /></div>
+                <h3>Secure Handling</h3>
+                <p>Your cargo is handled with utmost care and attention to ensure it arrives safely.</p>
+              </div>
+
+              <div className="of-pillar-item">
+                <div className="of-pillar-icon"><Megaphone size={32} strokeWidth={1.8} /></div>
+                <h3>Tailored Solutions</h3>
+                <p>We provide customized air freight solutions to meet your specific needs.</p>
+              </div>
+            </div>
+          </section>
+        </div>
       </main>
 
+      {/* Footer */}
       <footer className="industries-footer">
         <div className="industries-footer-inner section-shell">
           <div className="industries-footer-brand">
@@ -2404,11 +3359,38 @@ function TechnologyCustomerSolutionPage({ onNavigate }: { onNavigate: (event: Re
           <FooterColumn title="Useful Links" items={['Home', 'About Us', 'Services', 'Industries', 'Contact Us']} />
           <FooterColumn title="Services" items={['Air Freight', 'Cargo Insurance', 'Ocean Freight (FCL)', 'Multi Modal', 'Ocean Freight (LCL)', 'Rail Freight', 'Road Freight', 'Social, Weighting and Filling']} />
           <FooterColumn title="Customer Solutions" items={['Contract Logistics', 'Cross Border E-Commerce', 'Customs Brokerage', 'Green Solution', 'Technology & Customer Services']} />
-      </div>
-      <div className="footer-bottom section-shell">
-        <span>© 2026 All Rights Reserved by Lara Shipping Line Pvt Ltd</span>
-      </div>
-    </footer>
+        </div>
+        <div className="footer-bottom section-shell">
+          <span>© 2026 All Rights Reserved by Lara Shipping Line Pvt Ltd</span>
+        </div>
+      </footer>
+
+      {/* Login Portal Modal */}
+      {isLoginOpen && (
+        <div className="login-modal-overlay" onClick={() => setIsLoginOpen(false)}>
+          <div className="login-modal-card" onClick={e => e.stopPropagation()}>
+            <button className="login-modal-close" onClick={() => setIsLoginOpen(false)} aria-label="Close dialog">
+              <X size={18} />
+            </button>
+            <div className="login-modal-header">
+              <Logo />
+              <h3>Client Portal Login</h3>
+              <p>Sign in to track your shipments, download Bills of Lading, and manage bookings.</p>
+            </div>
+            <form className="login-modal-form" onSubmit={e => { e.preventDefault(); alert('Customer portal login'); setIsLoginOpen(false); }}>
+              <label>
+                <span>Email Address or Client ID</span>
+                <input type="text" placeholder="name@company.com" required autoFocus />
+              </label>
+              <label>
+                <span>Password</span>
+                <input type="password" placeholder="••••••••" required />
+              </label>
+              <button type="submit" className="login-modal-btn">Sign In to Dashboard</button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -524,16 +524,34 @@ footer{background:#061725;color:#e3edf2}.footer-top{padding:67px 0 53px;display:
   }
 }
 
-/* ─── Modernized Service Pages (Ocean, Rail, Road & Social) ─────────────── */
+/* ─── Modernized Service Pages (Ocean, Rail, Road, Social, Contract Logistics, Cross Border, Customs Brokerage, Green Solution & Technology) ─── */
 .ocean-fcl-page,
 .ocean-lcl-page,
 .rail-freight-page,
 .road-freight-page,
-.social-weighting-page {
+.social-weighting-page,
+.contract-logistics-page,
+.cross-border-page,
+.customs-brokerage-page,
+.green-solution-page,
+.technology-customer-solution-page {
   min-height: 100vh;
   background: #000000;
   color: #f5f7f8;
   position: relative;
+}
+
+.ocean-fcl-page .industries-footer,
+.ocean-lcl-page .industries-footer,
+.rail-freight-page .industries-footer,
+.road-freight-page .industries-footer,
+.social-weighting-page .industries-footer,
+.contract-logistics-page .industries-footer,
+.cross-border-page .industries-footer,
+.customs-brokerage-page .industries-footer,
+.green-solution-page .industries-footer,
+.technology-customer-solution-page .industries-footer {
+  background: #000000;
 }
 
 /* Header overlaid transparently on top of Hero Banner */
@@ -1015,8 +1033,7 @@ footer{background:#061725;color:#e3edf2}.footer-top{padding:67px 0 53px;display:
   }
 }
 
-/* ─── Contract Logistics page — mirrors Industries page visual language ──────── */
-.contract-logistics-page { min-height:100vh;background:#03090e;color:#f5f7f8; }
+
 
 /* Masthead */
 .cl-masthead { position:relative;min-height:326px;padding:72px 40px 0;overflow:hidden;background:linear-gradient(90deg,rgba(4,21,30,.9),rgba(6,20,28,.43)),repeating-linear-gradient(90deg,#1a3946 0 11%,#b44820 11% 14%,#213e49 14% 24%,#be7b29 24% 27%);background-size:auto,210px 100%; }
@@ -1098,8 +1115,7 @@ footer{background:#061725;color:#e3edf2}.footer-top{padding:67px 0 53px;display:
   .cl-scale .industry-signals b { display:block;margin:0; }
 }
 
-/* ─── Cross Border E-Commerce page — mirrors Industries page visual language ──────── */
-.cross-border-page { min-height:100vh;background:#03090e;color:#f5f7f8; }
+
 
 /* Masthead */
 .cbe-masthead { position:relative;min-height:326px;padding:72px 40px 0;overflow:hidden;background:linear-gradient(90deg,rgba(4,21,30,.9),rgba(6,20,28,.43)),repeating-linear-gradient(90deg,#1a3946 0 11%,#b44820 11% 14%,#213e49 14% 24%,#be7b29 24% 27%);background-size:auto,210px 100%; }
@@ -1180,8 +1196,7 @@ footer{background:#061725;color:#e3edf2}.footer-top{padding:67px 0 53px;display:
   .cbe-scale .industry-signals b { display:block;margin:0; }
 }
 
-/* ─── Customs Brokerage page — mirrors Industries page visual language ──────── */
-.customs-brokerage-page { min-height:100vh;background:#03090e;color:#f5f7f8; }
+
 
 /* Masthead */
 .cb-masthead { position:relative;min-height:326px;padding:72px 40px 0;overflow:hidden;background:linear-gradient(90deg,rgba(4,21,30,.9),rgba(6,20,28,.43)),repeating-linear-gradient(90deg,#1a3946 0 11%,#b44820 11% 14%,#213e49 14% 24%,#be7b29 24% 27%);background-size:auto,210px 100%; }
@@ -1262,8 +1277,7 @@ footer{background:#061725;color:#e3edf2}.footer-top{padding:67px 0 53px;display:
   .cb-scale .industry-signals b { display:block;margin:0; }
 }
 
-/* ─── Green Solution page — mirrors Industries page visual language ──────── */
-.green-solution-page { min-height:100vh;background:#03090e;color:#f5f7f8; }
+
 
 /* Masthead */
 .gs-masthead { position:relative;min-height:326px;padding:72px 40px 0;overflow:hidden;background:linear-gradient(90deg,rgba(4,21,30,.9),rgba(6,20,28,.43)),repeating-linear-gradient(90deg,#1a3946 0 11%,#1b4332 11% 14%,#213e49 14% 24%,#2d6a4f 24% 27%);background-size:auto,210px 100%; }
@@ -1344,8 +1358,7 @@ footer{background:#061725;color:#e3edf2}.footer-top{padding:67px 0 53px;display:
   .gs-scale .industry-signals b { display:block;margin:0; }
 }
 
-/* ─── Technology & Customer Solution page — mirrors Industries visual language ──────── */
-.technology-customer-solution-page { min-height:100vh;background:#03090e;color:#f5f7f8; }
+
 
 /* Masthead */
 .tcs-masthead { position:relative;min-height:326px;padding:72px 40px 0;overflow:hidden;background:linear-gradient(90deg,rgba(4,21,30,.9),rgba(6,20,28,.43)),repeating-linear-gradient(90deg,#1a3946 0 11%,#b44820 11% 14%,#213e49 14% 24%,#be7b29 24% 27%);background-size:auto,210px 100%; }
